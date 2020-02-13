@@ -173,7 +173,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: 'Palatino', 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
   font-weight: bold;
   line-height: 1.5;
   margin: 20px 0 15px;
@@ -972,7 +972,7 @@ pre .javascript .function {
 }
 .site-title {
   display: inline-block;
-  font-family: 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: 'Comic Sans MS', 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
   font-size: 1.375em;
   font-weight: normal;
   line-height: 1.5;
@@ -1154,7 +1154,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #58818f;
+  background: #611b2b;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2445,8 +2445,5 @@ ul.breadcrumb li + li:last-child {
   padding: 0;
 }
 body {
-  background-image: url("/images/background.png");
-  background-repeat: repeat;
-  background-attachment: fixed;
-  background-position: 50% 50%;
+  background-color: #d3d3d3;
 }
