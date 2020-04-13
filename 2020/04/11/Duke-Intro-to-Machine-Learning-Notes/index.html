@@ -28,8 +28,10 @@
 <meta property="og:description" content="This is the study note after finishing Introduction to Machine Learning from Duke University It covers a wide range of topics from:  Logistic Regression&#x2F; Multilayer Perceptron Convolutional Neural Net">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://zcsheng95.github.io/2020/04/11/Duke-Intro-to-Machine-Learning-Notes/logisticReg.png">
+<meta property="og:image" content="http://zcsheng95.github.io/2020/04/11/Duke-Intro-to-Machine-Learning-Notes/MLP.png">
+<meta property="og:image" content="http://zcsheng95.github.io/2020/04/11/Duke-Intro-to-Machine-Learning-Notes/MLP1.png">
 <meta property="article:published_time" content="2020-04-12T02:20:20.000Z">
-<meta property="article:modified_time" content="2020-04-13T06:00:38.733Z">
+<meta property="article:modified_time" content="2020-04-13T22:30:42.986Z">
 <meta property="article:author" content="Jeff Sheng">
 <meta property="article:tag" content="Data Science">
 <meta name="twitter:card" content="summary">
@@ -192,7 +194,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-04-13 02:00:38" itemprop="dateModified" datetime="2020-04-13T02:00:38-04:00">2020-04-13</time>
+                <time title="Modified: 2020-04-13 18:30:42" itemprop="dateModified" datetime="2020-04-13T18:30:42-04:00">2020-04-13</time>
               </span>
 
           
@@ -225,7 +227,20 @@
 <p>In machine learning, our goal is to learn a model which is capable of predicting the outcomes from given observations. For simple classification problem, we can start from logistic regression: <span class="math inline">\(logit(Y) = X\beta\)</span>. The model is characterized by its parameter <span class="math inline">\(\beta\)</span>. Recall from Generalized Linear Model, logistic regression is a specialization for <span class="math inline">\(E(Y) = \mu = g^{-1}(X\beta)\)</span> where g is the logistic function: <span class="math inline">\(g(x) = \frac{exp(x)}{1+exp(x)}\)</span>. It is still a linear model based on the liner predictors <span class="math inline">\(X\beta\)</span>. Feed the design matrix <span class="math inline">\(X\)</span> into the logistic regression, we will obtain <span class="math inline">\(P(Y|X)\)</span>, the probability that event <span class="math inline">\(Y\)</span> will occur conditional on input <span class="math inline">\(X\)</span>, which is range from 0 to 1. Each element in <span class="math inline">\(\beta\)</span> represents how important each fearture of a observation is. By estimating/learning the parameters <span class="math inline">\(\beta\)</span>, we mapped our observations <span class="math inline">\(X\)</span> into outcome <span class="math inline">\(Y\)</span>.</p>
 <p>In machine learning settings, the logistic function is named as sigmoid function (for binary classification problem, softmax for multi-class classification problem). This is really the starting point to understand machine learning, given a set of obersrvations <span class="math inline">\(X\)</span> and outcomes <span class="math inline">\(Y\)</span>, we would like to learn the parameters of our model so the predictions are consistent with the training data.</p>
 <p><img src="logisticReg.png" /></p>
+<h4 id="multilayer-perceptron">1.1 Multilayer Perceptron</h4>
+<p>MLP is a natural extension for logistic regression on more complex problem. Instead apply the sigmoid function for only one time for the linear fit, MLP impose the same operation <em>k</em> times. That is, <em>k</em> neurons will be generated and become the input of next layer. Instead of 1 filter vector(<span class="math inline">\(\beta\)</span>), <em>k</em> filter vectors(<span class="math inline">\(\beta_{1}, \beta_{2},...,\beta_{k}\)</span>) are used.</p>
+<p><img src="MLP.png" /></p>
+<p>Mathematically, a 3-layer perceptron could be defined as:</p>
+<p>Observations: <span class="math inline">\({X_{1\times p}\)</span></p>
+<p>Layer 1 Filters: <span class="math inline">\(\beta= \{\beta_1, \beta_2,..., \beta_k\}_{p \times k}\)</span></p>
+<p>Layer 2 Filters: <span class="math inline">\(\mathbb{c}_{k\times 1}\)</span></p>
+<p><span class="math display">\[ E(Y) = \mu = g^{-1}(g^{-1}(X\beta)\mathbb{c}) \]</span></p>
+<p><img src="MLP1.png" /></p>
+<ul>
+<li><a href="https://github.com/zcsheng95/onlineCourse/blob/master/MLP%20assignment.ipynb" target="_blank" rel="noopener">MLP Assignment</a></li>
+</ul>
 <h3 id="convolutional-neural-network">2. Convolutional Neural Network</h3>
+<p>Convolutional Neural Network is mostly used in image recognition. It takes in image matrices of the form(<em>height • width • channel</em>) and process them into some low-dimensional features through a series of parametric functions(layers). With a deep neural network, it is capable to learn from some fundamental motif structure(similar to how neurons in cortex sense an object) to very complex components in image.</p>
 <h3 id="recurrent-neural-network">3. Recurrent Neural Network</h3>
 <h3 id="reinforcement-learning">4. Reinforcement Learning</h3>
 
@@ -309,7 +324,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#logistic-regression"><span class="nav-number">1.</span> <span class="nav-text">1. Logistic Regression</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#convolutional-neural-network"><span class="nav-number">2.</span> <span class="nav-text">2. Convolutional Neural Network</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#recurrent-neural-network"><span class="nav-number">3.</span> <span class="nav-text">3. Recurrent Neural Network</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reinforcement-learning"><span class="nav-number">4.</span> <span class="nav-text">4. Reinforcement Learning</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#logistic-regression"><span class="nav-number">1.</span> <span class="nav-text">1. Logistic Regression</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#multilayer-perceptron"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 Multilayer Perceptron</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#convolutional-neural-network"><span class="nav-number">2.</span> <span class="nav-text">2. Convolutional Neural Network</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#recurrent-neural-network"><span class="nav-number">3.</span> <span class="nav-text">3. Recurrent Neural Network</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reinforcement-learning"><span class="nav-number">4.</span> <span class="nav-text">4. Reinforcement Learning</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
