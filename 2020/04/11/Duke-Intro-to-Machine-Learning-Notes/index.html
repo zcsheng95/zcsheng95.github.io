@@ -27,13 +27,13 @@
 <meta property="og:site_name" content="Jeff&#39;s Note">
 <meta property="og:description" content="This is the study note after finishing Introduction to Machine Learning from Duke University. It covers a wide range of topics from:  Logistic Regression&#x2F; Multilayer Perceptron Convolutional Neural Ne">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://zcsheng95.github.io/2020/04/11/Duke-Intro-to-Machine-Learning-Notes/LogisticReg.png">
+<meta property="og:image" content="http://zcsheng95.github.io/2020/04/11/Duke-Intro-to-Machine-Learning-Notes/logisticReg.png">
 <meta property="article:published_time" content="2020-04-12T02:20:20.000Z">
-<meta property="article:modified_time" content="2020-04-12T23:33:34.613Z">
+<meta property="article:modified_time" content="2020-04-13T05:42:49.448Z">
 <meta property="article:author" content="Jeff Sheng">
 <meta property="article:tag" content="Data Science">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://zcsheng95.github.io/2020/04/11/Duke-Intro-to-Machine-Learning-Notes/LogisticReg.png">
+<meta name="twitter:image" content="http://zcsheng95.github.io/2020/04/11/Duke-Intro-to-Machine-Learning-Notes/logisticReg.png">
 
 <link rel="canonical" href="http://zcsheng95.github.io/2020/04/11/Duke-Intro-to-Machine-Learning-Notes/">
 
@@ -192,7 +192,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-04-12 19:33:34" itemprop="dateModified" datetime="2020-04-12T19:33:34-04:00">2020-04-12</time>
+                <time title="Modified: 2020-04-13 01:42:49" itemprop="dateModified" datetime="2020-04-13T01:42:49-04:00">2020-04-13</time>
               </span>
 
           
@@ -224,7 +224,7 @@
 <h3 id="logistic-regression">1. Logistic Regression</h3>
 <p>In machine learning, our goal is to learn a model which is capable of predicting the outcomes from given observations. For simple classification problem, we can start from logistic regression: <span class="math inline">\(logit(Y) = X\beta\)</span>. The model is characterized by its parameter <span class="math inline">\(\beta\)</span>. Recall from Generalized Linear Model, logistic regression is a specialization for <span class="math inline">\(E(Y) = \mu = g^{-1}(X\beta)\)</span> where g is the logistic function: <span class="math inline">\(g(x) = \frac{exp(x)}{1+exp(x)}\)</span>. It is still a linear model based on the liner predictors <span class="math inline">\(X\beta\)</span>. Feed the design matrix <span class="math inline">\(X\)</span> into the logistic regression, we will obtain <span class="math inline">\(P(Y|X)\)</span>, the probability that event <span class="math inline">\(Y\)</span> will occur conditional on input <span class="math inline">\(X\)</span>, which is range from 0 to 1. Each element in <span class="math inline">\(\beta\)</span> represents how important each fearture of a observation is. By estimating/learning the parameters <span class="math inline">\(\beta\)</span>, we mapped our observations <span class="math inline">\(X\)</span> into outcome <span class="math inline">\(Y\)</span>.</p>
 <p>In machine learning settings, the logistic function is named as sigmoid function (for binary classification problem, softmax for multi-class classification problem). This is really the starting point to understand machine learning, given a set of obersrvations <span class="math inline">\(X\)</span> and outcomes <span class="math inline">\(Y\)</span>, we would like to learn the parameters of our model so the predictions are consistent with the training data.</p>
-<p><img src="/2020/04/11/Duke-Intro-to-Machine-Learning-Notes/LogisticReg.png" width="600"></p>
+<p><img src="logisticReg.png" /></p>
 <h3 id="convolutional-neural-network">2. Convolutional Neural Network</h3>
 <h3 id="recurrent-neural-network">3. Recurrent Neural Network</h3>
 <h3 id="reinforcement-learning">4. Reinforcement Learning</h3>
