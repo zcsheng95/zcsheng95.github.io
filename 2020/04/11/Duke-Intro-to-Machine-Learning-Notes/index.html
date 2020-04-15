@@ -14,18 +14,17 @@
 
 <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Comic Sans MS:300,300italic,400,400italic,700,700italic|Palatino:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"zcsheng95.github.io","root":"/","scheme":"Pisces","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"zcsheng95.github.io","root":"/","scheme":"Pisces","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="This is the study note after finishing Introduction to Machine Learning from Duke University It covers a wide range of topics from:  Logistic Regression&#x2F; Multilayer Perceptron Convolutional Neural Net">
-<meta property="og:type" content="article">
+  <meta property="og:type" content="article">
 <meta property="og:title" content="Duke Intro to Machine Learning Notes">
 <meta property="og:url" content="http://zcsheng95.github.io/2020/04/11/Duke-Intro-to-Machine-Learning-Notes/index.html">
 <meta property="og:site_name" content="Jeff&#39;s Note">
-<meta property="og:description" content="This is the study note after finishing Introduction to Machine Learning from Duke University It covers a wide range of topics from:  Logistic Regression&#x2F; Multilayer Perceptron Convolutional Neural Net">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://zcsheng95.github.io/2020/04/11/Duke-Intro-to-Machine-Learning-Notes/logisticReg.png">
 <meta property="og:image" content="http://zcsheng95.github.io/2020/04/11/Duke-Intro-to-Machine-Learning-Notes/MLP.png">
@@ -82,6 +81,12 @@
 
 </head>
 
+
+<script type="text/javascript" src="https://unpkg.com/minigrid@3.1.1/dist/minigrid.min.js"></script>
+<link rel="stylesheet" href="/photos/photos.css">
+<script type="text/javascript" src="/photos/photo.js"></script>
+
+
 <body itemscope itemtype="http://schema.org/WebPage">
   <div class="container use-motion">
     <div class="headband"></div>
@@ -135,7 +140,7 @@
   </li>
         <li class="menu-item menu-item-gallery">
 
-    <a href="/gallery/" rel="section"><i class="fa fa-fw fa-camera-retro"></i>Gallery</a>
+    <a href="/photos/" rel="section"><i class="fa fa-fw fa-camera-retro"></i>Gallery</a>
 
   </li>
         <li class="menu-item menu-item-archives">
@@ -220,7 +225,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>This is the study note after finishing <a href="https://www.coursera.org/learn/machine-learning-duke/home/welcome" target="_blank" rel="noopener">Introduction to Machine Learning from Duke University</a></p>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"<p>This is the study note after finishing <a href="https://www.coursera.org/learn/machine-learning-duke/home/welcome" target="_blank" rel="noopener">Introduction to Machine Learning from Duke University</a></p>
 <p>It covers a wide range of topics from:</p>
 <ul>
 <li>Logistic Regression/ Multilayer Perceptron</li>
@@ -231,16 +236,16 @@
 <h3 id="logistic-regression">1. Logistic Regression</h3>
 <p>In machine learning, our goal is to learn a model which is capable of predicting the outcomes from given observations. For simple classification problem, we can start from logistic regression: <span class="math inline">\(logit(Y) = X\beta\)</span>. The model is characterized by its parameter <span class="math inline">\(\beta\)</span>. Recall from Generalized Linear Model, logistic regression is a specialization for <span class="math inline">\(E(Y) = \mu = g^{-1}(X\beta)\)</span> where g is the logistic function: <span class="math inline">\(g(x) = \frac{exp(x)}{1+exp(x)}\)</span>. It is still a linear model based on the liner predictors <span class="math inline">\(X\beta\)</span>. Feed the design matrix <span class="math inline">\(X\)</span> into the logistic regression, we will obtain <span class="math inline">\(P(Y|X)\)</span>, the probability that event <span class="math inline">\(Y\)</span> will occur conditional on input <span class="math inline">\(X\)</span>, which is range from 0 to 1. Each element in <span class="math inline">\(\beta\)</span> represents how important each fearture of a observation is. By estimating/learning the parameters <span class="math inline">\(\beta\)</span>, we mapped our observations <span class="math inline">\(X\)</span> into outcome <span class="math inline">\(Y\)</span>.</p>
 <p>In machine learning settings, the logistic function is named as sigmoid function (for binary classification problem, softmax for multi-class classification problem). This is really the starting point to understand machine learning, given a set of obersrvations <span class="math inline">\(X\)</span> and outcomes <span class="math inline">\(Y\)</span>, we would like to learn the parameters of our model so the predictions are consistent with the training data.</p>
-<p><img src="logisticReg.png" /></p>
+<p><a href="logisticReg.png" class="gallery-item"><img data-src="logisticReg.png" /></a></p>
 <h4 id="multilayer-perceptron">1.1 Multilayer Perceptron</h4>
 <p>MLP is a natural extension for logistic regression on more complex problem. Instead apply the sigmoid function for only one time for the linear fit, MLP impose the same operation <em>k</em> times. That is, <em>k</em> neurons will be generated and become the input of next layer. Instead of 1 filter vector(<span class="math inline">\(\beta\)</span>), <em>k</em> filter vectors(<span class="math inline">\(\beta_{1}, \beta_{2},...,\beta_{k}\)</span>) are used.</p>
-<p><img src="MLP.png" /></p>
+<p><a href="MLP.png" class="gallery-item"><img data-src="MLP.png" /></a></p>
 <p>Mathematically, a 3-layer perceptron could be defined as:</p>
 <p>Observations: <span class="math inline">\({X_{1\times p}\)</span></p>
 <p>Layer 1 Filters: <span class="math inline">\(\beta= \{\beta_1, \beta_2,..., \beta_k\}_{p \times k}\)</span></p>
 <p>Layer 2 Filters: <span class="math inline">\(\mathbb{c}_{k\times 1}\)</span></p>
 <p><span class="math display">\[ E(Y) = \mu = g^{-1}(g^{-1}(X\beta)\mathbb{c}) \]</span></p>
-<p><img src="MLP1.png" /></p>
+<p><a href="MLP1.png" class="gallery-item"><img data-src="MLP1.png" /></a></p>
 <ul>
 <li><a href="https://github.com/zcsheng95/onlineCourse/blob/master/MLP%20assignment.ipynb" target="_blank" rel="noopener">MLP Assignment</a></li>
 </ul>
@@ -248,7 +253,12 @@
 <p>Convolutional Neural Network is mostly used in image recognition. It takes in image matrices of the form(<em>height • width • channel</em>) and process them into some low-dimensional features through a series of parametric functions(layers). With a deep neural network, it is capable to learn from some fundamental motif structure(similar to how neurons in cortex sense an object) to very complex components in image.</p>
 <h3 id="recurrent-neural-network">3. Recurrent Neural Network</h3>
 <h3 id="reinforcement-learning">4. Reinforcement Learning</h3>
-
+</div><script src="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/js/lightgallery.min.js"></script><script>if (typeof lightGallery !== 'undefined') {
+        var options = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options);
+        }</script>
     </div>
 
     
@@ -419,6 +429,9 @@
   
   <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
   <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 
