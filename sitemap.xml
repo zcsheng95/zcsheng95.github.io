@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://zcsheng95.github.io/todo/index.html</loc>
+    
+    <lastmod>2020-04-21T03:23:38.052Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://zcsheng95.github.io/resume/index.html</loc>
+    
+    <lastmod>2020-04-21T03:02:52.240Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://zcsheng95.github.io/2020/04/11/Duke-Intro-to-Machine-Learning-Notes/</loc>
     
     <lastmod>2020-04-20T02:57:43.209Z</lastmod>
