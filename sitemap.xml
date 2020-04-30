@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://zcsheng95.github.io/2020/02/21/Python_Basics-1/</loc>
+    
+    <lastmod>2020-04-30T05:19:58.319Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://zcsheng95.github.io/tags/index.html</loc>
+    
+    <lastmod>2020-04-30T05:15:58.143Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://zcsheng95.github.io/2020/04/11/Duke-Intro-to-Machine-Learning-Notes/</loc>
     
     <lastmod>2020-04-30T05:06:39.182Z</lastmod>
@@ -26,13 +40,6 @@
     <loc>http://zcsheng95.github.io/2020/02/10/first/</loc>
     
     <lastmod>2020-04-17T04:00:03.269Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://zcsheng95.github.io/2020/02/21/Python_Basics-1/</loc>
-    
-    <lastmod>2020-04-17T03:56:06.540Z</lastmod>
     
   </url>
   
