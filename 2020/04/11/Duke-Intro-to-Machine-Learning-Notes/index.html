@@ -26,7 +26,7 @@
   <meta property="og:type" content="article">
 <meta property="og:title" content="Duke Intro to Machine Learning Notes">
 <meta property="og:url" content="http://zcsheng95.github.io/2020/04/11/Duke-Intro-to-Machine-Learning-Notes/index.html">
-<meta property="og:site_name" content="Jeff&#39;s Note">
+<meta property="og:site_name" content="Jeff&#39;s Story">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://zcsheng95.github.io/2020/04/11/Duke-Intro-to-Machine-Learning-Notes/logisticReg.png">
 <meta property="og:image" content="http://zcsheng95.github.io/2020/04/11/Duke-Intro-to-Machine-Learning-Notes/MLP.png">
@@ -36,7 +36,7 @@
 <meta property="og:image" content="http://zcsheng95.github.io/2020/04/11/Duke-Intro-to-Machine-Learning-Notes/Activation.png">
 <meta property="og:image" content="http://zcsheng95.github.io/2020/04/11/Duke-Intro-to-Machine-Learning-Notes/fully_connect.png">
 <meta property="article:published_time" content="2020-04-12T02:20:20.000Z">
-<meta property="article:modified_time" content="2020-04-30T05:06:39.182Z">
+<meta property="article:modified_time" content="2020-05-01T04:36:25.473Z">
 <meta property="article:author" content="Jeff Sheng">
 <meta property="article:tag" content="Data Science">
 <meta name="twitter:card" content="summary">
@@ -55,7 +55,7 @@
   };
 </script>
 
-  <title>Duke Intro to Machine Learning Notes | Jeff's Note</title>
+  <title>Duke Intro to Machine Learning Notes | Jeff's Story</title>
   
 
 
@@ -105,10 +105,10 @@
 
     <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">Jeff's Note</h1>
+      <h1 class="site-title">Jeff's Story</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
-      <p class="site-subtitle" itemprop="description">learn & share</p>
+      <p class="site-subtitle" itemprop="description">LEARN  ✨ SHARE</p>
   </div>
 
   <div class="site-nav-right">
@@ -184,7 +184,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jeff's Note">
+      <meta itemprop="name" content="Jeff's Story">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -205,7 +205,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-04-30 01:06:39" itemprop="dateModified" datetime="2020-04-30T01:06:39-04:00">2020-04-30</time>
+                <time title="Modified: 2020-05-01 00:36:25" itemprop="dateModified" datetime="2020-05-01T00:36:25-04:00">2020-05-01</time>
               </span>
 
           
@@ -234,11 +234,11 @@
 <li>Recurrent Neural Network on NLP</li>
 <li>Reinforcement Learning <a id="more"></a></li>
 </ul>
-<h3 id="logistic-regression">1. Logistic Regression</h3>
+<h3 id="logistic-regression">Logistic Regression</h3>
 <p>In machine learning, our goal is to learn a model which is capable of predicting the outcomes from given observations. For simple classification problem, we can start from logistic regression: <span class="math inline">\(logit(Y) = X\beta\)</span>. The model is characterized by its parameter <span class="math inline">\(\beta\)</span>. Recall from Generalized Linear Model, logistic regression is a specialization for <span class="math inline">\(E(Y) = \mu = g^{-1}(X\beta)\)</span> where g is the logistic function: <span class="math inline">\(g(x) = \frac{exp(x)}{1+exp(x)}\)</span>. It is still a linear model based on the liner predictors <span class="math inline">\(X\beta\)</span>. Feed the design matrix <span class="math inline">\(X\)</span> into the logistic regression, we will obtain <span class="math inline">\(P(Y|X)\)</span>, the probability that event <span class="math inline">\(Y\)</span> will occur conditional on input <span class="math inline">\(X\)</span>, which is range from 0 to 1. Each element in <span class="math inline">\(\beta\)</span> represents how important each fearture of a observation is. By estimating/learning the parameters <span class="math inline">\(\beta\)</span>, we mapped our observations <span class="math inline">\(X\)</span> into outcome <span class="math inline">\(Y\)</span>.</p>
 <p>In machine learning settings, the logistic function is named as sigmoid function (for binary classification problem, softmax for multi-class classification problem). This is really the starting point to understand machine learning, given a set of obersrvations <span class="math inline">\(X\)</span> and outcomes <span class="math inline">\(Y\)</span>, we would like to learn the parameters of our model so the predictions are consistent with the training data.</p>
 <p><a href="logisticReg.png" class="gallery-item"><img src="logisticReg.png" /></a></p>
-<h4 id="multilayer-perceptron">1.1 Multilayer Perceptron</h4>
+<h4 id="multilayer-perceptron">Multilayer Perceptron</h4>
 <p>MLP is a natural extension for logistic regression on more complex problem. Instead apply the sigmoid function for only one time for the linear fit, MLP impose the same operation <em>k</em> times. That is, <em>k</em> neurons will be generated and become the input of next layer. Instead of 1 filter vector(<span class="math inline">\(\beta\)</span>), <em>k</em> filter vectors(<span class="math inline">\(\beta_{1}, \beta_{2},...,\beta_{k}\)</span>) are used.</p>
 <p><a href="MLP.png" class="gallery-item"><img src="MLP.png" /></a></p>
 <p>Mathematically, a 3-layer perceptron could be defined as:</p>
@@ -250,21 +250,28 @@
 <ul>
 <li><a href="https://github.com/zcsheng95/onlineCourse/blob/master/MLP%20assignment.ipynb" target="_blank" rel="noopener">MLP Assignment</a></li>
 </ul>
-<h3 id="convolutional-neural-network">2. Convolutional Neural Network</h3>
+<h3 id="convolutional-neural-network">Convolutional Neural Network</h3>
 <p>Convolutional Neural Network is mostly used in image recognition. It takes in image matrices of the form(<span class="math inline">\(height \times width \times channel\)</span>) and process them into some low-dimensional features through a series of parametric functions(layers). With a deep neural network, it is capable to learn from some fundamental motif structure(similar to how neurons in cortex sense an object) to very complex components in image. Convolutional Neural Network has a general structure showed below.</p>
 <p><a href="CNN.png" class="gallery-item"><img src="CNN.png" /></a></p>
-<h4 id="convolutional-layers">2.1 Convolutional layers</h4>
+<h4 id="convolutional-layers">Convolutional layers</h4>
 <p>By learning meaningful features of these images, it is equivalent to saying learning parameters in the filters. Filter is used in each convolutional layer to generate feature maps and then those feature maps are stacked and pooled and input to next layer. <strong>Size, Stride and number of filters</strong> are arbitrary. Generally, filter size determines how many information is grabbed in one feature map and number of filters determine how many features is captured. Usually color images would have 3 channels representing RGB. To match the dimension, filers ought to have the same number of channels, for example a <span class="math inline">\(5\times5\times3\)</span> filter. To control the actual size of the feature map, 0 padding is often applied to the input image. Given <span class="math inline">\(k\)</span> filters, <span class="math inline">\(k\)</span> feature maps are generated and stacked up. So the results of a 3D image after convolution is still a 3D array.</p>
 <p><a href="Convolution.gif" class="gallery-item"><img src="Convolution.gif" /></a></p>
-<h4 id="activation-functions">2.2 Activation functions</h4>
+<h4 id="activation-functions">Activation functions</h4>
 <p>For any deep learning neural network to be powerful, non-linear relationship should be considered, a classic example for this is <strong>XOR(exclusive or)</strong>. This course mainly uses two activation function: RELU and hyperbolic tangent. Relu is extensively used in Convolutional Neuron Network, it is applied to the element-wise outcome from the convolution operation before it going into next layer.</p>
 <p><a href="Activation.png" class="gallery-item"><img src="Activation.png" /></a></p>
-<h4 id="pooling-layers">2.3 Pooling layers</h4>
+<h4 id="pooling-layers">Pooling layers</h4>
 <p>After convolution, in order to reduce the dimensionality, a pooling layer comes into place. It enables us to reduce the number of parameters, which shortens the training time as well as combats overfitting. It can be viewed as a downsampling approach that shrink the width and height for each feature map. The most often used pooling function is <em>max pooling</em>, similarly the size of the pooling frame and the stride both need to be defined. Another widely used pooling function is <em>mean pooling</em>. For instance, a <span class="math inline">\(16 \times 16 \times 20\)</span> stacked feature map after pooling with a <span class="math inline">\(2\times2\)</span> window by stride <span class="math inline">\(2\)</span> will have a size of <span class="math inline">\(8\times8\times20\)</span>. Typically in CNN architecture, convolution is done with a <span class="math inline">\(3\times3\)</span> window and stride 1 with padding, while pooling in done with a <span class="math inline">\(2\times2\)</span> window and stride 2 without padding.</p>
-<h4 id="fully-connect-layers">2.4 Fully connect layers</h4>
+<h4 id="fully-connect-layers">Fully connect layers</h4>
 <p>The final sets of layers is couple of fully-connected layers. They serve to flatten the multi-dimensional output into a vector and match the final number of labels. The fully-connected part goes through its own backpropagation process to estimate weights. Finally it produces a probability vectors(sum up to 1) and choose the label corresponding to the highest unit.</p>
 <p><a href="fully_connect.png" class="gallery-item"><img src="fully_connect.png" /></a></p>
-<h3 id="recurrent-neural-network">3. Recurrent Neural Network</h3>
+<ul>
+<li><a href="https://github.com/zcsheng95/onlineCourse/blob/master/Intro%20to%20ML/CNN%20assignment.ipynb" target="_blank" rel="noopener">CNN Assignment</a></li>
+</ul>
+<h3 id="recurrent-neural-network">Recurrent Neural Network</h3>
+<p>Recurrent Neural Network is a sequential of neural networks specifically useful in text analysis a.k.a Natural Language Processing. In a general neural network setting, each input is independent from others, however many times it may not be true in a real life scenario because data like stock price or text occur in a sequential manner, in other words, they have context. RNN with a characteristic of memory which enables to take previous output as the new input into subsequent tasks.</p>
+<h4 id="word2vec">Word2Vec</h4>
+<p>Before introducing the architecture of RNN for NLP tasks, word vectors is imperative to mention. In order to analysis text contents using mathematical model, one has to convert words into numbers, typically a N-dimensional vector. Words of this presence become comparable in terms of their geographical location in the multi-dimensional space. Mapping word to vectors is called word embeddings and such methods sometimes are also called <a href="https://arxiv.org/pdf/1411.2738.pdf" target="_blank" rel="noopener">Word2Vec</a>. A codebook is present for one to one mapping between words and numerical vectors.</p>
+<p>In order to learn th</p>
 <h3 id="reinforcement-learning">4. Reinforcement Learning</h3>
 </div><script src="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/js/lightgallery.min.js"></script><script>if (typeof lightGallery !== 'undefined') {
         var options = {
@@ -351,7 +358,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#logistic-regression"><span class="nav-number">1.</span> <span class="nav-text">1. Logistic Regression</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#multilayer-perceptron"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 Multilayer Perceptron</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#convolutional-neural-network"><span class="nav-number">2.</span> <span class="nav-text">2. Convolutional Neural Network</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#convolutional-layers"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 Convolutional layers</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#activation-functions"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 Activation functions</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pooling-layers"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 Pooling layers</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fully-connect-layers"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 Fully connect layers</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#recurrent-neural-network"><span class="nav-number">3.</span> <span class="nav-text">3. Recurrent Neural Network</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reinforcement-learning"><span class="nav-number">4.</span> <span class="nav-text">4. Reinforcement Learning</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#logistic-regression"><span class="nav-number">1.</span> <span class="nav-text">Logistic Regression</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#multilayer-perceptron"><span class="nav-number">1.1.</span> <span class="nav-text">Multilayer Perceptron</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#convolutional-neural-network"><span class="nav-number">2.</span> <span class="nav-text">Convolutional Neural Network</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#convolutional-layers"><span class="nav-number">2.1.</span> <span class="nav-text">Convolutional layers</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#activation-functions"><span class="nav-number">2.2.</span> <span class="nav-text">Activation functions</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pooling-layers"><span class="nav-number">2.3.</span> <span class="nav-text">Pooling layers</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fully-connect-layers"><span class="nav-number">2.4.</span> <span class="nav-text">Fully connect layers</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#recurrent-neural-network"><span class="nav-number">3.</span> <span class="nav-text">Recurrent Neural Network</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#word2vec"><span class="nav-number">3.1.</span> <span class="nav-text">Word2Vec</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reinforcement-learning"><span class="nav-number">4.</span> <span class="nav-text">4. Reinforcement Learning</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
