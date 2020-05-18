@@ -35,8 +35,18 @@
 <meta property="og:image" content="http://zcsheng95.github.io/2020/04/11/Duke-Intro-to-Machine-Learning-Notes/Convolution.gif">
 <meta property="og:image" content="http://zcsheng95.github.io/2020/04/11/Duke-Intro-to-Machine-Learning-Notes/Activation.png">
 <meta property="og:image" content="http://zcsheng95.github.io/2020/04/11/Duke-Intro-to-Machine-Learning-Notes/fully_connect.png">
+<meta property="og:image" content="http://zcsheng95.github.io/2020/04/11/Duke-Intro-to-Machine-Learning-Notes/CBOW.png">
+<meta property="og:image" content="http://zcsheng95.github.io/2020/04/11/Duke-Intro-to-Machine-Learning-Notes/RNN.jpeg">
+<meta property="og:image" content="http://zcsheng95.github.io/2020/04/11/Duke-Intro-to-Machine-Learning-Notes/onemany.jpeg">
+<meta property="og:image" content="http://zcsheng95.github.io/2020/04/11/Duke-Intro-to-Machine-Learning-Notes/hidden.png">
+<meta property="og:image" content="http://zcsheng95.github.io/2020/04/11/Duke-Intro-to-Machine-Learning-Notes/LSTM-Core.png">
+<meta property="og:image" content="http://zcsheng95.github.io/2020/04/11/Duke-Intro-to-Machine-Learning-Notes/RL.png">
+<meta property="og:image" content="http://zcsheng95.github.io/2020/04/11/Duke-Intro-to-Machine-Learning-Notes/DeepQ.png">
+<meta property="og:image" content="http://zcsheng95.github.io/2020/04/11/Duke-Intro-to-Machine-Learning-Notes/QCost.png">
+<meta property="og:image" content="http://zcsheng95.github.io/2020/04/11/Duke-Intro-to-Machine-Learning-Notes/Math1.png">
+<meta property="og:image" content="http://zcsheng95.github.io/2020/04/11/Duke-Intro-to-Machine-Learning-Notes/Math2.png">
 <meta property="article:published_time" content="2020-04-12T02:20:20.000Z">
-<meta property="article:modified_time" content="2020-05-01T04:36:25.473Z">
+<meta property="article:modified_time" content="2020-05-18T04:22:07.814Z">
 <meta property="article:author" content="Jeff Sheng">
 <meta property="article:tag" content="Data Science">
 <meta name="twitter:card" content="summary">
@@ -205,7 +215,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-05-01 00:36:25" itemprop="dateModified" datetime="2020-05-01T00:36:25-04:00">2020-05-01</time>
+                <time title="Modified: 2020-05-18 00:22:07" itemprop="dateModified" datetime="2020-05-18T00:22:07-04:00">2020-05-18</time>
               </span>
 
           
@@ -271,8 +281,82 @@
 <p>Recurrent Neural Network is a sequential of neural networks specifically useful in text analysis a.k.a Natural Language Processing. In a general neural network setting, each input is independent from others, however many times it may not be true in a real life scenario because data like stock price or text occur in a sequential manner, in other words, they have context. RNN with a characteristic of memory which enables to take previous output as the new input into subsequent tasks.</p>
 <h4 id="word2vec">Word2Vec</h4>
 <p>Before introducing the architecture of RNN for NLP tasks, word vectors is imperative to mention. In order to analysis text contents using mathematical model, one has to convert words into numbers, typically a N-dimensional vector. Words of this presence become comparable in terms of their geographical location in the multi-dimensional space. Mapping word to vectors is called word embeddings and such methods sometimes are also called <a href="https://arxiv.org/pdf/1411.2738.pdf" target="_blank" rel="noopener">Word2Vec</a>. A codebook is present for one to one mapping between words and numerical vectors.</p>
-<p>In order to learn th</p>
+<p>In order to learn the word codebook, one could use a corpus collection to train parameters in a feed-forward neural network to get vector representations. In the paper above it describes two models, Continuous Bag of Words and Skip Gram.</p>
+<p><a href="CBOW.png" class="gallery-item"><img src="CBOW.png" /></a> Take a Bigram Continuous Bag of Words as an example (though in practice we are usually given multiple context words):</p>
+<p>The aim is to predict the probability distribution <span class="math inline">\(P(w_{target}|w_{context})\)</span> over <span class="math inline">\(V\)</span> classes as a multi-classification problem. Given the input word is one-hot encoded, the hidden unit is exactly one row of the weight matrix after multiplication. So the weight parameters are being represented as word representation in a neural network architecture. Stochastic Gradient Descent can be used update the parameters. The posterior distribution can be written as <span class="math display">\[ P(w_t|w_c) = \frac{exp(u_c\cdot v_t)}{\sum_{t^{&#39;} \in V}{}exp(u_c\cdot v_{t^{&#39;}})}\]</span> <span class="math inline">\(u_c\)</span> is the corresponding row in input-hidden weight matrix for <span class="math inline">\(w_c\)</span>, <span class="math inline">\(v_t\)</span> is the corresponding row in the hidden-output row weight matrix for <span class="math inline">\(w_t\)</span>. The update rule can be expressed as <span class="math display">\[v_t = v_t - \eta \frac{\mathcal{L}(\theta)}{\Delta v_t} = v_t + \eta (1 - P(w_t|w_c)) \]</span></p>
+<p>given the loss function is <span class="math inline">\(\mathcal{L}(\theta) = -log(P(w_t|w_c))\)</span></p>
+<p>The <a href="https://arxiv.org/pdf/1411.2738.pdf" target="_blank" rel="noopener">Word2Vec paper</a> and <a href="https://towardsdatascience.com/art-of-vector-representation-of-words-5e85c59fee5" target="_blank" rel="noopener">this post</a> explain the mathematical derivation and concepts in more details.</p>
+<p>By training the model with plenty of corpus, a vector representation of vocabulary is built and can be used for more complex semantic tasks.</p>
+<h4 id="architecture">Architecture</h4>
+<p>The Architecture of a Recurrent Neural Network is a series of neural network sequentially set up. That is saying given a single word <span class="math inline">\(n-1\)</span> from a sentence, the model will predict the next word <span class="math inline">\(n\)</span> sequentially. RNNs can be briefly divided into 4 categories: <em>one to one</em>, <em>one to many</em>, <em>many to one</em> and <em>many to many.</em> This is thanks to the feature of RNN which allows results to be output at each stage. RNN also provides additional advantage of sharing features learned across different position of the sequence.</p>
+<p><a href="RNN.jpeg" class="gallery-item"><img src="RNN.jpeg" /></a> <a href="onemany.jpeg" class="gallery-item"><img src="onemany.jpeg" /></a></p>
+<p>The structural difference for RNN is that it passes out a hidden vector and then concatenate with the output of last processor as the new input to the next processor. Which deliver the context of previous text into the next round of prediction. The graphical representation is always more intuitive when it comes to the concept of deep learning architecture.</p>
+<p><a href="hidden.png" class="gallery-item"><img src="hidden.png" /></a></p>
+<p>The hidden vector is the product of the first weight matrix and the input. Mathematically it can be written as: $ h_n = f(WX_{n-1} + b)$, the activation function for hidden vector is usually the <strong>hyperbolic tangent</strong>, which leads to an important and widely used variant of RNN, the Long Short Term Memory(LSTM).</p>
+<h4 id="long-short-term-memory">Long Short Term Memory</h4>
+<p>It is not always useful to memorize all the past information, it depends largely on the task itself. Sometimes, we only need to look at recent information to perform the present task. For example, consider a language model trying to predict the next word based on the previous ones. If we are trying to predict the last word in “the clouds are in the sky,” we don’t need any further context. But there are also cases where we need more context. Consider trying to predict the last word in the text “I grew up in France… I speak fluent French.” Recent information suggests that the next word is probably the name of a language, but if we want to narrow down which language, we need the context of France, from further back. LSTMs are explicitly designed to handle long term dependency problems.</p>
+<p>Like typical Recurrent Neural Network, LSTMs also have chain like structure, but the repeating module has a different structure. There are four neural network layers interactiong in a very special way:</p>
+<ul>
+<li>forgetting gate layer: <span class="math inline">\(f_n = \sigma(W_f \times [h_{n-1}, x_n] + b_f)\)</span></li>
+<li>input gate layer: <span class="math inline">\(i_n = \sigma(W_i \times [h_{n-1}, x_n] + b_i)\)</span></li>
+<li>Memory cells: <span class="math inline">\(\tilde{C_n} = tanh(W_C \times [h_{n-1},x_n] + b_C)\)</span></li>
+<li>Output control: <span class="math inline">\(o_n = \sigma(W_o \times [h_{n-1}, x_n] + b_o)\)</span></li>
+</ul>
+<p>Conceptually there are two process going on. One is for the hidden vector update and the other is for memory cells update.</p>
+<ul>
+<li><span class="math inline">\(C_n = f_n \odot C_{n-1} + i_n \odot \tilde{C_n}\)</span></li>
+<li><span class="math inline">\(h_n = o_n \odot tanh(C_n)\)</span></li>
+</ul>
+<p><a href="LSTM-Core.png" class="gallery-item"><img src="LSTM-Core.png" /></a></p>
+<p><strong>Reference:</strong></p>
+<ul>
+<li><a href="http://karpathy.github.io/2015/05/21/rnn-effectiveness/" target="_blank" rel="noopener">RNN</a></li>
+<li><a href="https://colah.github.io/posts/2015-08-Understanding-LSTMs/" target="_blank" rel="noopener">LSTM</a></li>
+<li><a href="http://dprogrammer.org/rnn-lstm-gru" target="_blank" rel="noopener">RNN &amp; LSTM</a></li>
+</ul>
 <h3 id="reinforcement-learning">4. Reinforcement Learning</h3>
+<p>Reinforcement learning is designed to provide an optimal policy for a task by assigning a score for each status. Mathematically, a RL problem can be seen as a <strong>Markov Decision Process</strong>. This process is memoryless, so everything we care about we know through the current state. The goal of reinforcement learning the optimal policy which requires:</p>
+<ul>
+<li>Maximize the average rewards over times</li>
+<li>Should account for outcome and the cost</li>
+<li>Should be non-myopic. Think ahead and look at long run.</li>
+<li>Typically weights impacts in the near-term more highly than what happens in the long run</li>
+</ul>
+<p>The RL setup can be visualized like this:</p>
+<p><a href="RL.png" class="gallery-item"><img src="RL.png" /></a></p>
+<p>A task can be viewed as a composition of these steps:</p>
+<p>$ Action: A = {a_1,a_2, ..., a_n}$</p>
+<p><span class="math inline">\(Status: S = {s_1, s_2, ..., s_n}\)</span></p>
+<p><span class="math inline">\(Rewards: r(s,a,s^{&#39;})\)</span></p>
+<p>if <span class="math inline">\(s^{&#39;} &gt; s\)</span>, then <span class="math inline">\(r(s,a,s^{&#39;})\)</span> should be high. To establish a rubric, a matrix for pair of actions and status can be learned empirically and then be updated. This process is named Q-Learning.</p>
+<p>Updating formula: <span class="math display">\[Q^{new}(s,a) = Q^{old}(s,a) + \alpha \cdot \underbrace{[r(s,a,s^{&#39;}) - Q^{old}(s,a)]}_\text{Temporary Difference}\]</span></p>
+<p><span class="math inline">\(\alpha\)</span> is the learning rate which falls between 0 and 1. If rewards for new state <span class="math inline">\(s^{&#39;}\)</span> is larger than <span class="math inline">\(Q_old\)</span>, then increase the value of <span class="math inline">\(Q_new\)</span> and vice versa.</p>
+<p>However this formula only accounts for immediate rewards so likely to be myopic.</p>
+<h4 id="non-myopic-updates">Non-myopic updates</h4>
+<p>An extension of the previous Q-Learning is introduced to consider long-term benefits:</p>
+<p><span class="math display">\[ Q^{new}(s,a) = (1-\alpha)\cdot Q^{old}(s,a) +\alpha \cdot \underbrace{[r(s,a,s^{&#39;}) + \gamma \cdot \max_{\alpha^{&#39;}}Q^{old}(s^{&#39;},a^{&#39;})]}_\text{Non myopic temporary difference}\]</span></p>
+<p>The maximization part of the formula is expected reward (long term effect) and <span class="math inline">\(\gamma\)</span> is called <em>discount factor</em>, valued between 0(immediate) and 1(long run). If the composite reward is larger than <span class="math inline">\(Q^{old}\)</span>, taking action <span class="math inline">\(\alpha\)</span> is more valuable.</p>
+<p>After the Q table is trained, the optimal policy is defined as <span class="math inline">\(\pi(a;s) = \operatorname*{argmax}_{a}Q(s,a)\)</span></p>
+<h4 id="exploration-and-exploitation">Exploration and Exploitation</h4>
+<p>The process of Q-Leaning learns state, action. reward sequentially. One way to decide the next action is to explore options other than the current optimal action, that is because the Q function is heavily depend on the past experience and thus could be biased. Another way is to exploit by always choosing the current optimal policy. A approach that combines these two strategies is called <span class="math inline">\(\epsilon-Greedy\)</span>. With a small probability <span class="math inline">\(\epsilon\)</span>, one will take next action at random while to exploit with probability<span class="math inline">\(1-\epsilon\)</span>.</p>
+<h4 id="deep-q-learning">Deep Q-Learning</h4>
+<p>There are limitations for tabular Q-learning:</p>
+<ol type="1">
+<li><p>Assumes all of the states and actions are stored in a matrix</p></li>
+<li><p>No capacity to generalize across environment types</p></li>
+</ol>
+<p><a href="DeepQ.png" class="gallery-item"><img src="DeepQ.png" /></a></p>
+<p>In deep Q learning no tabular assumption is made. One wish to learn the parameter through minimizing cost function <span class="math display">\[U(\theta;s^{&#39;},a^{&#39;}) = \frac{1}{2}[Q(s,a;\theta) -[r_t + \gamma \cdot \max_{a}Q(s^{&#39;},a^{&#39;};\theta^{old})]]^2\]</span></p>
+<p><a href="QCost.png" class="gallery-item"><img src="QCost.png" /></a></p>
+<p>Through gradient decent, <span class="math inline">\(\theta\)</span> can be optimized through <span class="math inline">\(\theta^{new} \leftarrow \theta^{old} - \alpha \cdot \Delta_{\theta}U(\theta; s,a)_{|\theta =\theta^{old} }\)</span>. If expand the gradient of U, it is obvious to write that the learning process is very similar to what we have in the tabular Q-Learning:</p>
+<p><span class="math display">\[\theta^{new} \leftarrow \theta^{old} - \alpha \cdot[Q(s,a;\theta^{old}) - r_t - \gamma\cdot \max_{a^{&#39;}}Q(s^{&#39;}_{t+1}, a^{&#39;};\theta^{old})]\Delta_{\theta}Q(s,a;\theta)_{|\theta =\theta^{old}}\]</span></p>
+<h4 id="link-dqn-with-q-learning">Link DQN with Q learning</h4>
+<p>In the last lecture of the course, it is shown that updating parameters in Deep Q Learning is exactly the same format as updating Q function in Q Learning using Taylor Expansion.</p>
+<p><a href="Math1.png" class="gallery-item"><img src="Math1.png" /></a> <a href="Math2.png" class="gallery-item"><img src="Math2.png" /></a></p>
+<p align="center">
+<strong>----Words at the end----</strong>
+</p>
+<p>This course covers some very popular but fundamental concepts in deep learning, though it does not give solid explanation for mathematical derivation but it is a good guidance for those who are new to deep learning models.</p>
 </div><script src="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/js/lightgallery.min.js"></script><script>if (typeof lightGallery !== 'undefined') {
         var options = {
             selector: '.gallery-item'
@@ -358,7 +442,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#logistic-regression"><span class="nav-number">1.</span> <span class="nav-text">Logistic Regression</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#multilayer-perceptron"><span class="nav-number">1.1.</span> <span class="nav-text">Multilayer Perceptron</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#convolutional-neural-network"><span class="nav-number">2.</span> <span class="nav-text">Convolutional Neural Network</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#convolutional-layers"><span class="nav-number">2.1.</span> <span class="nav-text">Convolutional layers</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#activation-functions"><span class="nav-number">2.2.</span> <span class="nav-text">Activation functions</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pooling-layers"><span class="nav-number">2.3.</span> <span class="nav-text">Pooling layers</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fully-connect-layers"><span class="nav-number">2.4.</span> <span class="nav-text">Fully connect layers</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#recurrent-neural-network"><span class="nav-number">3.</span> <span class="nav-text">Recurrent Neural Network</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#word2vec"><span class="nav-number">3.1.</span> <span class="nav-text">Word2Vec</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reinforcement-learning"><span class="nav-number">4.</span> <span class="nav-text">4. Reinforcement Learning</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#logistic-regression"><span class="nav-number">1.</span> <span class="nav-text">Logistic Regression</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#multilayer-perceptron"><span class="nav-number">1.1.</span> <span class="nav-text">Multilayer Perceptron</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#convolutional-neural-network"><span class="nav-number">2.</span> <span class="nav-text">Convolutional Neural Network</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#convolutional-layers"><span class="nav-number">2.1.</span> <span class="nav-text">Convolutional layers</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#activation-functions"><span class="nav-number">2.2.</span> <span class="nav-text">Activation functions</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pooling-layers"><span class="nav-number">2.3.</span> <span class="nav-text">Pooling layers</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fully-connect-layers"><span class="nav-number">2.4.</span> <span class="nav-text">Fully connect layers</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#recurrent-neural-network"><span class="nav-number">3.</span> <span class="nav-text">Recurrent Neural Network</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#word2vec"><span class="nav-number">3.1.</span> <span class="nav-text">Word2Vec</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#architecture"><span class="nav-number">3.2.</span> <span class="nav-text">Architecture</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#long-short-term-memory"><span class="nav-number">3.3.</span> <span class="nav-text">Long Short Term Memory</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reinforcement-learning"><span class="nav-number">4.</span> <span class="nav-text">4. Reinforcement Learning</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#non-myopic-updates"><span class="nav-number">4.1.</span> <span class="nav-text">Non-myopic updates</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#exploration-and-exploitation"><span class="nav-number">4.2.</span> <span class="nav-text">Exploration and Exploitation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#deep-q-learning"><span class="nav-number">4.3.</span> <span class="nav-text">Deep Q-Learning</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#link-dqn-with-q-learning"><span class="nav-number">4.4.</span> <span class="nav-text">Link DQN with Q learning</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
