@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="/js/src/photoswipe.min.js?v="></script>
+  <script src="/js/src/photoswipe-ui-default.min.js?v="></script>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Comic Sans MS:300,300italic,400,400italic,700,700italic|Palatino:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zcsheng95.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":false,"lazyload":true,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="Some Popular Clustering Algorithms">
+<meta property="og:url" content="http://zcsheng95.github.io/2020/06/14/clustering/index.html">
+<meta property="og:site_name" content="Jeff&#39;s Story">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://zcsheng95.github.io/2020/06/14/clustering/origin.png">
+<meta property="og:image" content="http://zcsheng95.github.io/2020/06/14/clustering/kmeans.png">
+<meta property="og:image" content="http://zcsheng95.github.io/2020/06/14/clustering/kmeans_plus.png">
+<meta property="og:image" content="http://zcsheng95.github.io/2020/06/14/clustering/GMM.png">
+<meta property="og:image" content="http://zcsheng95.github.io/2020/06/14/clustering/mean_shift.png">
+<meta property="og:image" content="http://zcsheng95.github.io/2020/06/14/clustering/dbscan.png">
+<meta property="og:image" content="http://zcsheng95.github.io/2020/06/14/clustering/hclust.png">
+<meta property="article:published_time" content="2020-06-14T15:46:33.000Z">
+<meta property="article:modified_time" content="2020-06-15T03:53:44.798Z">
+<meta property="article:author" content="Jeff Sheng">
+<meta property="article:tag" content="Unsupervised Learning">
+<meta property="article:tag" content="Clustering">
+<meta property="article:tag" content="Algorithm">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://zcsheng95.github.io/2020/06/14/clustering/origin.png">
+
+<link rel="canonical" href="http://zcsheng95.github.io/2020/06/14/clustering/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Some Popular Clustering Algorithms | Jeff's Story</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  
+  <div class="container use-motion">
+    <div class="headband"></div>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Jeff's Story</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">LEARN  ✨ SHARE</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-cv">
+
+    <a href="/resume/" rel="section"><i class="fa fa-file fa-fw"></i>CV</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-gallery">
+
+    <a href="/photos/" rel="section"><i class="fa fa-camera-retro fa-fw"></i>Gallery</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://zcsheng95.github.io/2020/06/14/clustering/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/profile.jpeg">
+      <meta itemprop="name" content="Jeff Sheng">
+      <meta itemprop="description" content="Life is long so take your time">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jeff's Story">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Some Popular Clustering Algorithms
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-06-14 11:46:33 / Modified: 23:53:44" itemprop="dateCreated datePublished" datetime="2020-06-14T11:46:33-04:00">2020-06-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"<p>Clustering is a technique used to group data points with similar features. It is a common approach of unsupervised learning to discover data structure while no label information is known. One can use clustering analysis to draw some straightforward and valuable insights by the visualization of the membership.</p>
+<p>In this post I created a python class containing some most often used clustering algorithm and briefly discussed their pros and cons. I also did some simulation to demonstrate the results of different clustering methods.</p>
+<a id="more"></a>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">### Load libraries</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> scipy.stats <span class="keyword">import</span> multivariate_normal</span><br><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> make_spd_matrix</span><br><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> make_blobs</span><br><span class="line"><span class="keyword">from</span> scipy.spatial.distance <span class="keyword">import</span> cdist</span><br><span class="line"><span class="comment">#### GLOBAL VARIABLES</span></span><br><span class="line">ITERATION = <span class="number">10</span></span><br><span class="line">CLUSTER_THRESHOLD = <span class="number">0.1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">euclidean</span><span class="params">(x, y)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> np.sqrt(np.sum((np.array(x) - np.array(y)) ** <span class="number">2</span>))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">gaussian_kernel</span><span class="params">(distance, bandwidth)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span> / (bandwidth * np.sqrt(<span class="number">2</span> * np.pi)) * np.exp(<span class="number">-0.5</span> * (distance / bandwidth) ** <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">flat_kernel</span><span class="params">(distance, bandwidth)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> distance &gt; bandwidth:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">runClusters</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    A class for different clustering methods algorithm</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, data, label)</span>:</span></span><br><span class="line">        self.data = data</span><br><span class="line">        self.label = label</span><br></pre></td></tr></table></figure>
+<figure>
+<a href="origin.png" title="Original Labels" class="gallery-item"><img src="origin.png" alt="Original Labels" /></a><figcaption>Original Labels</figcaption>
+</figure>
+<h4 id="k-means">K-Means</h4>
+<p>K-means is a determinist clustering technique with the following stepsThe steps:</p>
+<ol type="1">
+<li><p>Initialize by random selecting <strong>N</strong> clusters centers, usually <strong>N</strong> data points</p></li>
+<li><p>Compute distance between each point and each center</p></li>
+<li><p>Assign each point to its closest clusters</p></li>
+<li><p>Calculate the mean of points within the same clusters, use the mean as the new centers</p></li>
+<li><p>Repeat step <strong>2-4</strong> until the center for each cluster does not change (convergence)</p></li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">kmeans</span><span class="params">(self, n_cluster, iters=ITERATION, tol = <span class="number">1e-6</span>)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    K-means clustering algorithm:</span></span><br><span class="line"><span class="string">    1. Start with $n_cluster$ centers with labels $0, 1, \ldots, k-1$</span></span><br><span class="line"><span class="string">    2. Find the distance of each data point to each center</span></span><br><span class="line"><span class="string">    3. Assign the data points nearest to a center to its label</span></span><br><span class="line"><span class="string">    4. Use the mean of the points assigned to a center as the new center</span></span><br><span class="line"><span class="string">    5. Repeat for a fixed number of iterations or until the centers stop changing</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    r, c = self.data.shape</span><br><span class="line">    <span class="comment">### Random select n_cluster points as the initial points</span></span><br><span class="line">    <span class="comment">### Define a score to check goodness of fit, it can be the sum of all points to its center</span></span><br><span class="line">    best_score = np.infty</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(iters):</span><br><span class="line">        centers = self.data[np.random.choice(r, n_cluster, replace=<span class="literal">False</span>)]</span><br><span class="line">        delta  = np.infty</span><br><span class="line">        <span class="keyword">while</span> delta &gt; tol:</span><br><span class="line">            <span class="comment">### cdist calculates distance betweem two vectors</span></span><br><span class="line">            <span class="comment">### ith column is the distance between ith point  and centers</span></span><br><span class="line">            dis = cdist(self.data, centers)</span><br><span class="line">            mdis = np.argmin(dis, axis = <span class="number">1</span>)</span><br><span class="line">            new_centers = np.array([np.mean(self.data[mdis == i], axis = <span class="number">0</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(n_cluster)])</span><br><span class="line">            delta = np.sum((new_centers - centers)**<span class="number">2</span>)</span><br><span class="line">            centers = new_centers</span><br><span class="line">        scores = dis[mdis].sum()</span><br><span class="line">        <span class="keyword">if</span> scores &lt; best_score:</span><br><span class="line">            best_score = scores</span><br><span class="line">            best_label = mdis</span><br><span class="line">            best_centers = centers</span><br><span class="line">    <span class="keyword">return</span> best_label, best_centers</span><br></pre></td></tr></table></figure>
+<p>Since the clustering results depend on the initialization, we could initialize multiple times and decide which clustering result is the best</p>
+<h5 id="pros-and-cons">Pros and Cons</h5>
+<p>pros:</p>
+<ul>
+<li>Simple and fast with complexity <span class="math inline">\(O(n)\)</span></li>
+</ul>
+<p>cons:</p>
+<ul>
+<li><p>Have to decide number of clusters beforehand</p></li>
+<li><p>Lack of consistency</p></li>
+<li><p>Easy stick in local optimal</p></li>
+</ul>
+<figure>
+<a href="kmeans.png" title="K-Means" class="gallery-item"><img src="kmeans.png" alt="K-Means" /></a><figcaption>K-Means</figcaption>
+</figure>
+<h4 id="k-means-1">K-Means ++</h4>
+<p>K-means++ improves the initialization of K-means by using a distance based probability vector for center initialization.</p>
+<ol type="1">
+<li><p>Choose one center uniformly at random from among the data points.</p></li>
+<li><p>For each data point <span class="math inline">\(x\)</span>, compute <span class="math inline">\(D(x)\)</span>, the distance between <span class="math inline">\(x\)</span> and the nearest center that has already been chosen.</p></li>
+<li><p>Choose one new data point at random as a new center, using a weighted probability distribution where a point <span class="math inline">\(x\)</span> is chosen with probability proportional to <span class="math inline">\(D(x)^2\)</span>.</p></li>
+<li><p>Repeat Steps <strong>2-3</strong> until k centers have been chosen.</p></li>
+<li><p>Now that the initial centers have been chosen, proceed using standard k-means clustering.</p></li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">k_means_pp</span><span class="params">(self, n_clusters, tol = <span class="number">1e-6</span>)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Choose one center uniformly at random from among the data points.</span></span><br><span class="line"><span class="string">    For each data point x, compute D(x), the distance between x and the nearest center that has already been chosen.</span></span><br><span class="line"><span class="string">    Choose one new data point at random as a new center, using a weighted probability distribution where a point x is chosen with probability proportional to D(x)^2.</span></span><br><span class="line"><span class="string">    Repeat Steps 2 and 3 until k centers have been chosen.</span></span><br><span class="line"><span class="string">    Now that the initial centers have been chosen, proceed using standard k-means clustering</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    X_cp = self.data.copy()</span><br><span class="line">    r, c  = X_cp.shape</span><br><span class="line">    <span class="comment">#### initialize 1 center</span></span><br><span class="line">    centers = []</span><br><span class="line">    center = X_cp[np.random.choice(r,<span class="number">1</span>)]</span><br><span class="line">    centers.append(center)</span><br><span class="line">    dist = cdist(X_cp, center)</span><br><span class="line">    delta = np.infty</span><br><span class="line">    <span class="keyword">while</span> len(centers) &lt; n_clusters:</span><br><span class="line">        probability = (dist**<span class="number">2</span>/np.sum(dist**<span class="number">2</span>)).flatten()</span><br><span class="line">        center = X_cp[np.random.choice(r,<span class="number">1</span>,p = probability)]</span><br><span class="line">        centers.append(center)</span><br><span class="line">        dist1 = cdist(X_cp,center)</span><br><span class="line">        dist = np.c_[dist, dist1].min(axis=<span class="number">1</span>).reshape(<span class="number">-1</span>,<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">while</span> delta &gt; tol:</span><br><span class="line">        dis = cdist(X_cp, np.array(centers).reshape(<span class="number">-1</span>,<span class="number">2</span>))</span><br><span class="line">        mdis = np.argmin(dis, axis=<span class="number">1</span>)</span><br><span class="line">        new_centers = np.array([np.mean(self.data[mdis == i], axis=<span class="number">0</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(n_clusters)])</span><br><span class="line">        delta = np.sum((new_centers - centers) ** <span class="number">2</span>)</span><br><span class="line">        centers = new_centers</span><br><span class="line">        labels = mdis</span><br><span class="line">    <span class="keyword">return</span> labels, centers</span><br></pre></td></tr></table></figure>
+<figure>
+<a href="kmeans_plus.png" title="K-Means Plus Plus" class="gallery-item"><img src="kmeans_plus.png" alt="K-Means Plus Plus" /></a><figcaption>K-Means Plus Plus</figcaption>
+</figure>
+<h4 id="gaussian-mixture-model-with-expectation-maximization">Gaussian Mixture Model with Expectation-Maximization</h4>
+<p>One of the major drawbacks of K-Means is its naive use of the mean value for the cluster center. K-means can not handle the situation when the clusters is not spherical or the means are too similar. Gaussian Mixture Models (GMMs) give us more flexibility than K-Means. GMM is a generative model where we assume all the data points are generated by a compositional gaussian distribution. The compositional distribution is a mixture of different gaussian distributions. Each data point can be determined by a 2-step process:</p>
+<ol type="1">
+<li><p><span class="math inline">\(p(Z=k|x)\)</span> determines the probability that data point <span class="math inline">\(x\)</span> comes from distribution <span class="math inline">\(k\)</span></p></li>
+<li><p><span class="math inline">\(X \sim N_{k}(\mu,\Sigma)\)</span> determines the probability of data point <span class="math inline">\(x\)</span> in the <span class="math inline">\(k^{th}\)</span> multivariate gaussian distribution</p></li>
+</ol>
+<p>In order to optimize the parameters of these distributions and given the log likelihood of the mixture model can not be solved in closed form, GMM is used along with Expectation-Maximization iterative methods to optimize.</p>
+<p>We randomly initialize the covariance and mean of each distribution (we could use the information out of k-means here), and initialize a vector with same weight assigned to each cluster. Then in the <span class="math inline">\(E\)</span> step, we create a <span class="math inline">\(n \times k\)</span> latent variable <span class="math inline">\(Z\)</span> to store the probability of each data point assigned to each cluster. Then in the <span class="math inline">\(M\)</span> step, we update the mean, covariance and weight using the latent variable <span class="math inline">\(Z\)</span> until convergence (The delta of log likelihood within a small tolerance). More detailed math derivation steps could be viewed at <a href="https://stephens999.github.io/fiveMinuteStats/intro_to_em.html" target="_blank" rel="noopener">this github page</a>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">gaussian_mix</span><span class="params">(self, clusters, tol = <span class="number">1e-3</span>)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Extension of K-means</span></span><br><span class="line"><span class="string">    1. Cluster modeled as gaussian distribution</span></span><br><span class="line"><span class="string">    2. EM algorithm: Assign data to cluster with some probability</span></span><br><span class="line"><span class="string">    In general, GMMs try to learn each cluster as a different Gaussian distribution.</span></span><br><span class="line"><span class="string">    It assumes the data is generated from a limited mixture of Gaussians.</span></span><br><span class="line"><span class="string">    In the presence of k clusters, it will need 3 * k parameters to initialize(mean, variance, scale) for each dimensiton</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    X_cp = self.data</span><br><span class="line">    labels,centers = self.kmeans(n_cluster = clusters)</span><br><span class="line">    r,c = X_cp.shape</span><br><span class="line">    <span class="comment">#### Choose pre-results from k-means</span></span><br><span class="line">    means = centers</span><br><span class="line">    cov = [np.cov(X_cp[np.where(labels == k)].T) <span class="keyword">for</span> k <span class="keyword">in</span> range(clusters)]</span><br><span class="line">    scales = np.ones(clusters)/clusters</span><br><span class="line">    delta = np.infty</span><br><span class="line">    pre = <span class="number">0.0</span></span><br><span class="line">    likelihood = np.zeros([r, clusters])</span><br><span class="line">    <span class="keyword">while</span> delta &gt; tol:</span><br><span class="line">        <span class="comment">### E step</span></span><br><span class="line">        <span class="keyword">for</span> k <span class="keyword">in</span> range(clusters):</span><br><span class="line">            likelihood[:,k] = multivariate_normal( mean = means[k], cov = cov[k]).pdf(X_cp) * scales[k]</span><br><span class="line"></span><br><span class="line">        p = likelihood/np.sum(likelihood, axis = <span class="number">1</span>).reshape(<span class="number">-1</span>,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        logll = -np.sum(np.log(np.sum(likelihood, axis = <span class="number">1</span>)))</span><br><span class="line">        delta = logll - pre</span><br><span class="line">        pre = logll</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">### M-step</span></span><br><span class="line">        <span class="comment">### Update parameters to maximize the log-likelihood</span></span><br><span class="line">        <span class="keyword">for</span> k <span class="keyword">in</span> range(clusters):</span><br><span class="line">            scales[k] = np.sum(p[:,k])/r</span><br><span class="line">            means[k] = (p[:,k] @ X_cp)/np.sum(p[:,k])</span><br><span class="line">            cov[k] = (p[:,k]*(X_cp - means[k]).T @ (X_cp - means[k]))/ np.sum(p[:,k])</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> np.argmax(p, axis=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<h5 id="pros-and-cons-1">Pros and Cons</h5>
+<p>pros:</p>
+<ul>
+<li><p>GMMs are a lot more flexible in terms of cluster covariance than K-Means; due to the standard deviation parameter, the clusters can take on any ellipse shape, rather than being restricted to circles. K-Means is actually a special case of GMM in which each cluster’s covariance along all dimensions approaches 0.</p></li>
+<li><p>GMMs support mixed membership.</p></li>
+</ul>
+<p>cons:</p>
+<ul>
+<li><p>Have to decide number of clusters beforehand</p></li>
+<li><p>Lack of consistency(the initialization in complex dataset will have impact on the clustering results.)</p></li>
+<li><p>Easy stick in local optimal</p></li>
+</ul>
+<figure>
+<a href="GMM.png" title="Gaussian Mixture Modeling" class="gallery-item"><img src="GMM.png" alt="Gaussian Mixture Modeling" /></a><figcaption>Gaussian Mixture Modeling</figcaption>
+</figure>
+<h4 id="mean-shift-clustering">Mean-Shift Clustering</h4>
+<p>Mean shift clustering is a sliding-window-based algorithm that attempts to find dense areas of data points.(attraction basin) It is a centroid-based algorithm meaning that the goal is to locate the center points of each group/class, which works by updating candidates for center points to be the mean of the points within the sliding-window. These candidate windows are then filtered in a post-processing stage to eliminate near-duplicates, forming the final set of center points and their corresponding groups.</p>
+<p>The algorithm applies a kernel density estimation for at data point and update the mean at each iteration until all points reaches the peak of the density surface.</p>
+<ol type="1">
+<li><p>Start a kernel density function around each data point, collect all data points within a certain bandwidth</p></li>
+<li><p>Calculate the distance between all neighbor points with the center points and calculate the probability based on the density kernel</p></li>
+<li><p>Move the point towards the direction with higher probability (dense area)</p></li>
+<li><p>Repeat <strong>step 2-3</strong> until the point is not moving (reaches the peak)</p></li>
+<li><p>Repeat <strong>step 1-4</strong> for all the point</p></li>
+<li><p>Assign clusters to points around certain peak</p></li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">CLUSTER_THRESHOLD = <span class="number">1e-1</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">mean_shift</span><span class="params">(self, kernel, bandwidth, tol = <span class="number">1e-6</span>)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Mean shift builds upon the concept of kernel density estimation (KDE).</span></span><br><span class="line"><span class="string">        It works by placing a kernel(weighting function) on each point in the data set</span></span><br><span class="line"><span class="string">        Two most used kernels are: 1. flat kernel 2. gaussian kernel</span></span><br><span class="line"><span class="string">        Users define a kernel bandwidth for the kernel</span></span><br><span class="line"><span class="string">        The peak of the surface for that underlying distribution defines the number of clusters to create, which is determined by the bandwidth</span></span><br><span class="line"><span class="string">        the mean shift algorithm iteratively shifts each point in the data set until it the top of its nearest KDE surface peak.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        X_cp = np.array(self.data)</span><br><span class="line">        shift_points = [<span class="literal">None</span>] * X_cp.shape[<span class="number">0</span>]</span><br><span class="line">        shifting = [<span class="literal">True</span>] * X_cp.shape[<span class="number">0</span>]</span><br><span class="line">        <span class="keyword">while</span> any(shifting):</span><br><span class="line">            <span class="keyword">for</span> i, point <span class="keyword">in</span> enumerate(X_cp):</span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">not</span> shifting[i]:</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">                copy_point = point.copy()</span><br><span class="line">                X_cp[i] = self.shift_point(point, self.data, kernel, bandwidth)</span><br><span class="line">                dist = euclidean(copy_point, point)</span><br><span class="line">                <span class="keyword">if</span> dist &lt; tol:</span><br><span class="line">                    shifting[i] = <span class="literal">False</span></span><br><span class="line">                    shift_points[i] = point.tolist()</span><br><span class="line"></span><br><span class="line">        cluster_ids = self.cluster_ids(shift_points)</span><br><span class="line">        <span class="keyword">return</span> cluster_ids, np.array(shift_points)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">shift_point</span><span class="params">(self, point, points, kernel, bandwidth)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Shift points iteratively based on weighting function windows</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        shift_x = <span class="number">0.0</span></span><br><span class="line">        shift_y = <span class="number">0.0</span></span><br><span class="line">        scale = <span class="number">0.0</span></span><br><span class="line">        <span class="keyword">for</span> p <span class="keyword">in</span> points:</span><br><span class="line">            edist = euclidean(point, p)</span><br><span class="line">            weight = kernel(edist, bandwidth)</span><br><span class="line">            shift_x += p[<span class="number">0</span>] * weight</span><br><span class="line">            shift_y += p[<span class="number">1</span>] * weight</span><br><span class="line">            scale += weight</span><br><span class="line">        shift_x = shift_x/scale</span><br><span class="line">        shift_y = shift_y/scale</span><br><span class="line">        <span class="keyword">return</span> [shift_x, shift_y]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">cluster_ids</span><span class="params">(self, points, cluster_threhold = CLUSTER_THRESHOLD)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Assign a cluster label for each data point</span></span><br><span class="line"><span class="string">        Based on distance below shifted point within a certain threshold</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        cluster_ids = []</span><br><span class="line">        centroids = []</span><br><span class="line">        cluster_idx = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i, point <span class="keyword">in</span> enumerate(points):</span><br><span class="line">            <span class="keyword">if</span> len(cluster_ids)==<span class="number">0</span>:</span><br><span class="line">                centroids.append(point)</span><br><span class="line">                cluster_ids.append(cluster_idx)</span><br><span class="line">                cluster_idx+=<span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">for</span> centroid <span class="keyword">in</span> centroids:</span><br><span class="line">                    dist = euclidean(point, centroid)</span><br><span class="line">                    <span class="keyword">if</span> dist &lt; cluster_threhold:</span><br><span class="line">                        cluster_ids.append(centroids.index(centroid))</span><br><span class="line">                        <span class="keyword">break</span></span><br><span class="line">                <span class="keyword">if</span> len(cluster_ids) &lt; i+<span class="number">1</span>:</span><br><span class="line">                    centroids.append(point)</span><br><span class="line">                    cluster_ids.append(cluster_idx)</span><br><span class="line">                    cluster_idx+=<span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> cluster_ids</span><br></pre></td></tr></table></figure>
+<h5 id="pros-and-cons-2">Pros and Cons</h5>
+<p>pros:</p>
+<ul>
+<li><p>No need to pre define number of n_clusters</p></li>
+<li><p>The fact that the cluster centers converge towards the points of maximum density is quite desirable as it is quite intuitive to understand and fits well in a naturally data-driven sense</p></li>
+<li><p>it can handle different shape of clusters</p></li>
+</ul>
+<p>cons:</p>
+<ul>
+<li>Selection of kernel function and bandwidth is not trivial</li>
+</ul>
+<figure>
+<a href="mean_shift.png" title="Gaussian Kernel" class="gallery-item"><img src="mean_shift.png" alt="Gaussian Kernel" /></a><figcaption>Gaussian Kernel</figcaption>
+</figure>
+<h4 id="density-based-spatial-clustering-of-applications-with-noise-dbscan">Density-Based Spatial Clustering of Applications with Noise (DBSCAN)</h4>
+<p>DBSCAN is also a density based algorithm with some additional advantages comparing to mean-shift.It will classify some extreme outliers in the data set as noises.</p>
+<ol type="1">
+<li><p>Start with an arbitrary data point that has not been visited, all neighbor points could be determined by tuning parameters <span class="math inline">\(\epsilon\)</span></p></li>
+<li><p>If the number of neighbor points exceed some value(minPoint), the clustering starts and the current point become the initial one in the cluster. Otherwise the point will be labeled as noise. In both situation it will be marked as visited.</p></li>
+<li><p>All the neighbor points will become member of the cluster and repeat <strong>step 1-2</strong> until no new points are added to this clusters</p></li>
+<li><p>Repeat <strong>step 1-3</strong> until all points has been visited and rechecked those points that is marked as noise to determine their membership.</p></li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">DBSCAN</span><span class="params">(self, minPoint =<span class="number">4</span>, e=<span class="number">1</span>)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    1. Arbitrarily choose a unvisited start point and count number of neighbor points within distance \epsilon, marked that point as visited</span></span><br><span class="line"><span class="string">    2. If the number of points in the neighbor exceeds certain number(minPoint), the first data point will be marked as beloinging to first cluster, so do all the neighbor points.</span></span><br><span class="line"><span class="string">    Otherwise the data point will be marked as noise.</span></span><br><span class="line"><span class="string">    3. Repeat step 2 for all neighbor points until all the points for the first cluster has been determined.</span></span><br><span class="line"><span class="string">    4. Start with a new unvisited point and stop until membership for all data points are determined.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    cluster = <span class="number">1</span></span><br><span class="line">    X_cp = self.data.copy()</span><br><span class="line">    r,c = X_cp.shape</span><br><span class="line">    clusters = np.zeros([r])</span><br><span class="line">    visited = np.array([<span class="literal">False</span>] * r)</span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">not</span> all(visited):</span><br><span class="line">        m = random.choice(np.where(visited == <span class="literal">False</span>)[<span class="number">0</span>])</span><br><span class="line">        initial = X_cp[m]</span><br><span class="line">        visited[m] = <span class="literal">True</span></span><br><span class="line">        points = []</span><br><span class="line">        points.append(initial)</span><br><span class="line">        <span class="keyword">while</span> len(points) &gt; <span class="number">0</span>:</span><br><span class="line">            cdis = cdist(X_cp, points[<span class="number">0</span>].reshape(<span class="number">1</span>,<span class="number">2</span>))</span><br><span class="line">            <span class="keyword">del</span> points[<span class="number">0</span>]</span><br><span class="line">            idx = <span class="literal">False</span></span><br><span class="line">            <span class="keyword">if</span> sum(cdis &lt;= e) &gt; minPoint:</span><br><span class="line">                idx = <span class="literal">True</span></span><br><span class="line">                <span class="keyword">for</span> i <span class="keyword">in</span> range(r):</span><br><span class="line">                    <span class="keyword">if</span> cdis[i] &lt;= e <span class="keyword">and</span> (visited[i] == <span class="literal">False</span> <span class="keyword">or</span> clusters[i] == <span class="number">0</span>):</span><br><span class="line">                        clusters[i] = cluster</span><br><span class="line">                        points.append(X_cp[i])</span><br><span class="line">                        visited[i] = <span class="literal">True</span></span><br><span class="line">        <span class="keyword">if</span> idx:</span><br><span class="line">            cluster += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> clusters</span><br></pre></td></tr></table></figure>
+<h5 id="pros-and-cons-3">Pros and Cons</h5>
+<p>pros:</p>
+<ul>
+<li><p>No need to pre define number of n_clusters</p></li>
+<li><p>It can find arbitrarily sized and arbitrarily shaped clusters quite well.</p></li>
+<li><p>Define outliers as noises</p></li>
+</ul>
+<p>cons:</p>
+<ul>
+<li><p>It doesn’t perform as well as others when the clusters are of varying density</p></li>
+<li><p>In complex or high-dimensional data, the estimate of <span class="math inline">\(\epsilon\)</span> and minPoint become challenging</p></li>
+</ul>
+<figure>
+<a href="dbscan.png" title="DBSCAN" class="gallery-item"><img src="dbscan.png" alt="DBSCAN" /></a><figcaption>DBSCAN</figcaption>
+</figure>
+<h4 id="agglomerative-hierarchical-clustering">Agglomerative Hierarchical clustering</h4>
+<p>We will discuss the bottom-up algorithm where we treat each data point as a separate cluster in the first place, and then using some distance metrics to find common ones.</p>
+<ol type="1">
+<li><p>We begin by treating each data point as a single cluster i.e if there are X data points in our dataset then we have X clusters. We then select a distance metric that measures the distance between two clusters. As an example, we will use average linkage which defines the distance between two clusters to be the average distance between data points in the first cluster and data points in the second cluster.</p></li>
+<li><p>On each iteration we combine two clusters into one where they have the smallest linkage value.</p></li>
+<li><p>We discard <span class="math inline">\(C_1\)</span> and <span class="math inline">\(C_2\)</span> from the original distance matrix and create a new entry <span class="math inline">\((C_1, C_2)\)</span>, update the distance matrix for <span class="math inline">\((C_1, C_2)\)</span></p></li>
+<li><p>Repeat <strong>step 2-3</strong> until we reach the number of clusters that we are satisfied</p></li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hclust</span><span class="params">(self, endcluster)</span>:</span></span><br><span class="line">      <span class="string">"""</span></span><br><span class="line"><span class="string">      Using average linkage</span></span><br><span class="line"><span class="string">      Each data point itself is a cluster in the beginning</span></span><br><span class="line"><span class="string">      Low efficiency O(n^3)</span></span><br><span class="line"><span class="string">      """</span></span><br><span class="line">      X_cp = self.data.copy()</span><br><span class="line">      r,c = X_cp.shape</span><br><span class="line">      ncluster = len(X_cp)</span><br><span class="line">      clusters = &#123;key: [value] <span class="keyword">for</span> key,value <span class="keyword">in</span> enumerate(X_cp)&#125;</span><br><span class="line">      dis = np.zeros([ncluster,ncluster])</span><br><span class="line">      labels = np.empty(r)</span><br><span class="line">      <span class="keyword">for</span> c1 <span class="keyword">in</span> clusters.keys():</span><br><span class="line">          <span class="keyword">for</span> c2 <span class="keyword">in</span> clusters.keys():</span><br><span class="line">              dis[c1, c2] = self.ave_link(clusters[c1], clusters[c2])</span><br><span class="line">      <span class="keyword">while</span> ncluster &gt; endcluster:</span><br><span class="line">          index = np.where(dis == np.min(dis[dis&gt;<span class="number">0</span>]))</span><br><span class="line">          <span class="keyword">if</span> len(index[<span class="number">0</span>]) == <span class="number">1</span>:</span><br><span class="line">              row,col = index[<span class="number">0</span>][<span class="number">0</span>],index[<span class="number">1</span>][<span class="number">0</span>]</span><br><span class="line">          <span class="keyword">else</span>:</span><br><span class="line">              row, col = index[<span class="number">0</span>][<span class="number">0</span>], index[<span class="number">0</span>][<span class="number">1</span>]</span><br><span class="line">          <span class="comment">#### Join closest cluster</span></span><br><span class="line">          clusters[row] = np.append(clusters[row],clusters.get(col, <span class="literal">None</span>),axis =<span class="number">0</span>)</span><br><span class="line">          <span class="keyword">del</span> clusters[col]</span><br><span class="line">          dis[col,:] = np.infty</span><br><span class="line">          dis[:,col] = np.infty</span><br><span class="line">          <span class="comment">#### Update average linkage for row</span></span><br><span class="line">          <span class="keyword">for</span> i <span class="keyword">in</span> clusters.keys():</span><br><span class="line">              <span class="keyword">if</span> i != row:</span><br><span class="line">                  dis[row,i] = self.ave_link(clusters[row], clusters[i])</span><br><span class="line">          ncluster -= <span class="number">1</span></span><br><span class="line">      <span class="comment">### Assign labels</span></span><br><span class="line">      id = <span class="number">0</span></span><br><span class="line">      <span class="keyword">for</span> c <span class="keyword">in</span> clusters.keys():</span><br><span class="line">          <span class="keyword">for</span> val <span class="keyword">in</span> clusters.get(c):</span><br><span class="line">              ind = X_cp.tolist().index(val.tolist())</span><br><span class="line">              labels[ind] = id</span><br><span class="line">          id+=<span class="number">1</span></span><br><span class="line">      <span class="keyword">assert</span> len(np.unique(labels)) == endcluster</span><br><span class="line">      <span class="keyword">return</span> labels</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">ave_link</span><span class="params">(self, c1, c2)</span>:</span></span><br><span class="line">      d = <span class="number">0</span></span><br><span class="line">      <span class="keyword">for</span> p <span class="keyword">in</span> c1:</span><br><span class="line">          <span class="keyword">for</span> q <span class="keyword">in</span> c2:</span><br><span class="line">              d += euclidean(p,q)</span><br><span class="line">      <span class="keyword">return</span> d/(len(c1) * len(c2))</span><br></pre></td></tr></table></figure>
+<p>Hierarchical clustering does not require us to specify the number of clusters and we can even select which number of clusters looks best since we are building a tree.</p>
+<h5 id="pros-and-consider">Pros and Consider</h5>
+<p>pros:</p>
+<ul>
+<li><p>Good to use when data has a intrinsic hierarchical structure</p></li>
+<li><p>Not sensitive to the choice of distance metric</p></li>
+</ul>
+<p>cons:</p>
+<ul>
+<li>Low efficiency <span class="math inline">\(O(n^3)\)</span></li>
+</ul>
+<figure>
+<a href="hclust.png" title="Agglomerative Hierarchical Clustering" class="gallery-item"><img src="hclust.png" alt="Agglomerative Hierarchical Clustering" /></a><figcaption>Agglomerative Hierarchical Clustering</figcaption>
+</figure>
+<hr />
+<p><a href="https://towardsdatascience.com/the-5-clustering-algorithms-data-scientists-need-to-know-a36d136ef68" target="_blank" rel="noopener">Reference</a></p>
+</div><script src="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/js/lightgallery.min.js"></script><script>if (typeof lightGallery !== 'undefined') {
+        var options = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options);
+        }</script>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Unsupervised-Learning/" rel="tag"># Unsupervised Learning</a>
+              <a href="/tags/Clustering/" rel="tag"># Clustering</a>
+              <a href="/tags/Algorithm/" rel="tag"># Algorithm</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/05/19/backpropagation/" rel="prev" title="About Back Propagation">
+      <i class="fa fa-chevron-left"></i> About Back Propagation
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#k-means"><span class="nav-number">1.</span> <span class="nav-text">K-Means</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#pros-and-cons"><span class="nav-number">1.1.</span> <span class="nav-text">Pros and Cons</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#k-means-1"><span class="nav-number">2.</span> <span class="nav-text">K-Means ++</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#gaussian-mixture-model-with-expectation-maximization"><span class="nav-number">3.</span> <span class="nav-text">Gaussian Mixture Model with Expectation-Maximization</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#pros-and-cons-1"><span class="nav-number">3.1.</span> <span class="nav-text">Pros and Cons</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mean-shift-clustering"><span class="nav-number">4.</span> <span class="nav-text">Mean-Shift Clustering</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#pros-and-cons-2"><span class="nav-number">4.1.</span> <span class="nav-text">Pros and Cons</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#density-based-spatial-clustering-of-applications-with-noise-dbscan"><span class="nav-number">5.</span> <span class="nav-text">Density-Based Spatial Clustering of Applications with Noise (DBSCAN)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#pros-and-cons-3"><span class="nav-number">5.1.</span> <span class="nav-text">Pros and Cons</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#agglomerative-hierarchical-clustering"><span class="nav-number">6.</span> <span class="nav-text">Agglomerative Hierarchical clustering</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#pros-and-consider"><span class="nav-number">6.1.</span> <span class="nav-text">Pros and Consider</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jeff Sheng"
+      src="/images/profile.jpeg">
+  <p class="site-author-name" itemprop="name">Jeff Sheng</p>
+  <div class="site-description" itemprop="description">Life is long so take your time</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jeff Sheng</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='255,255,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+</body>
+</html>
