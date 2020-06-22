@@ -2,9 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://zcsheng95.github.io/2020/06/19/MontyHall/</loc>
+    
+    <lastmod>2020-06-22T03:50:56.441Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://zcsheng95.github.io/2020/02/10/first/</loc>
+    
+    <lastmod>2020-06-19T22:09:54.277Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://zcsheng95.github.io/2020/06/14/clustering/</loc>
     
-    <lastmod>2020-06-15T04:13:32.063Z</lastmod>
+    <lastmod>2020-06-19T22:03:48.146Z</lastmod>
     
   </url>
   
@@ -26,13 +40,6 @@
     <loc>http://zcsheng95.github.io/2020/02/21/Python_Basics-1/</loc>
     
     <lastmod>2020-05-19T04:26:28.819Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://zcsheng95.github.io/2020/02/10/first/</loc>
-    
-    <lastmod>2020-05-19T04:25:22.501Z</lastmod>
     
   </url>
   

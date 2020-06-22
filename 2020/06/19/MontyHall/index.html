@@ -24,21 +24,18 @@
   </script>
 
   <meta property="og:type" content="article">
-<meta property="og:title" content="About Back Propagation">
-<meta property="og:url" content="http://zcsheng95.github.io/2020/05/19/backpropagation/index.html">
+<meta property="og:title" content="A Bit of Bayesian">
+<meta property="og:url" content="http://zcsheng95.github.io/2020/06/19/MontyHall/index.html">
 <meta property="og:site_name" content="Jeff&#39;s Story">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://zcsheng95.github.io/2020/05/19/backpropagation/Exp1.png">
-<meta property="article:published_time" content="2020-05-19T04:13:38.000Z">
-<meta property="article:modified_time" content="2020-05-21T02:33:18.836Z">
+<meta property="article:published_time" content="2020-06-19T21:51:00.000Z">
+<meta property="article:modified_time" content="2020-06-22T03:50:56.441Z">
 <meta property="article:author" content="Jeff Sheng">
-<meta property="article:tag" content="Statistics">
-<meta property="article:tag" content="Data Science">
-<meta property="article:tag" content="Deep Learning">
+<meta property="article:tag" content="Probability">
+<meta property="article:tag" content="Bayesian">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://zcsheng95.github.io/2020/05/19/backpropagation/Exp1.png">
 
-<link rel="canonical" href="http://zcsheng95.github.io/2020/05/19/backpropagation/">
+<link rel="canonical" href="http://zcsheng95.github.io/2020/06/19/MontyHall/">
 
 
 <script id="page-configurations">
@@ -51,7 +48,7 @@
   };
 </script>
 
-  <title>About Back Propagation | Jeff's Story</title>
+  <title>A Bit of Bayesian | Jeff's Story</title>
   
 
 
@@ -171,7 +168,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://zcsheng95.github.io/2020/05/19/backpropagation/">
+    <link itemprop="mainEntityOfPage" href="http://zcsheng95.github.io/2020/06/19/MontyHall/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/profile.jpeg">
@@ -184,7 +181,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          About Back Propagation
+          A Bit of Bayesian
         </h1>
 
         <div class="post-meta">
@@ -194,24 +191,15 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2020-05-19 00:13:38" itemprop="dateCreated datePublished" datetime="2020-05-19T00:13:38-04:00">2020-05-19</time>
+              <time title="Created: 2020-06-19 17:51:00" itemprop="dateCreated datePublished" datetime="2020-06-19T17:51:00-04:00">2020-06-19</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-05-20 22:33:18" itemprop="dateModified" datetime="2020-05-20T22:33:18-04:00">2020-05-20</time>
+                <time title="Modified: 2020-06-21 23:50:56" itemprop="dateModified" datetime="2020-06-21T23:50:56-04:00">2020-06-21</time>
               </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
-                </span>
-            </span>
 
           
             <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
@@ -231,34 +219,88 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"<p>Back propagation is an algorithm computing all those complicated gradients in deep neural networks in order to achieve minimum of cost function. Instead of thinking each weights/bias as direction in a high dimensional space, one can see the value as how sensitive the cost function is to each weight and bias. One can not directly change the activation but can only adjust the weight and bias. However, we are aware which direction we want this activation value to go. Back propagation basically improves those neurons which positively activates the correct output unit and undermine the activation for other wrong output units. <a id="more"></a></p>
-<p>We could manipulate the output unit by nudging <strong>weight</strong>(proportional corresponding activation), <strong>bias</strong>, or <strong>activation</strong>(indirectly, proportional to corresponding weight) from previous layer. <strong>Back Propagation</strong> utilizes the concepts of Chain Rule in Calculus to update weights and biases.</p>
-<h4 id="minimum-example">Minimum example</h4>
-<p>Let's start from an extreme simple sample where a network with 3 hidden layers and each layer has only one neuron.</p>
-<p><a href="Exp1.png" class="gallery-item"><img src="Exp1.png" /></a></p>
-<p>The goal is to minimize the cost function <span class="math inline">\(C_0\)</span>, which is defined as <span class="math inline">\((a^{(L)} - y )^2\)</span>, <span class="math inline">\(a^{(L)}\)</span> denotes the <span class="math inline">\(L^{th}\)</span> activation vector.</p>
-<p>Sequentially, activation <span class="math inline">\(a^{(L)}\)</span> can be written as the weighted sum plus the bias of the previous layer <span class="math inline">\(a^{(L)} = \sigma(w^{(L)}a^{(L-1)} + b^{(L)}) = \sigma(z^{(L)})\)</span>, <span class="math inline">\(\sigma\)</span> is any activation function like sigmoid or ReLU. By calculating the gradient, we access how sensitive the cost function is to tiny nudges of weight and biases. Step back one layer, we have:</p>
-<p><span class="math display">\[\frac{\partial C_0}{\partial w^{L}} = \frac{\partial z^{(L)}}{\partial w^{(L)}}\cdot\frac{\partial a^{(L)}}{\partial z^{(L)}}\cdot\frac{\partial C_0}{\partial a^{(L)}}\]</span></p>
-<p><span class="math display">\[\frac{\partial z^{(L)}}{\partial w^{(L)}} = a^{(L-1)}\]</span></p>
-<p><span class="math display">\[\frac{\partial a^{(L)}}{\partial z^{(L)}} = \sigma^{&#39;}(z^{(L)})\]</span></p>
-<p><span class="math display">\[\frac{\partial C_0}{\partial a^{(L)}} = 2\cdot(a^{(L)}-y)\]</span></p>
-<p>Finally we obtain:</p>
-<p><span class="math display">\[\frac{\partial C_0}{\partial w^{L}} = 2\cdot a^{(L-1)} \cdot \sigma^{&#39;}(z^{(L)}) \cdot (a^{(L)}-y)\]</span></p>
-<p>Similarly we could compute <span class="math inline">\(\frac{\partial C_0}{\partial b^{L}} = \sigma^{&#39;}(z^{(L)}) \cdot 2\cdot(a^{(L)}-y)\)</span> and how sensitive the cost function to the change of activation <span class="math inline">\(\frac{\partial C_0}{\partial a^{(L-1)}} = w^{(L-1)}\cdot \sigma^{&#39;}(z^{(L)}) \cdot 2\cdot(a^{(L)}-y)\)</span></p>
-<h4 id="generalization">Generalization</h4>
-<p>When we have multiple neurons in each layer, we use <span class="math inline">\(a_k^{(L-1)}\)</span> to index the activation value of layer <span class="math inline">\(L-1\)</span> and <span class="math inline">\(a_j^{(L)}\)</span> to index the activation value of layer <span class="math inline">\(L\)</span> and <span class="math inline">\(y_j\)</span> to index <span class="math inline">\(j^{th}\)</span> class among all labels. So the cost function becomes the average of quadratic difference across all labels, <span class="math inline">\(C_0 = \Sigma_{j=1}^{n_L}(a_j^{(L)} - y_j)^2\)</span>. And we will also need to change the index of the weight vector. For example, <span class="math inline">\(w_{jk}^{(L)}\)</span> is the weight between <span class="math inline">\(a_k^{(L-1)}\)</span> and <span class="math inline">\(a_j^{(L)}\)</span> that is <span class="math inline">\(z_j^{(L)} = w_{j1}^{(L-1)}\cdot a_1^{(L-1)} + w_{j2}^{(L-1)}\cdot a_2^{(L-1)} + ... + w_{jk}\cdot a_k^{(L-1)} + b^{(L)}\)</span> and <span class="math inline">\(a_j^{(L)} = \sigma(z_j^{(L)})\)</span></p>
-<p>The chained derivative of <span class="math inline">\(\frac{\partial C_0}{\partial a_k^{(L-1)}}\)</span> will change, as the change of one neuron from previous layer will effect all output units respectively.</p>
-<p><span class="math display">\[\frac{\partial C_0}{\partial a_k^{(L-1)}} = 2\cdot\underbrace{\Sigma_{j=1}^{n_L}w_{jk}^{(L-1)}\cdot \sigma^{&#39;}(z_j^{(L)})\cdot (a_j^{(L)}-y)}_\text{Sum Over Layer L}\]</span></p>
-<p>Combining the above information, we could write out all the components in the gradient: <span class="math display">\[ \nabla C =\begin{bmatrix} \frac{\partial C_0}{\partial w_{11}^{1}} \\ \frac{\partial C_0}{\partial w_{12}^{1}} \\ \frac{\partial C_0}{\partial w_{13}^{1}} \\ ...\\\frac{\partial C_0}{\partial b^{1}}\\...\\ \frac{\partial C_0}{\partial b^{L}}\end{bmatrix}\]</span></p>
-<p>And we could calculate back propagation for those components:</p>
-<p><span class="math display">\[ \frac{\partial C_0}{\partial w_{jk}^{l}} = \begin{cases}
-a^{(l-1)} \cdot \sigma^{&#39;}(z^{(l)})\underbrace{\frac{\partial C_0}{\partial a^{(l)}}}_{\Sigma_{j=1}^{n_{l+1}}w_{jk}^{(l)}\cdot \sigma^{&#39;}(z_j^{(l+1)})\cdot \frac{\partial C_0}{\partial a_k^{(l+1)}}}, &amp; \text{if l &lt; L}\\
-2\cdot a^{(l-1)} \cdot \sigma^{&#39;}(z^{(l)}) \cdot (a^{(l)}-y), &amp; \text{if l = L}
-\end{cases}\]</span></p>
-<p><span class="math display">\[\frac{\partial C_0}{\partial b^{l}} = \sigma^{&#39;}(z^{(l)}) \cdot \frac{\partial C_0}{\partial a^{(l)}}\]</span></p>
-<p><span class="math inline">\(L\)</span> denotes the output layer in the above formula and the cases of <span class="math inline">\(\frac{\partial C_0}{\partial a^{(l)}}\)</span> while calculating the derivative for bias.</p>
-<p>As one can observe that the calculation of back propagation is computationally heavy when we have tons of samples, that is the intuition why people bring up down-sampling strategies like <em>Mini-Batch Gradient Descent</em> and <em>Stochastic Gradient Descent</em>.</p>
-<p>Reference: <a href="https://www.youtube.com/watch?v=tIeHLnjs5U8" target="_blank" rel="noopener">Backpropagation calculus | Deep learning, chapter 4</a></p>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"<p>Recall the formal definition of <strong>Bayes' Rule</strong>:</p>
+<p><em>Let</em> <span class="math inline">\(A_1, A_2, ...\)</span> <em>be a partition of the sample space, and let</em> <span class="math inline">\(B\)</span> <em>be any set. Then for each i =1, 2...,</em></p>
+<p><span class="math display">\[P(A_i|B) = \frac{P(B|A_i)P(A_i)}{\Sigma^{\infty}_{j=1}P(B|A_j)P(A_j)}\]</span></p>
+<p>For lots of people, <em>Monty Hall Problem</em> is a classical introduction to the Bayesian world where your common sense in the first place may not be correct in probability because of the presence of prior information. Before we finally dive into the <em>Monty Hall Problem</em>, I would like to start with <em>The Three Prisoners Problems</em>.</p>
+<h3 id="three-prisoners">Three Prisoners</h3>
+<p>Three prisoners, <strong>A</strong>, <strong>B</strong> and <strong>C</strong>, are on death row, the governor decides to pardon one of the three and chooses at random the prisoner to pardon. He informs the warden of his choice but requests that the name be kept secret for a few days.</p>
+<p>The next day, <strong>A</strong> tries to get the warden to tell him who had been pardoned. The warden refuses. <strong>A</strong> then asks which of <strong>B</strong> or <strong>C</strong> will be executed. The warden thinks for a while, then tells <strong>A</strong> that <strong>B</strong> is to be executed. <a id="more"></a></p>
+<p>Then what is the actual probability that <strong>A</strong> is pardoned given <strong>B</strong> is executed?</p>
+<p>Let <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>, <span class="math inline">\(C\)</span> denote the events <strong>A</strong>, <strong>B</strong> or <strong>C</strong> is pardoned, respectively. We know that <span class="math inline">\(P(A) = P(B) = P(C) = \frac{1}{3}\)</span>. Let <span class="math inline">\(W\)</span> denote the event that the warden says <strong>B</strong> will be executed.</p>
+<p><span class="math display">\[P(A|W) = \frac{P(A\cap W)}{P(W)}\]</span></p>
+<p>We can enumerate all possible conditions in the following table:</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Prisoner pardoned</th>
+<th style="text-align: center;">Warden tells A</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">A</td>
+<td style="text-align: center;">B dies</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">A</td>
+<td style="text-align: center;">C dies</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">B</td>
+<td style="text-align: center;">C dies</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">C</td>
+<td style="text-align: center;">B dies</td>
+</tr>
+</tbody>
+</table>
+<p>We can conclude that <span class="math inline">\(P(A\cap W) = \frac{1}{3} \times \frac{1}{2} = \frac{1}{6}\)</span>,</p>
+<p>then <span class="math inline">\(P(W) = P(A\cap W) + P(B\cap W) + P(C\cap W) = \frac{1}{6} + 0 + \frac{1}{3} = \frac{1}{2}\)</span>,</p>
+<p>we have <span class="math inline">\(P(A|W) = \frac{\frac{1}{6}}{\frac{1}{2}} = \frac{1}{3}\)</span>.</p>
+<p>It is worth to note that one common mistake is that people may think <span class="math inline">\(W\)</span> is equal to <span class="math inline">\(B^c\)</span>.</p>
+<h3 id="monte-hall">Monte Hall</h3>
+<p><code>Suppose you're on a game show, and you're given the choice of three doors. Behind one door is a car, behind the others, goats. You pick a door, say #1, and the host, who knows what's behind the doors, opens another door, say #3, which has a goat. He says to you, ``Do you want to pick door #2?'' Is it to your advantage to switch your choice of doors?</code></p>
+<p>The above quote states a problem that has become known as the Monte Hall problem. One's intuition may strongly suggest that there is no benefit in switching (i.e. the probability of winning the car is 1/2 either way), but in this case this intuition is misleading. This problem provides a classic case where Bayesian reasoning provides the correct answer. The problem involves updating a prior probability distribution (a priori, one assumes the probability of winning to be 1/3 for each door) using observed data (the host's choice of goat-hiding door) to yield a posterior probability distribution, which makes it clear that it is to your benefit to switch.</p>
+<p>In this problem, we have a prior of <span class="math inline">\(\frac{1}{3}\)</span>, and the observed data is door #3 has a goat</p>
+<p><span class="math display">\[P(door 1| !door 3) = \frac{P(door1 \cap !door3)}{P(!door3)}\]</span></p>
+<p>similar to <em>The Three Prisoners Problems</em>, when choose door 1 we can enumerate the following table:</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Prize behind</th>
+<th style="text-align: center;">Host tells</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">door 1</td>
+<td style="text-align: center;">door 3 has a goat</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">door 1</td>
+<td style="text-align: center;">door 2 has a goat</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">door 2</td>
+<td style="text-align: center;">door 3 has a goat</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">door 3</td>
+<td style="text-align: center;">door 2 has a goat</td>
+</tr>
+</tbody>
+</table>
+<p>The situation is exactly the same as the three prisoners, while you chance of winning a car from door 1 is still <span class="math inline">\(\frac{1}{3}\)</span>.</p>
+<p>However, if we switch the choice to unopened door 2, then we would have <span class="math inline">\(1 - \frac{1}{3} = \frac{2}{3}\)</span> chance of winning the car.</p>
+<p>This can also be examined by: <span class="math display">\[ P(door2|!door3) = \frac{P(door2\cap !door3)}{P(!door3)} = \frac{\frac{1}{3}}{\frac{1}{2}} = \frac{2}{3}\]</span></p>
+<p>We have a bigger chance of winning the price now!</p>
+<p>In fact, we can generalize the conclusion not limited to 3 doors but <em>N</em> doors:</p>
+<p>If we switch to door m from door 1 while door k is revealed.</p>
+<p><span class="math inline">\(P(!doork) = \frac{1}{N} \times \frac{1}{N-1} + \frac{1}{N} \times \frac{1}{N-2} + \underbrace{...}_\text{N-2} + \frac{1}{N} \times \frac{1}{N-2} + 0 = \frac{1}{N} \times (\frac{1}{N-1} + 1) = \frac{1}{N-1}\)</span></p>
+<p><span class="math inline">\(P(doorm \cap !doork) = \frac{1}{N} \times \frac{1}{N-2}\)</span></p>
+<p>The final probability of switch to door m would be <span class="math inline">\(\frac{N-1}{(N-2)N}\)</span></p>
 </div><script src="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/js/lightgallery.min.js"></script><script>if (typeof lightGallery !== 'undefined') {
         var options = {
             selector: '.gallery-item'
@@ -273,9 +315,8 @@ a^{(l-1)} \cdot \sigma^{&#39;}(z^{(l)})\underbrace{\frac{\partial C_0}{\partial 
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Statistics/" rel="tag"># Statistics</a>
-              <a href="/tags/Data-Science/" rel="tag"># Data Science</a>
-              <a href="/tags/Deep-Learning/" rel="tag"># Deep Learning</a>
+              <a href="/tags/Probability/" rel="tag"># Probability</a>
+              <a href="/tags/Bayesian/" rel="tag"># Bayesian</a>
           </div>
 
         
@@ -284,13 +325,10 @@ a^{(l-1)} \cdot \sigma^{&#39;}(z^{(l)})\underbrace{\frac{\partial C_0}{\partial 
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/04/11/Duke-Intro-to-Machine-Learning-Notes/" rel="prev" title="Duke Intro to Machine Learning Notes">
-      <i class="fa fa-chevron-left"></i> Duke Intro to Machine Learning Notes
+    <a href="/2020/06/14/clustering/" rel="prev" title="Some Popular Clustering Algorithms">
+      <i class="fa fa-chevron-left"></i> Some Popular Clustering Algorithms
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/06/14/clustering/" rel="next" title="Some Popular Clustering Algorithms">
-      Some Popular Clustering Algorithms <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -349,7 +387,7 @@ a^{(l-1)} \cdot \sigma^{&#39;}(z^{(l)})\underbrace{\frac{\partial C_0}{\partial 
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#minimum-example"><span class="nav-number">1.</span> <span class="nav-text">Minimum example</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#generalization"><span class="nav-number">2.</span> <span class="nav-text">Generalization</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#three-prisoners"><span class="nav-number">1.</span> <span class="nav-text">Three Prisoners</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#monte-hall"><span class="nav-number">2.</span> <span class="nav-text">Monte Hall</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
