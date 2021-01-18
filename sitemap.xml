@@ -2,9 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://zcsheng95.github.io/2020/12/05/DLforGroupedSurv/</loc>
+    
+    <lastmod>2021-01-18T05:26:05.766Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://zcsheng95.github.io/2020/07/26/latent-model2/</loc>
     
-    <lastmod>2020-07-30T22:50:41.510Z</lastmod>
+    <lastmod>2020-07-31T20:54:01.680Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://zcsheng95.github.io/resume/index.html</loc>
+    
+    <lastmod>2020-07-31T19:27:25.822Z</lastmod>
     
   </url>
   
@@ -68,13 +82,6 @@
     <loc>http://zcsheng95.github.io/2020/04/11/Duke-Intro-to-Machine-Learning-Notes/</loc>
     
     <lastmod>2020-05-20T22:13:05.347Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://zcsheng95.github.io/resume/index.html</loc>
-    
-    <lastmod>2020-05-07T05:00:16.216Z</lastmod>
     
   </url>
   

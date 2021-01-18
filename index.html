@@ -163,6 +163,87 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://zcsheng95.github.io/2020/12/05/DLforGroupedSurv/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/profile.jpeg">
+      <meta itemprop="name" content="Jeff Sheng">
+      <meta itemprop="description" content="Life is long so take your time">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jeff's Story">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/12/05/DLforGroupedSurv/" class="post-title-link" itemprop="url">Study Note of Deep Learning methods in Censored grouped Survival Analysis</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-12-05 13:20:57" itemprop="dateCreated datePublished" datetime="2020-12-05T13:20:57-05:00">2020-12-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-01-18 00:26:05" itemprop="dateModified" datetime="2021-01-18T00:26:05-05:00">2021-01-18</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"<p>For the post let's begin with a business case for motivation. With the financial crisis hitting the United States and Europe in 2008, the International Accounting Standards Board (IASB) decided to revise their accounting standards for financial instruments, e.g. loans or mortgages to address perceived deficiencies which were believed to have contributed to the magnitude of the crisis. The result was the International Financial Reporting Standard 9 that became effective for all financial years beginning on or after 1 January 2018.</p>
+<p>Previously impairment losses on financial assets were only recognized to the extent that there was an objective evidence of impairment, meaning a loss event needed to occur before an impairment loss could be booked+. The new accounting rules for financial instruments require banks to build provisions for expected losses in their loan portfolio. The loss allowance has to be recognized before the actual credit loss is incurred. It is a more forward-looking approach than its predecessor with the aim to result in a more timely recognition of credit losses.</p>
+<p>To implement the new accounting rules banks need to build models that can evaluate a borrower’s risk as accurately as possible. A key credit risk parameter is the probability of default. Classification techniques such as logistic regression and decision trees can be used in order to classify the risky from the non-risky loans. These classification techniques however do not take the timing of default into account. With the use of survival analysis more accurate credit risks calculations are enabled since these analysis refers to a set of statistical techniques that is able to estimate the time it takes for a customer to default.</p>
+<h2 id="review-of-survival-analysis">Review of Survival Analysis</h2>
+<p>Survival analysis is a collection of data analysis methods with the outcome variable of interest time to event. In general event describes the event of interest, also called <strong>death event</strong>, time refers to the point of time of first observation, also called <strong>birth event</strong>, and time to event is the <strong>duration</strong> between the first observation and the time the event occurs. The subjects whose data were collected for survival analysis usually do not have the same time of first observation. A subject can enter the study at any time. Using durations ensure a necessary relativeness. Referring to the business case the birth event is the initial recognition of a loan, the death event, consequently the event of interest, describes the time a customer defaulted and the duration is the time between the initial recognition and the event of default.</p>
+<p>Apparently not every observation will experience an endpoint. This type of data missing can be emerged due to two reasons:</p>
+<ul>
+<li><p>The subject is still part of the study but has not experienced the event of interest yet.</p></li>
+<li><p>The subject experienced a different event and led to the end of the study.</p></li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/12/05/DLforGroupedSurv/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="http://zcsheng95.github.io/2020/07/26/latent-model2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -194,7 +275,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-30 18:50:41" itemprop="dateModified" datetime="2020-07-30T18:50:41-04:00">2020-07-30</time>
+                <time title="Modified: 2020-07-31 16:54:01" itemprop="dateModified" datetime="2020-07-31T16:54:01-04:00">2020-07-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1033,7 +1114,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">10</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1045,7 +1126,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -1078,7 +1159,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
