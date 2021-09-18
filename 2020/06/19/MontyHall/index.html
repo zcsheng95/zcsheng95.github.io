@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merriweather:300,300italic,400,400italic,700,700italic|Raleway:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zcsheng95.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":320,"display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="A Bit of Bayesian">
+<meta property="og:url" content="http://zcsheng95.github.io/2020/06/19/MontyHall/index.html">
+<meta property="og:site_name" content="Jeff&#39;s Blog">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-06-19T22:51:00.000Z">
+<meta property="article:modified_time" content="2020-07-18T19:18:32.000Z">
+<meta property="article:author" content="Zhecheng Sheng">
+<meta property="article:tag" content="Probability">
+<meta property="article:tag" content="Bayesian">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://zcsheng95.github.io/2020/06/19/MontyHall/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>A Bit of Bayesian | Jeff's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Jeff's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">LEARN  ✨ SHARE</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/resume/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-gallery">
+
+    <a href="/photos/" rel="section"><i class="fa fa-camera fa-fw"></i>Gallery</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://zcsheng95.github.io/2020/06/19/MontyHall/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zhecheng Sheng">
+      <meta itemprop="description" content="Life is long, so take your time">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jeff's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          A Bit of Bayesian
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-06-19 17:51:00" itemprop="dateCreated datePublished" datetime="2020-06-19T17:51:00-05:00">2020-06-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-07-18 14:18:32" itemprop="dateModified" datetime="2020-07-18T14:18:32-05:00">2020-07-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Random/" itemprop="url" rel="index"><span itemprop="name">Random</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"<p>Recall the formal definition of <strong>Bayes' Rule</strong>:</p>
+<p><em>Let</em> <span class="math inline">\(A_1, A_2, ...\)</span> <em>be a partition of the sample space, and let</em> <span class="math inline">\(B\)</span> <em>be any set. Then for each i =1, 2...,</em></p>
+<p><span class="math display">\[P(A_i|B) = \frac{P(B|A_i)P(A_i)}{\Sigma^{\infty}_{j=1}P(B|A_j)P(A_j)}\]</span></p>
+<p>For lots of people, <em>Monty Hall Problem</em> is a classical introduction to the Bayesian world where your common sense in the first place may not be correct in probability because of the presence of prior information. Before we finally dive into the <em>Monty Hall Problem</em>, I would like to start with <em>The Three Prisoners Problem</em>.</p>
+<h4 id="three-prisoners">Three Prisoners</h4>
+<p>Three prisoners, <strong>A</strong>, <strong>B</strong> and <strong>C</strong>, are on death row, the governor decides to pardon one of the three and chooses at random the prisoner to pardon. He informs the warden of his choice but requests that the name be kept secret for a few days.</p>
+<p>The next day, <strong>A</strong> tries to get the warden to tell him who had been pardoned. The warden refuses. <strong>A</strong> then asks which of <strong>B</strong> or <strong>C</strong> will be executed. The warden thinks for a while, then tells <strong>A</strong> that <strong>B</strong> is to be executed. <a id="more"></a></p>
+<p>Then what is the actual probability that <strong>A</strong> is pardoned given <strong>B</strong> is executed?</p>
+<p>Let <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>, <span class="math inline">\(C\)</span> denote the events <strong>A</strong>, <strong>B</strong> or <strong>C</strong> is pardoned, respectively. We know that <span class="math inline">\(P(A) = P(B) = P(C) = \frac{1}{3}\)</span>. Let <span class="math inline">\(W\)</span> denote the event that the warden says <strong>B</strong> will be executed.</p>
+<p><span class="math display">\[P(A|W) = \frac{P(A\cap W)}{P(W)}\]</span></p>
+<p>We can enumerate all possible conditions in the following table:</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Prisoner pardoned</th>
+<th style="text-align: center;">Warden tells A</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">A</td>
+<td style="text-align: center;">B dies</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">A</td>
+<td style="text-align: center;">C dies</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">B</td>
+<td style="text-align: center;">C dies</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">C</td>
+<td style="text-align: center;">B dies</td>
+</tr>
+</tbody>
+</table>
+<p>We can conclude that <span class="math inline">\(P(A\cap W) = \frac{1}{3} \times \frac{1}{2} = \frac{1}{6}\)</span>,</p>
+<p>then <span class="math inline">\(P(W) = P(A\cap W) + P(B\cap W) + P(C\cap W) = \frac{1}{6} + 0 + \frac{1}{3} = \frac{1}{2}\)</span>,</p>
+<p>we have <span class="math inline">\(P(A|W) = \frac{\frac{1}{6}}{\frac{1}{2}} = \frac{1}{3}\)</span>.</p>
+<p>It is worth to note that one common mistake is that people may think <span class="math inline">\(W\)</span> is equal to <span class="math inline">\(B^c\)</span>.</p>
+<h4 id="monte-hall">Monte Hall</h4>
+<p><code>Suppose you're on a game show, and you're given the choice of three doors. Behind one door is a car, behind the others, goats. You pick a door, say #1, and the host, who knows what's behind the doors, opens another door, say #3, which has a goat. He says to you, ``Do you want to pick door #2?'' Is it to your advantage to switch your choice of doors?</code></p>
+<p>The above quote states a problem that has become known as the Monte Hall problem. One's intuition may strongly suggest that there is no benefit in switching (i.e. the probability of winning the car is 1/2 either way), but in this case this intuition is misleading. This problem provides a classic case where Bayesian reasoning provides the correct answer. The problem involves updating a prior probability distribution (a priori, one assumes the probability of winning to be 1/3 for each door) using observed data (the host's choice of goat-hiding door) to yield a posterior probability distribution, which makes it clear that it is to your benefit to switch.</p>
+<p>In this problem, we have a prior of <span class="math inline">\(\frac{1}{3}\)</span>, and the observed data is door #3 has a goat</p>
+<p><span class="math display">\[P(door 1| !door 3) = \frac{P(door1 \cap !door3)}{P(!door3)}\]</span></p>
+<p>similar to <em>The Three Prisoners Problems</em>, when choose door 1 we can enumerate the following table:</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Prize behind</th>
+<th style="text-align: center;">Host tells</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">door 1</td>
+<td style="text-align: center;">door 3 has a goat</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">door 1</td>
+<td style="text-align: center;">door 2 has a goat</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">door 2</td>
+<td style="text-align: center;">door 3 has a goat</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">door 3</td>
+<td style="text-align: center;">door 2 has a goat</td>
+</tr>
+</tbody>
+</table>
+<p>The situation is exactly the same as the three prisoners, while you chance of winning a car from door 1 is still <span class="math inline">\(\frac{1}{3}\)</span>.</p>
+<p>However, if we switch the choice to unopened door 2, then we would have <span class="math inline">\(1 - \frac{1}{3} = \frac{2}{3}\)</span> chance of winning the car.</p>
+<p>This can also be examined by: <span class="math display">\[ P(door2|!door3) = \frac{P(door2\cap !door3)}{P(!door3)} = \frac{\frac{1}{3}}{\frac{1}{2}} = \frac{2}{3}\]</span></p>
+<p>We have a bigger chance of winning the price now!</p>
+<p>In fact, we can generalize the conclusion not limited to 3 doors but <em>N</em> doors:</p>
+<p>If we switch to door m from door 1 while door k is revealed.</p>
+<p><span class="math inline">\(P(!doork) = \frac{1}{N} \times \frac{1}{N-1} + \frac{1}{N} \times \frac{1}{N-2} + \underbrace{...}_\text{N-2} + \frac{1}{N} \times \frac{1}{N-2} + 0 = \frac{1}{N} \times (\frac{1}{N-1} + 1) = \frac{1}{N-1}\)</span></p>
+<p><span class="math inline">\(P(doorm \cap !doork) = \frac{1}{N} \times \frac{1}{N-2}\)</span></p>
+<p>The final probability of switch to door m would be <span class="math inline">\(\frac{N-1}{(N-2)N}\)</span></p>
+</div><script src="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/js/lightgallery.min.js"></script><script>if (typeof lightGallery !== 'undefined') {
+        var options = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options);
+        }</script>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Probability/" rel="tag"># Probability</a>
+              <a href="/tags/Bayesian/" rel="tag"># Bayesian</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/06/14/clustering/" rel="prev" title="Some Popular Clustering Algorithms">
+      <i class="fa fa-chevron-left"></i> Some Popular Clustering Algorithms
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/07/17/sql-part/" rel="next" title="SQL tables manipulation basics">
+      SQL tables manipulation basics <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#three-prisoners"><span class="nav-number">1.</span> <span class="nav-text">Three Prisoners</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#monte-hall"><span class="nav-number">2.</span> <span class="nav-text">Monte Hall</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Zhecheng Sheng</p>
+  <div class="site-description" itemprop="description">Life is long, so take your time</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/zcsheng95" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;zcsheng95" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/jeffsheng95@gmail.com" title="E-Mail → jeffsheng95@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhecheng Sheng</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+</body>
+</html>

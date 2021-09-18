@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merriweather:300,300italic,400,400italic,700,700italic|Raleway:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zcsheng95.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":320,"display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="SQL tables manipulation basics">
+<meta property="og:url" content="http://zcsheng95.github.io/2020/07/17/sql-part/index.html">
+<meta property="og:site_name" content="Jeff&#39;s Blog">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-07-17T22:47:13.000Z">
+<meta property="article:modified_time" content="2020-07-19T05:22:43.000Z">
+<meta property="article:author" content="Zhecheng Sheng">
+<meta property="article:tag" content="SQL">
+<meta property="article:tag" content="Relational database">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://zcsheng95.github.io/2020/07/17/sql-part/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>SQL tables manipulation basics | Jeff's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Jeff's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">LEARN  ✨ SHARE</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/resume/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-gallery">
+
+    <a href="/photos/" rel="section"><i class="fa fa-camera fa-fw"></i>Gallery</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://zcsheng95.github.io/2020/07/17/sql-part/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zhecheng Sheng">
+      <meta itemprop="description" content="Life is long, so take your time">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jeff's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SQL tables manipulation basics
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-07-17 17:47:13" itemprop="dateCreated datePublished" datetime="2020-07-17T17:47:13-05:00">2020-07-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-07-19 00:22:43" itemprop="dateModified" datetime="2020-07-19T00:22:43-05:00">2020-07-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Courses/" itemprop="url" rel="index"><span itemprop="name">Courses</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"<p>This post is about the study note from one section of <em>Udemy Course SQL BootCamp</em>: Creating databases and tables and my previous big data course. Different than the other sections in this course, before that I have not formally learned the principles about tables and databases creation in SQL. This section is a good time for me to catch up those concepts of how one can construct tables and databases and how we practice data integrity.</p>
+<p>I would like to start with some concepts about relational database and database normalization.</p>
+<h4 id="relational-database">Relational database</h4>
+<p>A database contains tables with rows and columns. Tables belong to schema. Schemas belong to a catalog. In other words, a database contains catalogs that contains schemas that contains tables(or views). Most simple database only consider the schema/table part of the hierarchy.</p>
+<h4 id="basic-terms">Basic terms</h4>
+<ul>
+<li><p>Schema: represents a collection of tables</p></li>
+<li><p>Table(Relation): There are two definitions of <code>relation</code>: In one m relation is a synonym for table. In the other a relation describes how two tables are connected via foreign/primary keys.</p></li>
+<li><p>Column(Attribute): Represents a single variable or feature.</p></li>
+<li><p>Row(Tuple): Represents an observation</p></li>
+</ul>
+<a id="more"></a>
+<h4 id="some-common-data-types-in-sql">Some common data types in SQL</h4>
+<ul>
+<li><p>Boolean</p>
+<ul>
+<li>True or false</li>
+</ul></li>
+<li><p>Character</p>
+<ul>
+<li>char, varchar , and texts</li>
+</ul></li>
+<li><p>Numeric</p>
+<ul>
+<li>integer and floating-point number</li>
+</ul></li>
+<li><p>Temporal</p>
+<ul>
+<li>data, time, timestamp and interval</li>
+</ul></li>
+<li><p>UUID</p>
+<ul>
+<li>Universally Unique Identifiers</li>
+</ul></li>
+<li><p>Array</p>
+<ul>
+<li>Stores an array or strings, numbers, etc.</li>
+</ul></li>
+<li><p>JSON</p></li>
+<li><p>HStore key-value pair</p></li>
+<li><p>Special types such as network address and geometric data</p></li>
+</ul>
+<h4 id="referential-integrity">Referential integrity</h4>
+<ul>
+<li>Primary key represents a unique identifiers of a row. It may be simple or composite.
+<ul>
+<li>unique</li>
+<li>not-null</li>
+<li>never optional</li>
+</ul></li>
+<li>Foreign key is a column containing the primary key of a different tables (single row). It enforces <em>referential integrity</em></li>
+</ul>
+<h4 id="constraints">Constraints</h4>
+<p>Constraints prevent invalid data from being entered into the databases. This ensures the accuracy and reliability of the data in the databases.</p>
+<ul>
+<li>Column constraint
+<ul>
+<li><strong>NOT NULL</strong></li>
+<li><strong>UNIQUE</strong></li>
+<li><strong>PRIMARY KEY</strong></li>
+<li><strong>FOREIGN KEY</strong></li>
+<li><strong>CHECK</strong>
+<ul>
+<li>Ensures that all values in the column satisfy certain conditions</li>
+</ul></li>
+<li><strong>EXCLUSION</strong>
+<ul>
+<li>Ensures that if any two rows are compared on the specified column or expression using the specified operator, not all of these comparisons will return TRUE.</li>
+</ul></li>
+</ul></li>
+<li>Table constraint
+<ul>
+<li><strong>CHECK</strong></li>
+<li><strong>REFERENCE</strong></li>
+<li><strong>UNIQUE</strong></li>
+<li><strong>PRIMARY KEY</strong>
+<ul>
+<li>Defines primary keys composite of multiple columns</li>
+</ul></li>
+</ul></li>
+</ul>
+<h3 id="crud">CRUD</h3>
+<h4 id="create-tables">Create Tables</h4>
+<p>Common simple syntax:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> table_name(</span><br><span class="line">  column_name <span class="keyword">TYPE</span> column_constraint (<span class="keyword">NOT</span> <span class="literal">NULL</span>) ,</span><br><span class="line">  ...</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h4 id="insert-rows-to-existing-tables">Insert rows to existing tables</h4>
+<p>Common simple syntax:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="keyword">table</span> (column1, column2, ...)</span><br><span class="line"><span class="keyword">VALUES</span></span><br><span class="line">  (value1, value2, ...),</span><br><span class="line">  (value1, value2, ...),...;</span><br></pre></td></tr></table></figure>
+<p>Note that the values can also come from a SQL query.</p>
+<h4 id="update-existing-table">Update existing table</h4>
+<p>Example: <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> <span class="keyword">account</span></span><br><span class="line"><span class="keyword">SET</span> last_login = <span class="keyword">CURRENT_TIMESTAMP</span></span><br><span class="line"><span class="keyword">WHERE</span> last_login <span class="keyword">is</span> <span class="literal">NULL</span>;</span><br></pre></td></tr></table></figure> Set based on another column</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> <span class="keyword">account</span></span><br><span class="line"><span class="keyword">SET</span> last_login = created_on</span><br><span class="line"><span class="keyword">FROM</span> table_b</span><br><span class="line"><span class="keyword">WHERE</span> account.col1 = table_b.col2;</span><br></pre></td></tr></table></figure>
+<p>To avoid using another select query to check the result, one could append a <code>RETURNING</code> clause at the end in <em>PostgreSQL</em>.</p>
+<h4 id="delete-rows-from-table">Delete rows from table</h4>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> <span class="keyword">table</span></span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">col</span> = <span class="string">'value'</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="alter-an-existing-table">Alter an existing table</h4>
+<p>The <code>ALTER</code> clause allows for changes to an existing table structure, such as: - Adding, dropping or renaming columns</p>
+<ul>
+<li><p>Changing a column's data type</p></li>
+<li><p>Set <strong>DEFAULT</strong> values for a column</p></li>
+<li><p>Add <strong>CHECK</strong> constraint</p></li>
+<li><p>Rename table</p></li>
+</ul>
+<p>Note using <strong>SET</strong> to define constraint and <strong>DROP</strong> to remove constraint</p>
+<h4 id="drop-column-from-table">Drop column from table</h4>
+<p>Example syntax</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">COLUMN</span> (<span class="keyword">CASCADE</span>) <span class="keyword">IF</span> <span class="keyword">EXISTS</span> col_name;</span><br></pre></td></tr></table></figure>
+<p>Use <strong>CASCADE</strong> keyword to remove all dependencies(e.g. in <em>views</em>)</p>
+<h4 id="check-constraints">CHECK Constraints</h4>
+<p>The <strong>CHECK</strong> constraint allows us to create more customized constraints that adhere to a certain condition. For example, making sure all inserted integer values fall below a certain threshold.</p>
+<p>General syntax:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> example (</span><br><span class="line">  ex_id <span class="built_in">SERIAL</span> PRIMARY <span class="keyword">KEY</span>,</span><br><span class="line">  age <span class="built_in">SMALLINT</span> <span class="keyword">CHECK</span>(age &gt; <span class="number">21</span>),</span><br><span class="line">  parent_age <span class="built_in">SMALLINT</span> <span class="keyword">CHECK</span>(parent_age &gt; age)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>The <strong>SERIAL</strong> will count those failed <strong>INSERT</strong> attempts (not meet <strong>CHECK</strong> constraint)</p>
+<h3 id="normalization-of-database">Normalization of database</h3>
+<p>Database normalization is performed for two main reasons - reduce redundancy and prevent inconsistencies on insert/update/delete.</p>
+<p>Note: A fully normalized database is in domain-key normal form (DK/NF) if every constraint is a logical consequence of the definition of the candidate key and domains. However, most practical normalization procedures go through a series of steps known as first, second and third normal forms, and ignore potential modification anomalies that may remain.</p>
+<h5 id="first-normal-form-1nf">First Normal Form (1NF)</h5>
+<ol type="1">
+<li>Table has a primary key (unique, non-null column that identifies each row)</li>
+<li>No repeating groups of columns</li>
+<li>Each cell contains a single value</li>
+</ol>
+<h5 id="second-normal-form-2nf">Second Normal Form (2NF)</h5>
+<ol type="1">
+<li>All columns in each row depend fully on candidate keys</li>
+</ol>
+<p>This can be quite tricky to understand. Look for candidate composite keys that can uniquely identify a row. Then see if the other columns depend on ALL columns of the composite key.</p>
+<h5 id="third-normal-form3nf">Third Normal Form(3NF)</h5>
+<ol type="1">
+<li>No transitive dependencies between non-candidate columns</li>
+</ol>
+<p>In the table below, both major and major_description depend on the name (or row number), but major_description only depends on name via the major. This is a transitive dependency and violates 3NF.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">names = [<span class="string">'ann'</span>, <span class="string">'bob'</span>, <span class="string">'charles'</span>, <span class="string">'david'</span>]</span><br><span class="line">ages = [<span class="number">21</span>, <span class="number">22</span>, <span class="number">21</span>, <span class="number">23</span>]</span><br><span class="line">majors = [<span class="string">'math'</span>, <span class="string">'stats'</span>, <span class="string">'bio'</span>, <span class="string">'math'</span>]</span><br><span class="line">major_descriptions = [<span class="string">'Mathematics'</span>, <span class="string">'Statisitcs'</span>, <span class="string">'Biohazards in the University'</span>,</span><br><span class="line"> <span class="string">'Mathematics'</span>]</span><br><span class="line">df = pd.DataFrame(dict(name=names, age=ages, major=majors,</span><br><span class="line">major_descriptions=major_descriptions))</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">name</th>
+<th style="text-align: left;">age</th>
+<th style="text-align: left;">major</th>
+<th style="text-align: left;">major_descriptions</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">ann</td>
+<td style="text-align: left;">21</td>
+<td style="text-align: left;">math</td>
+<td style="text-align: left;">Mathematics</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">bob</td>
+<td style="text-align: left;">22</td>
+<td style="text-align: left;">stats</td>
+<td style="text-align: left;">Statistics</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">charles</td>
+<td style="text-align: left;">21</td>
+<td style="text-align: left;">bio</td>
+<td style="text-align: left;">Biohazards in the University</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">david</td>
+<td style="text-align: left;">23</td>
+<td style="text-align: left;">math</td>
+<td style="text-align: left;">Mathematics</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">major_ids = [<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>, <span class="number">0</span>]</span><br><span class="line">df1 = pd.DataFrame(dict(name=names, age=ages, major=major_ids))</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">name</th>
+<th style="text-align: left;">age</th>
+<th style="text-align: left;">major_ids</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">ann</td>
+<td style="text-align: left;">21</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">bob</td>
+<td style="text-align: left;">22</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">charles</td>
+<td style="text-align: left;">21</td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">david</td>
+<td style="text-align: left;">23</td>
+<td style="text-align: left;">0</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">majors = [<span class="string">'math'</span>, <span class="string">'stats'</span>, <span class="string">'bio'</span>]</span><br><span class="line">major_descriptions = [<span class="string">'Mathematics'</span>, <span class="string">'Statisitcs'</span>, <span class="string">'Biohazards in the University'</span>]</span><br><span class="line">df2 = pd.DataFrame(dict(major=majors, description=major_descriptions))</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">majors</th>
+<th style="text-align: left;">major_descriptions</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">math</td>
+<td style="text-align: left;">Mathematics</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">stats</td>
+<td style="text-align: left;">Statistics</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">bio</td>
+<td style="text-align: left;">Biohazards in the University</td>
+</tr>
+</tbody>
+</table>
+</div><script src="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/js/lightgallery.min.js"></script><script>if (typeof lightGallery !== 'undefined') {
+        var options = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options);
+        }</script>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/SQL/" rel="tag"># SQL</a>
+              <a href="/tags/Relational-database/" rel="tag"># Relational database</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/06/19/MontyHall/" rel="prev" title="A Bit of Bayesian">
+      <i class="fa fa-chevron-left"></i> A Bit of Bayesian
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/07/20/latent-models/" rel="next" title="Latent models for NLP (Part I)">
+      Latent models for NLP (Part I) <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#relational-database"><span class="nav-number">1.</span> <span class="nav-text">Relational database</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#basic-terms"><span class="nav-number">2.</span> <span class="nav-text">Basic terms</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#some-common-data-types-in-sql"><span class="nav-number">3.</span> <span class="nav-text">Some common data types in SQL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#referential-integrity"><span class="nav-number">4.</span> <span class="nav-text">Referential integrity</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#constraints"><span class="nav-number">5.</span> <span class="nav-text">Constraints</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#crud"><span class="nav-number"></span> <span class="nav-text">CRUD</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#create-tables"><span class="nav-number">1.</span> <span class="nav-text">Create Tables</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#insert-rows-to-existing-tables"><span class="nav-number">2.</span> <span class="nav-text">Insert rows to existing tables</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#update-existing-table"><span class="nav-number">3.</span> <span class="nav-text">Update existing table</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#delete-rows-from-table"><span class="nav-number">4.</span> <span class="nav-text">Delete rows from table</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#alter-an-existing-table"><span class="nav-number">5.</span> <span class="nav-text">Alter an existing table</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#drop-column-from-table"><span class="nav-number">6.</span> <span class="nav-text">Drop column from table</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#check-constraints"><span class="nav-number">7.</span> <span class="nav-text">CHECK Constraints</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#normalization-of-database"><span class="nav-number"></span> <span class="nav-text">Normalization of database</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#first-normal-form-1nf"><span class="nav-number">0.1.</span> <span class="nav-text">First Normal Form (1NF)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#second-normal-form-2nf"><span class="nav-number">0.2.</span> <span class="nav-text">Second Normal Form (2NF)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#third-normal-form3nf"><span class="nav-number">0.3.</span> <span class="nav-text">Third Normal Form(3NF)</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Zhecheng Sheng</p>
+  <div class="site-description" itemprop="description">Life is long, so take your time</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/zcsheng95" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;zcsheng95" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/jeffsheng95@gmail.com" title="E-Mail → jeffsheng95@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhecheng Sheng</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

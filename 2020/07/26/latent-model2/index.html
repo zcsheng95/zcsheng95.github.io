@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merriweather:300,300italic,400,400italic,700,700italic|Raleway:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zcsheng95.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":320,"display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="Latent models for NLP (Part II)">
+<meta property="og:url" content="http://zcsheng95.github.io/2020/07/26/latent-model2/index.html">
+<meta property="og:site_name" content="Jeff&#39;s Blog">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://zcsheng95.github.io/2020/07/26/latent-model2/topic-model.jpg">
+<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/4/4d/Smoothed_LDA.png">
+<meta property="og:image" content="http://zcsheng95.github.io/2020/07/26/latent-model2/interact.png">
+<meta property="og:image" content="http://zcsheng95.github.io/2020/07/26/latent-model2/lda_example_files/lda_example_15_0.png">
+<meta property="article:published_time" content="2020-07-27T04:26:58.000Z">
+<meta property="article:modified_time" content="2020-07-31T20:54:01.000Z">
+<meta property="article:author" content="Zhecheng Sheng">
+<meta property="article:tag" content="Statistics">
+<meta property="article:tag" content="Data Science">
+<meta property="article:tag" content="NLP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://zcsheng95.github.io/2020/07/26/latent-model2/topic-model.jpg">
+
+<link rel="canonical" href="http://zcsheng95.github.io/2020/07/26/latent-model2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Latent models for NLP (Part II) | Jeff's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Jeff's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">LEARN  ✨ SHARE</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/resume/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-gallery">
+
+    <a href="/photos/" rel="section"><i class="fa fa-camera fa-fw"></i>Gallery</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://zcsheng95.github.io/2020/07/26/latent-model2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zhecheng Sheng">
+      <meta itemprop="description" content="Life is long, so take your time">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jeff's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Latent models for NLP (Part II)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-07-26 23:26:58" itemprop="dateCreated datePublished" datetime="2020-07-26T23:26:58-05:00">2020-07-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-07-31 15:54:01" itemprop="dateModified" datetime="2020-07-31T15:54:01-05:00">2020-07-31</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Models/" itemprop="url" rel="index"><span itemprop="name">Models</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"<p>In this post we extend the previous discussion about <em>Latent Semantic Analysis</em> to another popular latent model in NLP, especially for topic modeling, <em>Latent Dirichlet Allocation</em>. LDA is a generative model - that is, it provides a probability distribution from which we can generate documents, each of which is composed of generated words. The generative process is implemented using MCMC machinery. Under this post, I will use the implementation in <em>scikit-learn</em> instead of exploring it from scratch. In the future I will revisit this model after getting more firm understanding of various Natural Language Processing methods (<em>word2vec, non-negative matrix factorization, etc.</em>).</p>
+<h4 id="the-dirichlet-distribution">The Dirichlet distribution</h4>
+<p>A random sample from a Dirichlet distribution is a multinomial distribution (a multivariate generalization of the beta distribution), of the same length as the Dirichlet concentration parameter . Below is 5 random samples draw from a Dirichlet distribution with the parameter </p>
+<a id="more"></a>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">alpha = np.array([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>])</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5</span>):</span><br><span class="line">  print(np.random.dirichlet(alpha))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[0.13192107 0.19200145 0.67607748]</span><br><span class="line">[0.21182332 0.32329972 0.46487696]</span><br><span class="line">[0.00747152 0.39191045 0.60061803]</span><br><span class="line">[0.3626958  0.39636298 0.24094121]</span><br><span class="line">[0.14504415 0.38721339 0.46774246]</span><br></pre></td></tr></table></figure>
+<h5 id="relationship-between-alpha-and-samples">Relationship between <span class="math inline">\(\alpha\)</span> and samples</h5>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alpha/alpha.sum()</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array([0.16666667, 0.33333333, 0.5       ])</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">n = <span class="number">1e6</span></span><br><span class="line">np.random.dirichlet(alpha, n).mean(axis = <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array([0.16679836, 0.33292385, 0.50027778])</span><br></pre></td></tr></table></figure>
+<p><a href="topic-model.jpg" class="gallery-item"><img src="topic-model.jpg" /></a></p>
+<h4 id="concept-of-latent-dirichlet-allocation">Concept of Latent Dirichlet Allocation</h4>
+<p>LDA assumes documents are produced from a mixture of topics. Those topics then generate words based on their probability distribution. Given a dataset of documents, LDA backtracks and tries to figure out what topics would create those documents in the first place.</p>
+<p>LDA is a matrix factorization technique. In vector space, any corpus (collection of documents) can be represented as a document-term matrix. The following matrix shows a corpus of <span class="math inline">\(N\)</span> documents <span class="math inline">\(D_1, D_2, D_3 … D_n\)</span> and vocabulary size of <span class="math inline">\(M\)</span> words <span class="math inline">\(W_1,W_2 .. W_m\)</span>. The value of <span class="math inline">\(i,j\)</span> cell gives the frequency count of word <span class="math inline">\(W_j\)</span> in document <span class="math inline">\(D_i\)</span>.</p>
+<ul>
+<li>There are <span class="math inline">\(M\)</span> documents
+<ul>
+<li>A document consists of the words <span class="math inline">\(w_{1:N}\)</span></li>
+</ul></li>
+<li>There are <span class="math inline">\(K\)</span> topics <span class="math inline">\(\varphi_{1:K}\)</span> from which we can choose words from a vocabulary of length <span class="math inline">\(V\)</span>
+<ul>
+<li>For each topic
+<ul>
+<li>Sample a topic <span class="math inline">\(\varphi\)</span> from a Dirichlet distribution with parameter <span class="math inline">\(\beta\)</span></li>
+<li>Each topic <span class="math inline">\(\varphi\)</span> is a multinomial distribution of size <span class="math inline">\(V\)</span></li>
+</ul></li>
+</ul></li>
+<li>There are <span class="math inline">\(N\)</span> words in a document
+<ul>
+<li>For each document
+<ul>
+<li>Sample a topic multinomial <span class="math inline">\(\theta\)</span> of size <span class="math inline">\(K\)</span> from a different Dirichlet distribution with parameter <span class="math inline">\(\alpha\)</span></li>
+<li>Repeat for each word position in the document
+<ul>
+<li>Sample the integer index <span class="math inline">\(z\)</span> from <span class="math inline">\(\theta\)</span></li>
+<li>Sample a word <span class="math inline">\(w\)</span> from the topic <span class="math inline">\(\varphi_z\)</span></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<p><a href="https://upload.wikimedia.org/wikipedia/commons/4/4d/Smoothed_LDA.png" target="_blank" rel="noopener" class="gallery-item"><img src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Smoothed_LDA.png" /></a></p>
+<h4 id="lda-examples-using-previous-pubmed-text">LDA examples using previous <em>PubMed</em> text</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">%matplotlib inline</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line">sns.set_context(<span class="string">'notebook'</span>, font_scale=<span class="number">1.5</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pprint <span class="keyword">import</span> pprint</span><br><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> gensim</span><br><span class="line"><span class="keyword">from</span> gensim.parsing.preprocessing <span class="keyword">import</span> STOPWORDS</span><br><span class="line"><span class="keyword">from</span> gensim.models.ldamodel <span class="keyword">import</span> LdaModel</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">df = pd.DataFrame.from_dict(docs,orient=<span class="string">'index'</span>,columns=[<span class="string">'content'</span>])</span><br><span class="line">df = df.reset_index()</span><br><span class="line">df.content[<span class="number">0</span>][:<span class="number">500</span>]</span><br></pre></td></tr></table></figure>
+<pre><code>&#39;Phenotypic profiling of CD8 + T cells during Plasmodium vivax blood-stage infection.
+BackgroundFor a long time, the role of CD8+ T cells in blood-stage malaria was not considered important because erythrocytes do not express major histocompatibility complex (MHC) class I proteins. While recent evidences suggest that CD8+ T cells may play an important role during the erythrocytic phase of infection by eliminating parasites, CD8+ T cells might also contribute to modulate the host response through &#39;</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">corpus = [gensim.utils.simple_preprocess(s)</span><br><span class="line">        <span class="keyword">for</span> s <span class="keyword">in</span> df.content]</span><br><span class="line">corpus = [[s <span class="keyword">for</span> s <span class="keyword">in</span> doc <span class="keyword">if</span> <span class="keyword">not</span> s <span class="keyword">in</span> STOPWORDS] <span class="keyword">for</span> doc <span class="keyword">in</span> corpus]</span><br><span class="line">dictionary = gensim.corpora.Dictionary(corpus)</span><br><span class="line">corpus = [dictionary.doc2bow(doc) <span class="keyword">for</span> doc <span class="keyword">in</span> corpus]</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">'Number of unique tokens: %d'</span> % len(dictionary))</span><br><span class="line">print(<span class="string">'Number of documents: %d'</span> % len(corpus))</span><br></pre></td></tr></table></figure>
+<pre><code>Number of unique tokens: 5388
+Number of documents: 178</code></pre>
+<ul>
+<li>Arbitrarily choose 5 topics for classification.</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">%%time</span><br><span class="line">lda = LdaModel(corpus,</span><br><span class="line">                     num_topics=<span class="number">5</span>,</span><br><span class="line">                     id2word = dictionary,</span><br><span class="line">                     random_state=<span class="number">2020</span>,</span><br><span class="line">                     chunksize=<span class="number">1000</span>,</span><br><span class="line">                     passes=<span class="number">5</span>,</span><br><span class="line">                     alpha=<span class="string">'auto'</span>,</span><br><span class="line">                     per_word_topics=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>CPU times: user 1.26 s, sys: 5.33 ms, total: 1.26 s
+Wall time: 1.26 s</code></pre>
+<ul>
+<li>Print out top 10 words in each topic with its weight</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pprint(lda.print_topics())</span><br></pre></td></tr></table></figure>
+<pre><code>[(0,
+  &#39;0.012*&quot;cells&quot; + 0.007*&quot;infection&quot; + 0.006*&quot;study&quot; + 0.006*&quot;apoptosis&quot; + &#39;
+  &#39;0.006*&quot;cell&quot; + 0.006*&quot;inverted&quot; + 0.006*&quot;question&quot; + 0.005*&quot;mark&quot; + &#39;
+  &#39;0.004*&quot;asthma&quot; + 0.004*&quot;induced&quot;&#39;),
+ (1,
+  &#39;0.012*&quot;cd&quot; + 0.011*&quot;malaria&quot; + 0.010*&quot;cells&quot; + 0.007*&quot;blood&quot; + &#39;
+  &#39;0.007*&quot;plasmodium&quot; + 0.005*&quot;study&quot; + 0.005*&quot;infection&quot; + 0.005*&quot;parasite&quot; + &#39;
+  &#39;0.004*&quot;il&quot; + 0.004*&quot;cell&quot;&#39;),
+ (2,
+  &#39;0.017*&quot;cd&quot; + 0.010*&quot;cells&quot; + 0.010*&quot;patients&quot; + 0.009*&quot;cell&quot; + &#39;
+  &#39;0.005*&quot;asthma&quot; + 0.005*&quot;treatment&quot; + 0.004*&quot;study&quot; + 0.004*&quot;anti&quot; + &#39;
+  &#39;0.004*&quot;increased&quot; + 0.004*&quot;analysis&quot;&#39;),
+ (3,
+  &#39;0.010*&quot;cells&quot; + 0.008*&quot;patients&quot; + 0.008*&quot;malaria&quot; + 0.006*&quot;plasmodium&quot; + &#39;
+  &#39;0.005*&quot;cell&quot; + 0.005*&quot;cd&quot; + 0.005*&quot;anti&quot; + 0.004*&quot;pcr&quot; + 0.004*&quot;flt&quot; + &#39;
+  &#39;0.004*&quot;clinical&quot;&#39;),
+ (4,
+  &#39;0.010*&quot;asthma&quot; + 0.010*&quot;diabetes&quot; + 0.008*&quot;patients&quot; + 0.006*&quot;children&quot; + &#39;
+  &#39;0.004*&quot;cells&quot; + 0.004*&quot;study&quot; + 0.004*&quot;risk&quot; + 0.004*&quot;results&quot; + &#39;
+  &#39;0.003*&quot;omalizumab&quot; + 0.003*&quot;gad&quot;&#39;)]</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">lda_df = lda.get_document_topics(corpus,minimum_probability=<span class="number">0</span>)</span><br><span class="line">lda_df = pd.DataFrame(list(lda_df))</span><br><span class="line">num_topics = lda.num_topics</span><br><span class="line">lda_df.columns = [<span class="string">'Topic '</span> + str(i+<span class="number">1</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(num_topics)]</span><br><span class="line">lda_df = lda_df.applymap(func = <span class="keyword">lambda</span> x:x[<span class="number">1</span>])</span><br><span class="line">lda_df[<span class="string">'topic'</span>] = lda_df.apply(axis = <span class="number">1</span>, func = <span class="keyword">lambda</span> x: np.argmax(x)+<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lda_df</span><br></pre></td></tr></table></figure>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+Topic 1
+</th>
+<th>
+Topic 2
+</th>
+<th>
+Topic 3
+</th>
+<th>
+Topic 4
+</th>
+<th>
+Topic 5
+</th>
+<th>
+topic
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+0.920999
+</td>
+<td>
+0.078505
+</td>
+<td>
+0.000162
+</td>
+<td>
+0.000154
+</td>
+<td>
+0.000181
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+0.000335
+</td>
+<td>
+0.998742
+</td>
+<td>
+0.000301
+</td>
+<td>
+0.000285
+</td>
+<td>
+0.000335
+</td>
+<td>
+2
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+0.000369
+</td>
+<td>
+0.000402
+</td>
+<td>
+0.000332
+</td>
+<td>
+0.998527
+</td>
+<td>
+0.000369
+</td>
+<td>
+4
+</td>
+</tr>
+<tr>
+<th>
+3
+</th>
+<td>
+0.872048
+</td>
+<td>
+0.126844
+</td>
+<td>
+0.000362
+</td>
+<td>
+0.000343
+</td>
+<td>
+0.000403
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<th>
+4
+</th>
+<td>
+0.000998
+</td>
+<td>
+0.001087
+</td>
+<td>
+0.000896
+</td>
+<td>
+0.000849
+</td>
+<td>
+0.996170
+</td>
+<td>
+5
+</td>
+</tr>
+<tr>
+<th>
+...
+</th>
+<td>
+...
+</td>
+<td>
+...
+</td>
+<td>
+...
+</td>
+<td>
+...
+</td>
+<td>
+...
+</td>
+<td>
+...
+</td>
+</tr>
+<tr>
+<th>
+173
+</th>
+<td>
+0.994360
+</td>
+<td>
+0.001601
+</td>
+<td>
+0.001320
+</td>
+<td>
+0.001250
+</td>
+<td>
+0.001470
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<th>
+174
+</th>
+<td>
+0.998049
+</td>
+<td>
+0.000554
+</td>
+<td>
+0.000456
+</td>
+<td>
+0.000433
+</td>
+<td>
+0.000508
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<th>
+175
+</th>
+<td>
+0.000347
+</td>
+<td>
+0.000378
+</td>
+<td>
+0.998634
+</td>
+<td>
+0.000295
+</td>
+<td>
+0.000347
+</td>
+<td>
+3
+</td>
+</tr>
+<tr>
+<th>
+176
+</th>
+<td>
+0.000729
+</td>
+<td>
+0.000794
+</td>
+<td>
+0.000654
+</td>
+<td>
+0.997094
+</td>
+<td>
+0.000729
+</td>
+<td>
+4
+</td>
+</tr>
+<tr>
+<th>
+177
+</th>
+<td>
+0.000738
+</td>
+<td>
+0.000803
+</td>
+<td>
+0.000662
+</td>
+<td>
+0.997059
+</td>
+<td>
+0.000738
+</td>
+<td>
+4
+</td>
+</tr>
+</tbody>
+</table>
+<p>
+178 rows × 6 columns
+</p>
+</div>
+<h4 id="visualization">Visualization</h4>
+<ul>
+<li>A common way to visualize topic modeling results is via dimension reduction techniques. Below is two example of such representation. The first one generated by <em>pyLDAvis</em> using multi-dimension scaling to produce the first two principle components. The second example use the word embeddings from LDA model output, which is a probability distribution assigned for each document, to generate a TSNE plot with the classification topic as the label for each document.</li>
+</ul>
+<h5 id="code-example">Code example</h5>
+<ul>
+<li><em>pyLDAvis</em> provide a interactive API for visualizing trained LDA model from <em>gensim</em>, below is a screenshot of that app.</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pyLDAvis.gensim</span><br><span class="line">vis = pyLDAvis.gensim.prepare(lda, corpus, dictionary)</span><br><span class="line">pyLDAvis.display(vis)</span><br></pre></td></tr></table></figure>
+<p><a href="interact.png" class="gallery-item"><img src="interact.png" /></a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.manifold <span class="keyword">import</span> TSNE</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tsne = TSNE(random_state=<span class="number">2020</span>, perplexity=<span class="number">30</span>, early_exaggeration=<span class="number">120</span>)</span><br><span class="line">embedding = tsne.fit_transform(lda_df.iloc[:,:<span class="number">5</span>].values)</span><br><span class="line">embedding = pd.DataFrame(embedding, columns=[<span class="string">'x'</span>,<span class="string">'y'</span>])</span><br><span class="line">embedding[<span class="string">'hue'</span>] = hm.argmax(axis=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cmap = plt.cm.Spectral</span><br><span class="line">plt.scatter(x = embedding.x, y = embedding.y, c = embedding.hue,cmap = cmap, s = <span class="number">40</span>)</span><br><span class="line">plt.xlabel(<span class="string">"PC1"</span>)</span><br><span class="line">plt.ylabel(<span class="string">"PC2"</span>)</span><br><span class="line"><span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+<p><a href="lda_example_files/lda_example_15_0.png" class="gallery-item"><img src="lda_example_files/lda_example_15_0.png" /></a></p>
+</div><script src="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/js/lightgallery.min.js"></script><script>if (typeof lightGallery !== 'undefined') {
+        var options = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options);
+        }</script>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Statistics/" rel="tag"># Statistics</a>
+              <a href="/tags/Data-Science/" rel="tag"># Data Science</a>
+              <a href="/tags/NLP/" rel="tag"># NLP</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/20/latent-models/" rel="prev" title="Latent models for NLP (Part I)">
+      <i class="fa fa-chevron-left"></i> Latent models for NLP (Part I)
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/12/05/DLforGroupedSurv/" rel="next" title="Study Note of Deep Learning methods in Censored grouped Survival Analysis">
+      Study Note of Deep Learning methods in Censored grouped Survival Analysis <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#the-dirichlet-distribution"><span class="nav-number">1.</span> <span class="nav-text">The Dirichlet distribution</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#relationship-between-alpha-and-samples"><span class="nav-number">1.1.</span> <span class="nav-text">Relationship between \(\alpha\) and samples</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#concept-of-latent-dirichlet-allocation"><span class="nav-number">2.</span> <span class="nav-text">Concept of Latent Dirichlet Allocation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lda-examples-using-previous-pubmed-text"><span class="nav-number">3.</span> <span class="nav-text">LDA examples using previous PubMed text</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#visualization"><span class="nav-number">4.</span> <span class="nav-text">Visualization</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#code-example"><span class="nav-number">4.1.</span> <span class="nav-text">Code example</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Zhecheng Sheng</p>
+  <div class="site-description" itemprop="description">Life is long, so take your time</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/zcsheng95" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;zcsheng95" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/jeffsheng95@gmail.com" title="E-Mail → jeffsheng95@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhecheng Sheng</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+</body>
+</html>
