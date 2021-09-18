@@ -180,7 +180,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/09/18/survival-in-a-nutshell/" class="post-title-link" itemprop="url">survival-in-a-nutshell</a>
+            <a href="/2021/09/18/survival-in-a-nutshell/" class="post-title-link" itemprop="url">Survival in a Nutshell</a>
         </h2>
 
         <div class="post-meta">
@@ -189,8 +189,9 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2021-09-18 11:44:17" itemprop="dateCreated datePublished" datetime="2021-09-18T11:44:17-05:00">2021-09-18</time>
+              <time title="Created: 2021-09-18 11:44:17 / Modified: 17:10:34" itemprop="dateCreated datePublished" datetime="2021-09-18T11:44:17-05:00">2021-09-18</time>
             </span>
 
           
@@ -204,13 +205,29 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"
-</div><script src="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/js/lightgallery.min.js"></script><script>if (typeof lightGallery !== 'undefined') {
-        var options = {
-            selector: '.gallery-item'
-        };
-        lightGallery(document.getElementsByClassName('.article-gallery')[0], options);
-        }</script>
+          <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"<p>In survival analysis we would like to model the distribution of survival time <span class="math inline">\(T\)</span> for a specific outcome in a given population and make inference on the attributes of the population.</p>
+<h3 id="survival-basics">Survival Basics</h3>
+<p>Survival time <span class="math inline">\(T\)</span> is a <strong>Random Variable</strong> with probability density function <span class="math inline">\(f(t)\)</span></p>
+<ul>
+<li><p>survival function: <span class="math inline">\(S(t) = P(T \ge t) = 1 - F(t)\)</span></p></li>
+<li><p>hazard function: <span class="math inline">\(h(t) = \lim_{dt \to 0}Pr(T \in [t, t+dt] \mid T \ge t)\)</span></p></li>
+<li><p>cumulative hazard function: <span class="math inline">\(H(t) = \int_0^t h(\mu)d\mu\)</span></p></li>
+</ul>
+<h4 id="relations">Relations</h4>
+<p>( Easy to derive with calculus...)</p>
+<ul>
+<li><p><span class="math inline">\(h(t) = \frac{f(t)}{S(t)}\)</span></p></li>
+<li><p><span class="math inline">\(H(t) = -log(S(t))\)</span></p></li>
+</ul>
+<p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/09/18/survival-in-a-nutshell/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -243,7 +260,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/12/05/DLforGroupedSurv/" class="post-title-link" itemprop="url">Study Note of Deep Learning methods in Censored grouped Survival Analysis</a>
+            <a href="/2020/12/05/DLforGroupedSurv/" class="post-title-link" itemprop="url">Study Note of Deep Learning methods in Censored Grouped Survival Analysis</a>
         </h2>
 
         <div class="post-meta">
@@ -260,7 +277,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-09-17 23:42:10" itemprop="dateModified" datetime="2021-09-17T23:42:10-05:00">2021-09-17</time>
+                <time title="Modified: 2021-09-18 16:08:21" itemprop="dateModified" datetime="2021-09-18T16:08:21-05:00">2021-09-18</time>
               </span>
 
           
