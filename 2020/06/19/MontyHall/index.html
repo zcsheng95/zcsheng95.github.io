@@ -28,7 +28,7 @@
 <meta property="og:site_name" content="Jeff&#39;s Blog">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-06-19T22:51:00.000Z">
-<meta property="article:modified_time" content="2020-07-18T19:18:32.000Z">
+<meta property="article:modified_time" content="2021-09-18T22:15:22.364Z">
 <meta property="article:author" content="Zhecheng Sheng">
 <meta property="article:tag" content="Probability">
 <meta property="article:tag" content="Bayesian">
@@ -199,7 +199,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-18 14:18:32" itemprop="dateModified" datetime="2020-07-18T14:18:32-05:00">2020-07-18</time>
+                <time title="Modified: 2021-09-18 17:15:22" itemprop="dateModified" datetime="2021-09-18T17:15:22-05:00">2021-09-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -267,7 +267,7 @@
 <p><code>Suppose you're on a game show, and you're given the choice of three doors. Behind one door is a car, behind the others, goats. You pick a door, say #1, and the host, who knows what's behind the doors, opens another door, say #3, which has a goat. He says to you, ``Do you want to pick door #2?'' Is it to your advantage to switch your choice of doors?</code></p>
 <p>The above quote states a problem that has become known as the Monte Hall problem. One's intuition may strongly suggest that there is no benefit in switching (i.e. the probability of winning the car is 1/2 either way), but in this case this intuition is misleading. This problem provides a classic case where Bayesian reasoning provides the correct answer. The problem involves updating a prior probability distribution (a priori, one assumes the probability of winning to be 1/3 for each door) using observed data (the host's choice of goat-hiding door) to yield a posterior probability distribution, which makes it clear that it is to your benefit to switch.</p>
 <p>In this problem, we have a prior of <span class="math inline">\(\frac{1}{3}\)</span>, and the observed data is door #3 has a goat</p>
-<p><span class="math display">\[P(door 1| !door 3) = \frac{P(door1 \cap !door3)}{P(!door3)}\]</span></p>
+<p><span class="math display">\[P(door_1| !door_3) = \frac{P(door_1 \cap !door_3)}{P(!door_3)}\]</span></p>
 <p>similar to <em>The Three Prisoners Problems</em>, when choose door 1 we can enumerate the following table:</p>
 <table>
 <thead>
@@ -297,12 +297,12 @@
 </table>
 <p>The situation is exactly the same as the three prisoners, while you chance of winning a car from door 1 is still <span class="math inline">\(\frac{1}{3}\)</span>.</p>
 <p>However, if we switch the choice to unopened door 2, then we would have <span class="math inline">\(1 - \frac{1}{3} = \frac{2}{3}\)</span> chance of winning the car.</p>
-<p>This can also be examined by: <span class="math display">\[ P(door2|!door3) = \frac{P(door2\cap !door3)}{P(!door3)} = \frac{\frac{1}{3}}{\frac{1}{2}} = \frac{2}{3}\]</span></p>
+<p>This can also be examined by: <span class="math display">\[ P(door_2|!door_3) = \frac{P(door_2\cap !door_3)}{P(!door_3)} = \frac{\frac{1}{3}}{\frac{1}{2}} = \frac{2}{3}\]</span></p>
 <p>We have a bigger chance of winning the price now!</p>
 <p>In fact, we can generalize the conclusion not limited to 3 doors but <em>N</em> doors:</p>
 <p>If we switch to door m from door 1 while door k is revealed.</p>
-<p><span class="math inline">\(P(!doork) = \frac{1}{N} \times \frac{1}{N-1} + \frac{1}{N} \times \frac{1}{N-2} + \underbrace{...}_\text{N-2} + \frac{1}{N} \times \frac{1}{N-2} + 0 = \frac{1}{N} \times (\frac{1}{N-1} + 1) = \frac{1}{N-1}\)</span></p>
-<p><span class="math inline">\(P(doorm \cap !doork) = \frac{1}{N} \times \frac{1}{N-2}\)</span></p>
+<p><span class="math inline">\(P(!door_k) = \frac{1}{N} \times \frac{1}{N-1} + \frac{1}{N} \times \frac{1}{N-2} + \underbrace{...}_\text{N-2} + \frac{1}{N} \times \frac{1}{N-2} + 0 = \frac{1}{N} \times (\frac{1}{N-1} + 1) = \frac{1}{N-1}\)</span></p>
+<p><span class="math inline">\(P(door_m \cap !door_k) = \frac{1}{N} \times \frac{1}{N-2}\)</span></p>
 <p>The final probability of switch to door m would be <span class="math inline">\(\frac{N-1}{(N-2)N}\)</span></p>
 </div><script src="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/js/lightgallery.min.js"></script><script>if (typeof lightGallery !== 'undefined') {
         var options = {
