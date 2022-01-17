@@ -32,7 +32,7 @@
 <meta property="og:image" content="http://zcsheng95.github.io/2020/07/26/latent-model2/interact.png">
 <meta property="og:image" content="http://zcsheng95.github.io/2020/07/26/latent-model2/lda_example_files/lda_example_15_0.png">
 <meta property="article:published_time" content="2020-07-27T04:26:58.000Z">
-<meta property="article:modified_time" content="2020-07-31T20:54:01.000Z">
+<meta property="article:modified_time" content="2022-01-12T19:36:03.503Z">
 <meta property="article:author" content="Zhecheng Sheng">
 <meta property="article:tag" content="Data Science">
 <meta property="article:tag" content="Statistics">
@@ -205,7 +205,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-31 15:54:01" itemprop="dateModified" datetime="2020-07-31T15:54:01-05:00">2020-07-31</time>
+                <time title="Modified: 2022-01-12 13:36:03" itemprop="dateModified" datetime="2022-01-12T13:36:03-06:00">2022-01-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -230,7 +230,7 @@
       
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"<p>In this post we extend the previous discussion about <em>Latent Semantic Analysis</em> to another popular latent model in NLP, especially for topic modeling, <em>Latent Dirichlet Allocation</em>. LDA is a generative model - that is, it provides a probability distribution from which we can generate documents, each of which is composed of generated words. The generative process is implemented using MCMC machinery. Under this post, I will use the implementation in <em>scikit-learn</em> instead of exploring it from scratch. In the future I will revisit this model after getting more firm understanding of various Natural Language Processing methods (<em>word2vec, non-negative matrix factorization, etc.</em>).</p>
 <h4 id="the-dirichlet-distribution">The Dirichlet distribution</h4>
-<p>A random sample from a Dirichlet distribution is a multinomial distribution (a multivariate generalization of the beta distribution), of the same length as the Dirichlet concentration parameter . Below is 5 random samples draw from a Dirichlet distribution with the parameter </p>
+<p>A random sample from a Dirichlet distribution is a multinomial distribution (a multivariate generalization of the beta distribution), of the same length as the Dirichlet concentration parameter <span class="math inline">\(\alpha\)</span>. Below is 5 random samples draw from a Dirichlet distribution with the parameter <span class="math inline">\(\alpha\)</span></p>
 <a id="more"></a>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">alpha = np.array([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>])</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5</span>):</span><br><span class="line">  print(np.random.dirichlet(alpha))</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[0.13192107 0.19200145 0.67607748]</span><br><span class="line">[0.21182332 0.32329972 0.46487696]</span><br><span class="line">[0.00747152 0.39191045 0.60061803]</span><br><span class="line">[0.3626958  0.39636298 0.24094121]</span><br><span class="line">[0.14504415 0.38721339 0.46774246]</span><br></pre></td></tr></table></figure>
@@ -735,7 +735,7 @@ topic
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -779,7 +779,7 @@ topic
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

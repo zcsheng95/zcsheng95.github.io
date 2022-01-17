@@ -180,7 +180,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/09/21/Statistics-Basics/" class="post-title-link" itemprop="url">Statistics Basics</a>
+            <a href="/2021/09/21/Statistics-Basics/" class="post-title-link" itemprop="url">Statistical Building Blocks</a>
         </h2>
 
         <div class="post-meta">
@@ -191,6 +191,22 @@
               <span class="post-meta-item-text">Posted on</span>
 
               <time title="Created: 2021-09-21 23:39:03" itemprop="dateCreated datePublished" datetime="2021-09-21T23:39:03-05:00">2021-09-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-01-17 00:37:35" itemprop="dateModified" datetime="2022-01-17T00:37:35-06:00">2022-01-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Math-and-Statistics/" itemprop="url" rel="index"><span itemprop="name">Math and Statistics</span></a>
+                </span>
             </span>
 
           
@@ -204,13 +220,29 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"
-</div><script src="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/js/lightgallery.min.js"></script><script>if (typeof lightGallery !== 'undefined') {
-        var options = {
-            selector: '.gallery-item'
-        };
-        lightGallery(document.getElementsByClassName('.article-gallery')[0], options);
-        }</script>
+          <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"<p>In some of my quantitative courses, I often find it is important to get familiar with basic properties of random variables or estimators, as it is the building blocks that allow us to access and understand the more complex settings easier. In this post I mean to review some of the fundamental theorems in probability theory and applied statistics people used a lot and shed some lights on the proof. In the future, I will continue to add more sections under this post as I encounter more useful theorems along my study.</p>
+<ul>
+<li>Law of Total Expectation</li>
+<li>Law of Total Variance</li>
+<li>Law of Large Numbers</li>
+<li>Central Limit Theorems</li>
+<li>M-estimating Theory</li>
+<li>Delta Theorem</li>
+<li>Fisher's Information</li>
+<li>Sufficiency</li>
+</ul>
+<h4 id="law-of-total-expectation">Law of Total Expectation</h4>
+<p>There have been many names for this proposition of probability theory, it is known as <strong>the law of total expectation</strong>, <strong>the law of iterated expectation (LIE)</strong>, <strong>The tower rule</strong>,, <strong>Adam's law</strong> and <strong>the smoothing theorem</strong>.</p>
+<p><span class="math display">\[E(X) = E\{E(X|Y)\}\]</span></p>
+<p>That is the expected value of the conditional expectation of <span class="math inline">\(X\)</span> given <span class="math inline">\(Y\)</span> is equal to the expected value of <span class="math inline">\(X\)</span>. It is not hard to figure out that <span class="math inline">\(E\{E(X|Y)\} = \int_{y \in Y} E(X|Y)f_Y(y)dy\)</span> given the <em>lazy statistician rule</em>, because <span class="math inline">\(E(X|Y)\)</span> can be written as <span class="math inline">\(g(Y)\)</span>.</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/09/21/Statistics-Basics/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -489,7 +521,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-31 15:54:01" itemprop="dateModified" datetime="2020-07-31T15:54:01-05:00">2020-07-31</time>
+                <time title="Modified: 2022-01-12 13:36:03" itemprop="dateModified" datetime="2022-01-12T13:36:03-06:00">2022-01-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -514,7 +546,7 @@
       
           <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"<p>In this post we extend the previous discussion about <em>Latent Semantic Analysis</em> to another popular latent model in NLP, especially for topic modeling, <em>Latent Dirichlet Allocation</em>. LDA is a generative model - that is, it provides a probability distribution from which we can generate documents, each of which is composed of generated words. The generative process is implemented using MCMC machinery. Under this post, I will use the implementation in <em>scikit-learn</em> instead of exploring it from scratch. In the future I will revisit this model after getting more firm understanding of various Natural Language Processing methods (<em>word2vec, non-negative matrix factorization, etc.</em>).</p>
 <h4 id="the-dirichlet-distribution">The Dirichlet distribution</h4>
-<p>A random sample from a Dirichlet distribution is a multinomial distribution (a multivariate generalization of the beta distribution), of the same length as the Dirichlet concentration parameter . Below is 5 random samples draw from a Dirichlet distribution with the parameter </p>
+<p>A random sample from a Dirichlet distribution is a multinomial distribution (a multivariate generalization of the beta distribution), of the same length as the Dirichlet concentration parameter <span class="math inline">\(\alpha\)</span>. Below is 5 random samples draw from a Dirichlet distribution with the parameter <span class="math inline">\(\alpha\)</span></p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/07/26/latent-model2/#more" rel="contents">
@@ -1048,7 +1080,7 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -1092,7 +1124,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

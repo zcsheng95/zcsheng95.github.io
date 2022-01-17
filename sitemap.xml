@@ -2,16 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://zcsheng95.github.io/challenges/index.html</loc>
+    <loc>http://zcsheng95.github.io/2021/09/21/Statistics-Basics/</loc>
     
-    <lastmod>2021-10-16T21:53:35.755Z</lastmod>
+    <lastmod>2022-01-17T06:37:35.454Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://zcsheng95.github.io/2021/09/21/Statistics-Basics/</loc>
+    <loc>http://zcsheng95.github.io/2020/07/26/latent-model2/</loc>
     
-    <lastmod>2021-09-22T04:39:03.236Z</lastmod>
+    <lastmod>2022-01-12T19:36:03.503Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://zcsheng95.github.io/challenges/index.html</loc>
+    
+    <lastmod>2021-10-16T21:53:35.755Z</lastmod>
     
   </url>
   
@@ -54,13 +61,6 @@
     <loc>http://zcsheng95.github.io/photos/index.html</loc>
     
     <lastmod>2021-09-18T17:47:47.794Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://zcsheng95.github.io/2020/07/26/latent-model2/</loc>
-    
-    <lastmod>2020-07-31T20:54:01.000Z</lastmod>
     
   </url>
   
