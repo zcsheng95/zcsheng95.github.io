@@ -28,7 +28,7 @@
 <meta property="og:site_name" content="Jeff&#39;s Blog">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-09-22T04:39:03.000Z">
-<meta property="article:modified_time" content="2022-01-17T06:37:35.454Z">
+<meta property="article:modified_time" content="2022-01-20T02:34:49.103Z">
 <meta property="article:author" content="Zhecheng Sheng">
 <meta property="article:tag" content="Statistics">
 <meta name="twitter:card" content="summary">
@@ -198,7 +198,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-17 00:37:35" itemprop="dateModified" datetime="2022-01-17T00:37:35-06:00">2022-01-17</time>
+                <time title="Modified: 2022-01-19 20:34:49" itemprop="dateModified" datetime="2022-01-19T20:34:49-06:00">2022-01-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -233,7 +233,7 @@
 <li>Sufficiency</li>
 </ul>
 <h4 id="law-of-total-expectation">Law of Total Expectation</h4>
-<p>There have been many names for this proposition of probability theory, it is known as <strong>the law of total expectation</strong>, <strong>the law of iterated expectation (LIE)</strong>, <strong>The tower rule</strong>,, <strong>Adam's law</strong> and <strong>the smoothing theorem</strong>.</p>
+<p>There have been many names for this proposition of probability theory, it is known as <strong>the law of total expectation</strong>, <strong>the law of iterated expectation (LIE)</strong>, <strong>The tower rule</strong>, <strong>Adam's law</strong> and <strong>the smoothing theorem</strong>.</p>
 <p><span class="math display">\[E(X) = E\{E(X|Y)\}\]</span></p>
 <p>That is the expected value of the conditional expectation of <span class="math inline">\(X\)</span> given <span class="math inline">\(Y\)</span> is equal to the expected value of <span class="math inline">\(X\)</span>. It is not hard to figure out that <span class="math inline">\(E\{E(X|Y)\} = \int_{y \in Y} E(X|Y)f_Y(y)dy\)</span> given the <em>lazy statistician rule</em>, because <span class="math inline">\(E(X|Y)\)</span> can be written as <span class="math inline">\(g(Y)\)</span>.</p>
 <a id="more"></a>
@@ -246,6 +246,18 @@ E\{E(X|Y)\} &amp;=&amp; E(\sum_xP(X=x|Y)\cdot y)  \nonumber \\
   &amp;=&amp; \sum_x P(X=x) \cdot x = E(X) \nonumber
 \end{eqnarray}\]</span></p>
 <p>For proof in the general case, it requires knowledge from measure theory, for which I will skip for now.</p>
+<h4 id="law-of-total-variance">Law of Total Variance</h4>
+<p>Upon the proof of the law of total (double) expectation, we can further derive the <strong>law of total variance</strong>.</p>
+<p>The law of total variance states:</p>
+<p><span class="math display">\[ Var(Y) = Var(E(Y|X)) + E(Var(Y|X))  \]</span></p>
+<p>Given we have proved double expectation theorem, we can use the conclusion to prove law of total variance.</p>
+<h5 id="proof">Proof</h5>
+<p><span class="math display">\[\begin{eqnarray}
+Var(Y) &amp;=&amp; E\{[Y-E(Y)]^2\} = E(Y^2 - 2 \cdot Y \cdot E(Y) + E(Y)^2)  \nonumber \\
+&amp;=&amp; E(Y^2) - E(Y)^2  = E\{(E(Y^2 | X))\} - E(Y)^2 = E\{Var(Y|X) + E(Y|X)^2\} - E(Y)^2 \nonumber \\
+&amp;=&amp; E(Var(Y|X)) + E(E(Y|X)^2) - E(E(Y|X))^2 = E(Var(Y|X)) + Var(E(Y|X)) \nonumber
+
+\end{eqnarray}\]</span></p>
 </div><script src="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/js/lightgallery.min.js"></script><script>if (typeof lightGallery !== 'undefined') {
         var options = {
             selector: '.gallery-item'
@@ -331,7 +343,7 @@ E\{E(X|Y)\} &amp;=&amp; E(\sum_xP(X=x|Y)\cdot y)  \nonumber \\
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#law-of-total-expectation"><span class="nav-number">1.</span> <span class="nav-text">Law of Total Expectation</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#proof-for-the-finite-case"><span class="nav-number">1.1.</span> <span class="nav-text">Proof for the finite case</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#law-of-total-expectation"><span class="nav-number">1.</span> <span class="nav-text">Law of Total Expectation</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#proof-for-the-finite-case"><span class="nav-number">1.1.</span> <span class="nav-text">Proof for the finite case</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#law-of-total-variance"><span class="nav-number">2.</span> <span class="nav-text">Law of Total Variance</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#proof"><span class="nav-number">2.1.</span> <span class="nav-text">Proof</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
