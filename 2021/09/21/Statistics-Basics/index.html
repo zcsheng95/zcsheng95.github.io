@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 6.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -22,13 +22,15 @@
     var CONFIG = {"hostname":"zcsheng95.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":320,"display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="article">
+  <meta name="description" content="In some of my quantitative courses, I often find it is important to get familiar with basic properties of random variables or estimators, as it is the building blocks that allow us to access and under">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Statistical Building Blocks">
 <meta property="og:url" content="http://zcsheng95.github.io/2021/09/21/Statistics-Basics/index.html">
 <meta property="og:site_name" content="Jeff&#39;s Blog">
+<meta property="og:description" content="In some of my quantitative courses, I often find it is important to get familiar with basic properties of random variables or estimators, as it is the building blocks that allow us to access and under">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-09-22T04:39:03.000Z">
-<meta property="article:modified_time" content="2022-01-20T02:34:49.103Z">
+<meta property="article:modified_time" content="2023-07-22T05:51:31.362Z">
 <meta property="article:author" content="Zhecheng Sheng">
 <meta property="article:tag" content="Statistics">
 <meta name="twitter:card" content="summary">
@@ -198,7 +200,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-19 20:34:49" itemprop="dateModified" datetime="2022-01-19T20:34:49-06:00">2022-01-19</time>
+                <time title="Modified: 2023-07-22 00:51:31" itemprop="dateModified" datetime="2023-07-22T00:51:31-05:00">2023-07-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -221,7 +223,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"<p>In some of my quantitative courses, I often find it is important to get familiar with basic properties of random variables or estimators, as it is the building blocks that allow us to access and understand the more complex settings easier. In this post I mean to review some of the fundamental theorems in probability theory and applied statistics people used a lot and shed some lights on the proof. In the future, I will continue to add more sections under this post as I encounter more useful theorems along my study.</p>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"><p>In some of my quantitative courses, I often find it is important to
+get familiar with basic properties of random variables or estimators, as
+it is the building blocks that allow us to access and understand the
+more complex settings easier. In this post I mean to review some of the
+fundamental theorems in probability theory and applied statistics people
+used a lot and shed some lights on the proof. In the future, I will
+continue to add more sections under this post as I encounter more useful
+theorems along my study.</p>
 <ul>
 <li>Law of Total Expectation</li>
 <li>Law of Total Variance</li>
@@ -233,31 +242,79 @@
 <li>Sufficiency</li>
 </ul>
 <h4 id="law-of-total-expectation">Law of Total Expectation</h4>
-<p>There have been many names for this proposition of probability theory, it is known as <strong>the law of total expectation</strong>, <strong>the law of iterated expectation (LIE)</strong>, <strong>The tower rule</strong>, <strong>Adam's law</strong> and <strong>the smoothing theorem</strong>.</p>
-<p><span class="math display">\[E(X) = E\{E(X|Y)\}\]</span></p>
-<p>That is the expected value of the conditional expectation of <span class="math inline">\(X\)</span> given <span class="math inline">\(Y\)</span> is equal to the expected value of <span class="math inline">\(X\)</span>. It is not hard to figure out that <span class="math inline">\(E\{E(X|Y)\} = \int_{y \in Y} E(X|Y)f_Y(y)dy\)</span> given the <em>lazy statistician rule</em>, because <span class="math inline">\(E(X|Y)\)</span> can be written as <span class="math inline">\(g(Y)\)</span>.</p>
+<p>There have been many names for this proposition of probability
+theory, it is known as <strong>the law of total expectation</strong>,
+<strong>the law of iterated expectation (LIE)</strong>, <strong>The
+tower rule</strong>, <strong>Adam's law</strong> and <strong>the
+smoothing theorem</strong>.</p>
+<p><span class="math display">\[E(X) = E[E(X|Y)]\]</span></p>
+<p>That is the expected value of the conditional expectation of <span
+class="math inline">\(X\)</span> given <span
+class="math inline">\(Y\)</span> is equal to the expected value of <span
+class="math inline">\(X\)</span>. It is not hard to figure out that
+<span class="math inline">\(E[E(X|Y)] = \int_{y \in Y}
+E(X|Y)f_Y(y)dy\)</span> given the <em>lazy statistician rule</em>,
+because <span class="math inline">\(E(X|Y)\)</span> can be written as
+<span class="math inline">\(g(Y)\)</span>.</p>
 <a id="more"></a>
-<h5 id="proof-for-the-finite-case">Proof for the finite case</h5>
-<p>Consider the finite case where the <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are in the same probability space <span class="math inline">\(\Omega\)</span> with a finite or countably infinite set of finite values.</p>
-<p>Assume <span class="math inline">\(E(X)\)</span> is well defined and <span class="math inline">\(\{Y_i\}\)</span> is also defined in probability space <span class="math inline">\(\Omega\)</span>, then <span class="math inline">\(E(X) = \sum_iE(X|Y_i)P(Y_i)\)</span>.</p>
-<p><span class="math display">\[\begin{eqnarray}
-E\{E(X|Y)\} &amp;=&amp; E(\sum_xP(X=x|Y)\cdot y)  \nonumber \\
-  &amp;=&amp; \sum_y{\sum_x(P(X=x|Y)\cdot y) \cdot P(Y = y)} &amp;=&amp; \sum_y \sum_x P(X=x, Y =y) \cdot x \nonumber \\
-  &amp;=&amp; \sum_x P(X=x) \cdot x = E(X) \nonumber
-\end{eqnarray}\]</span></p>
-<p>For proof in the general case, it requires knowledge from measure theory, for which I will skip for now.</p>
-<h4 id="law-of-total-variance">Law of Total Variance</h4>
-<p>Upon the proof of the law of total (double) expectation, we can further derive the <strong>law of total variance</strong>.</p>
-<p>The law of total variance states:</p>
-<p><span class="math display">\[ Var(Y) = Var(E(Y|X)) + E(Var(Y|X))  \]</span></p>
-<p>Given we have proved double expectation theorem, we can use the conclusion to prove law of total variance.</p>
 <h5 id="proof">Proof</h5>
+<!---Consider the finite case where the $X$ and $Y$ are in the same probability space $\Omega$ with a finite or countably infinite set of finite values.
+
+Assume $E(X)$ is well defined and $\{Y_i\}$ is also defined in probability space $\Omega$, then $E(X) = \sum_iE(X|Y_i)P(Y_i)$.
+
+
+
+
+\begin{eqnarray}
+E\{E(X|Y)\} &=& E(\sum_xP(X=x|Y)\cdot y)  \nonumber \\
+  &=& \sum_y{\sum_x(P(X=x|Y)\cdot y) \cdot P(Y = y)} &=& \sum_y \sum_x P(X=x, Y =y) \cdot x \nonumber \\
+  &=& \sum_x P(X=x) \cdot x = E(X) \nonumber
+\end{eqnarray}
+
+For proof in the general case, it requires knowledge from measure theory, for which I will skip for now.--->
+<p>Assume <span class="math inline">\(X\)</span> and <span
+class="math inline">\(Y\)</span> are two random variables and their
+probability density functions are well-defined, one can write down the
+derivation</p>
 <p><span class="math display">\[\begin{eqnarray}
-Var(Y) &amp;=&amp; E\{[Y-E(Y)]^2\} = E(Y^2 - 2 \cdot Y \cdot E(Y) + E(Y)^2)  \nonumber \\
-&amp;=&amp; E(Y^2) - E(Y)^2  = E\{(E(Y^2 | X))\} - E(Y)^2 = E\{Var(Y|X) + E(Y|X)^2\} - E(Y)^2 \nonumber \\
-&amp;=&amp; E(Var(Y|X)) + E(E(Y|X)^2) - E(E(Y|X))^2 = E(Var(Y|X)) + Var(E(Y|X)) \nonumber
+E(X) &amp;=&amp; \int_x f_X(x)dx \nonumber \\
+&amp;=&amp; \int_x x\int_yf_{X,Y}(x,y)dxdy \nonumber \\
+&amp;=&amp;  \int_x x \int_y f_{X|Y}(x)dx f_Y(y)dy \nonumber \\
+&amp;=&amp; \int_y [\int_x xf_{X|Y}(x|y)dx] f_Y(y)dy \nonumber \\
+&amp;=&amp; \int_yE[X|Y] f_Y(y)dy \nonumber\\
+&amp;=&amp; E[E[X|Y]] \nonumber
+\end{eqnarray}\]</span></p>
+<p>In general, the order of integrations is not exchangable, with the
+exception the integration of <span
+class="math inline">\(|f(x,y)|\)</span> converges. (<a
+target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Fubini%27s_theorem">Fubini's
+theorem</a>) Note there are other ways to prove under weaker
+assumptions.</p>
+<h4 id="law-of-total-variance">Law of Total Variance</h4>
+<p>Upon the proof of the law of total (double) expectation, we can
+further derive the <strong>law of total variance</strong>.</p>
+<p>The law of total variance states:</p>
+<p><span class="math display">\[ Var(Y) = Var(E(Y|X)) +
+E(Var(Y|X))  \]</span></p>
+<p>Given we have proved double expectation theorem, we can use the
+conclusion to prove law of total variance.</p>
+<h5 id="proof-1">Proof</h5>
+<p><span class="math display">\[\begin{eqnarray}
+Var(Y) &amp;=&amp; E[(Y-E(Y))^2] \nonumber \\
+&amp;=&amp; E(Y^2 - 2 \cdot Y \cdot E(Y) + E(Y)^2)  \nonumber \\
+&amp;=&amp; E(Y^2) - E(Y)^2  \nonumber \\
+&amp;=&amp; E[(E(Y^2 | X))] - E(Y)^2  \nonumber \\
+&amp;=&amp; E[Var(Y|X) + E(Y|X)^2] - E(Y)^2 \nonumber \\
+&amp;=&amp; E(Var(Y|X)) + E(E(Y|X)^2) - E(E(Y|X))^2  \nonumber \\
+&amp;=&amp; E(Var(Y|X)) + Var(E(Y|X)) \nonumber
 
 \end{eqnarray}\]</span></p>
+<h4 id="law-of-large-numbers">Law of Large Numbers</h4>
+<p>In probability theory, the law of large number(LLN) describes when
+performing experiments a large number of times, the average of the
+results will converge to the expected value as the number of trials
+increase. To note that law of large number only applies to the sample
+mean.</p>
 </div><script src="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/js/lightgallery.min.js"></script><script>if (typeof lightGallery !== 'undefined') {
         var options = {
             selector: '.gallery-item'
@@ -343,7 +400,7 @@ Var(Y) &amp;=&amp; E\{[Y-E(Y)]^2\} = E(Y^2 - 2 \cdot Y \cdot E(Y) + E(Y)^2)  \no
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#law-of-total-expectation"><span class="nav-number">1.</span> <span class="nav-text">Law of Total Expectation</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#proof-for-the-finite-case"><span class="nav-number">1.1.</span> <span class="nav-text">Proof for the finite case</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#law-of-total-variance"><span class="nav-number">2.</span> <span class="nav-text">Law of Total Variance</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#proof"><span class="nav-number">2.1.</span> <span class="nav-text">Proof</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#law-of-total-expectation"><span class="nav-number">1.</span> <span class="nav-text">Law of Total Expectation</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#proof"><span class="nav-number">1.1.</span> <span class="nav-text">Proof</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#law-of-total-variance"><span class="nav-number">2.</span> <span class="nav-text">Law of Total Variance</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#proof-1"><span class="nav-number">2.1.</span> <span class="nav-text">Proof</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#law-of-large-numbers"><span class="nav-number">3.</span> <span class="nav-text">Law of Large Numbers</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -407,7 +464,7 @@ Var(Y) &amp;=&amp; E\{[Y-E(Y)]^2\} = E(Y^2 - 2 \cdot Y \cdot E(Y) + E(Y)^2)  \no
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

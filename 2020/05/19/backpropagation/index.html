@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 6.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -22,10 +22,12 @@
     var CONFIG = {"hostname":"zcsheng95.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":320,"display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="article">
+  <meta name="description" content="Back propagation is an algorithm computing all those complicated gradients in deep neural networks in order to achieve minimum of cost function. Instead of thinking each weights&#x2F;bias as direction in a">
+<meta property="og:type" content="article">
 <meta property="og:title" content="About Back Propagation">
 <meta property="og:url" content="http://zcsheng95.github.io/2020/05/19/backpropagation/index.html">
 <meta property="og:site_name" content="Jeff&#39;s Blog">
+<meta property="og:description" content="Back propagation is an algorithm computing all those complicated gradients in deep neural networks in order to achieve minimum of cost function. Instead of thinking each weights&#x2F;bias as direction in a">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://zcsheng95.github.io/2020/05/19/backpropagation/Exp1.png">
 <meta property="article:published_time" content="2020-05-19T05:13:38.000Z">
@@ -225,34 +227,115 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"<p>Back propagation is an algorithm computing all those complicated gradients in deep neural networks in order to achieve minimum of cost function. Instead of thinking each weights/bias as direction in a high dimensional space, one can see the value as how sensitive the cost function is to each weight and bias. One can not directly change the activation but can only adjust the weight and bias. However, we are aware which direction we want this activation value to go. Back propagation basically improves those neurons which positively activates the correct output unit and undermine the activation for other wrong output units. <a id="more"></a></p>
-<p>We could manipulate the output unit by nudging <strong>weight</strong>(proportional corresponding activation), <strong>bias</strong>, or <strong>activation</strong>(indirectly, proportional to corresponding weight) from previous layer. <strong>Back Propagation</strong> utilizes the concepts of Chain Rule in Calculus to update weights and biases.</p>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"><p>Back propagation is an algorithm computing all those complicated
+gradients in deep neural networks in order to achieve minimum of cost
+function. Instead of thinking each weights/bias as direction in a high
+dimensional space, one can see the value as how sensitive the cost
+function is to each weight and bias. One can not directly change the
+activation but can only adjust the weight and bias. However, we are
+aware which direction we want this activation value to go. Back
+propagation basically improves those neurons which positively activates
+the correct output unit and undermine the activation for other wrong
+output units. <a id="more"></a></p>
+<p>We could manipulate the output unit by nudging
+<strong>weight</strong>(proportional corresponding activation),
+<strong>bias</strong>, or <strong>activation</strong>(indirectly,
+proportional to corresponding weight) from previous layer. <strong>Back
+Propagation</strong> utilizes the concepts of Chain Rule in Calculus to
+update weights and biases.</p>
 <h4 id="minimum-example">Minimum example</h4>
-<p>Let's start from an extreme simple sample where a network with 3 hidden layers and each layer has only one neuron.</p>
+<p>Let's start from an extreme simple sample where a network with 3
+hidden layers and each layer has only one neuron.</p>
 <p><a href="Exp1.png" class="gallery-item"><img src="Exp1.png" /></a></p>
-<p>The goal is to minimize the cost function <span class="math inline">\(C_0\)</span>, which is defined as <span class="math inline">\((a^{(L)} - y )^2\)</span>, <span class="math inline">\(a^{(L)}\)</span> denotes the <span class="math inline">\(L^{th}\)</span> activation vector.</p>
-<p>Sequentially, activation <span class="math inline">\(a^{(L)}\)</span> can be written as the weighted sum plus the bias of the previous layer <span class="math inline">\(a^{(L)} = \sigma(w^{(L)}a^{(L-1)} + b^{(L)}) = \sigma(z^{(L)})\)</span>, <span class="math inline">\(\sigma\)</span> is any activation function like sigmoid or ReLU. By calculating the gradient, we access how sensitive the cost function is to tiny nudges of weight and biases. Step back one layer, we have:</p>
-<p><span class="math display">\[\frac{\partial C_0}{\partial w^{L}} = \frac{\partial z^{(L)}}{\partial w^{(L)}}\cdot\frac{\partial a^{(L)}}{\partial z^{(L)}}\cdot\frac{\partial C_0}{\partial a^{(L)}}\]</span></p>
-<p><span class="math display">\[\frac{\partial z^{(L)}}{\partial w^{(L)}} = a^{(L-1)}\]</span></p>
-<p><span class="math display">\[\frac{\partial a^{(L)}}{\partial z^{(L)}} = \sigma^{&#39;}(z^{(L)})\]</span></p>
-<p><span class="math display">\[\frac{\partial C_0}{\partial a^{(L)}} = 2\cdot(a^{(L)}-y)\]</span></p>
+<p>The goal is to minimize the cost function <span
+class="math inline">\(C_0\)</span>, which is defined as <span
+class="math inline">\((a^{(L)} - y )^2\)</span>, <span
+class="math inline">\(a^{(L)}\)</span> denotes the <span
+class="math inline">\(L^{th}\)</span> activation vector.</p>
+<p>Sequentially, activation <span class="math inline">\(a^{(L)}\)</span>
+can be written as the weighted sum plus the bias of the previous layer
+<span class="math inline">\(a^{(L)} = \sigma(w^{(L)}a^{(L-1)} + b^{(L)})
+= \sigma(z^{(L)})\)</span>, <span class="math inline">\(\sigma\)</span>
+is any activation function like sigmoid or ReLU. By calculating the
+gradient, we access how sensitive the cost function is to tiny nudges of
+weight and biases. Step back one layer, we have:</p>
+<p><span class="math display">\[\frac{\partial C_0}{\partial w^{L}} =
+\frac{\partial z^{(L)}}{\partial w^{(L)}}\cdot\frac{\partial
+a^{(L)}}{\partial z^{(L)}}\cdot\frac{\partial C_0}{\partial
+a^{(L)}}\]</span></p>
+<p><span class="math display">\[\frac{\partial z^{(L)}}{\partial
+w^{(L)}} = a^{(L-1)}\]</span></p>
+<p><span class="math display">\[\frac{\partial a^{(L)}}{\partial
+z^{(L)}} = \sigma^{&#39;}(z^{(L)})\]</span></p>
+<p><span class="math display">\[\frac{\partial C_0}{\partial a^{(L)}} =
+2\cdot(a^{(L)}-y)\]</span></p>
 <p>Finally we obtain:</p>
-<p><span class="math display">\[\frac{\partial C_0}{\partial w^{L}} = 2\cdot a^{(L-1)} \cdot \sigma^{&#39;}(z^{(L)}) \cdot (a^{(L)}-y)\]</span></p>
-<p>Similarly we could compute <span class="math inline">\(\frac{\partial C_0}{\partial b^{L}} = \sigma^{&#39;}(z^{(L)}) \cdot 2\cdot(a^{(L)}-y)\)</span> and how sensitive the cost function to the change of activation <span class="math inline">\(\frac{\partial C_0}{\partial a^{(L-1)}} = w^{(L-1)}\cdot \sigma^{&#39;}(z^{(L)}) \cdot 2\cdot(a^{(L)}-y)\)</span></p>
+<p><span class="math display">\[\frac{\partial C_0}{\partial w^{L}} =
+2\cdot a^{(L-1)} \cdot \sigma^{&#39;}(z^{(L)}) \cdot
+(a^{(L)}-y)\]</span></p>
+<p>Similarly we could compute <span class="math inline">\(\frac{\partial
+C_0}{\partial b^{L}} = \sigma^{&#39;}(z^{(L)}) \cdot
+2\cdot(a^{(L)}-y)\)</span> and how sensitive the cost function to the
+change of activation <span class="math inline">\(\frac{\partial
+C_0}{\partial a^{(L-1)}} = w^{(L-1)}\cdot \sigma^{&#39;}(z^{(L)}) \cdot
+2\cdot(a^{(L)}-y)\)</span></p>
 <h4 id="generalization">Generalization</h4>
-<p>When we have multiple neurons in each layer, we use <span class="math inline">\(a_k^{(L-1)}\)</span> to index the activation value of layer <span class="math inline">\(L-1\)</span> and <span class="math inline">\(a_j^{(L)}\)</span> to index the activation value of layer <span class="math inline">\(L\)</span> and <span class="math inline">\(y_j\)</span> to index <span class="math inline">\(j^{th}\)</span> class among all labels. So the cost function becomes the average of quadratic difference across all labels, <span class="math inline">\(C_0 = \Sigma_{j=1}^{n_L}(a_j^{(L)} - y_j)^2\)</span>. And we will also need to change the index of the weight vector. For example, <span class="math inline">\(w_{jk}^{(L)}\)</span> is the weight between <span class="math inline">\(a_k^{(L-1)}\)</span> and <span class="math inline">\(a_j^{(L)}\)</span> that is <span class="math inline">\(z_j^{(L)} = w_{j1}^{(L-1)}\cdot a_1^{(L-1)} + w_{j2}^{(L-1)}\cdot a_2^{(L-1)} + ... + w_{jk}\cdot a_k^{(L-1)} + b^{(L)}\)</span> and <span class="math inline">\(a_j^{(L)} = \sigma(z_j^{(L)})\)</span></p>
-<p>The chained derivative of <span class="math inline">\(\frac{\partial C_0}{\partial a_k^{(L-1)}}\)</span> will change, as the change of one neuron from previous layer will effect all output units respectively.</p>
-<p><span class="math display">\[\frac{\partial C_0}{\partial a_k^{(L-1)}} = 2\cdot\underbrace{\Sigma_{j=1}^{n_L}w_{jk}^{(L-1)}\cdot \sigma^{&#39;}(z_j^{(L)})\cdot (a_j^{(L)}-y)}_\text{Sum Over Layer L}\]</span></p>
-<p>Combining the above information, we could write out all the components in the gradient: <span class="math display">\[ \nabla C =\begin{bmatrix} \frac{\partial C_0}{\partial w_{11}^{1}} \\ \frac{\partial C_0}{\partial w_{12}^{1}} \\ \frac{\partial C_0}{\partial w_{13}^{1}} \\ ...\\\frac{\partial C_0}{\partial b^{1}}\\...\\ \frac{\partial C_0}{\partial b^{L}}\end{bmatrix}\]</span></p>
+<p>When we have multiple neurons in each layer, we use <span
+class="math inline">\(a_k^{(L-1)}\)</span> to index the activation value
+of layer <span class="math inline">\(L-1\)</span> and <span
+class="math inline">\(a_j^{(L)}\)</span> to index the activation value
+of layer <span class="math inline">\(L\)</span> and <span
+class="math inline">\(y_j\)</span> to index <span
+class="math inline">\(j^{th}\)</span> class among all labels. So the
+cost function becomes the average of quadratic difference across all
+labels, <span class="math inline">\(C_0 = \Sigma_{j=1}^{n_L}(a_j^{(L)} -
+y_j)^2\)</span>. And we will also need to change the index of the weight
+vector. For example, <span class="math inline">\(w_{jk}^{(L)}\)</span>
+is the weight between <span class="math inline">\(a_k^{(L-1)}\)</span>
+and <span class="math inline">\(a_j^{(L)}\)</span> that is <span
+class="math inline">\(z_j^{(L)} = w_{j1}^{(L-1)}\cdot a_1^{(L-1)} +
+w_{j2}^{(L-1)}\cdot a_2^{(L-1)} + ... + w_{jk}\cdot a_k^{(L-1)} +
+b^{(L)}\)</span> and <span class="math inline">\(a_j^{(L)} =
+\sigma(z_j^{(L)})\)</span></p>
+<p>The chained derivative of <span class="math inline">\(\frac{\partial
+C_0}{\partial a_k^{(L-1)}}\)</span> will change, as the change of one
+neuron from previous layer will effect all output units
+respectively.</p>
+<p><span class="math display">\[\frac{\partial C_0}{\partial
+a_k^{(L-1)}} = 2\cdot\underbrace{\Sigma_{j=1}^{n_L}w_{jk}^{(L-1)}\cdot
+\sigma^{&#39;}(z_j^{(L)})\cdot (a_j^{(L)}-y)}_\text{Sum Over Layer
+L}\]</span></p>
+<p>Combining the above information, we could write out all the
+components in the gradient: <span class="math display">\[ \nabla C
+=\begin{bmatrix} \frac{\partial C_0}{\partial w_{11}^{1}} \\
+\frac{\partial C_0}{\partial w_{12}^{1}} \\ \frac{\partial C_0}{\partial
+w_{13}^{1}} \\ ...\\\frac{\partial C_0}{\partial b^{1}}\\...\\
+\frac{\partial C_0}{\partial b^{L}}\end{bmatrix}\]</span></p>
 <p>And we could calculate back propagation for those components:</p>
-<p><span class="math display">\[ \frac{\partial C_0}{\partial w_{jk}^{l}} = \begin{cases}
-a^{(l-1)} \cdot \sigma^{&#39;}(z^{(l)})\underbrace{\frac{\partial C_0}{\partial a^{(l)}}}_{\Sigma_{j=1}^{n_{l+1}}w_{jk}^{(l)}\cdot \sigma^{&#39;}(z_j^{(l+1)})\cdot \frac{\partial C_0}{\partial a_k^{(l+1)}}}, &amp; \text{if l &lt; L}\\
-2\cdot a^{(l-1)} \cdot \sigma^{&#39;}(z^{(l)}) \cdot (a^{(l)}-y), &amp; \text{if l = L}
+<p><span class="math display">\[ \frac{\partial C_0}{\partial
+w_{jk}^{l}} = \begin{cases}
+a^{(l-1)} \cdot \sigma^{&#39;}(z^{(l)})\underbrace{\frac{\partial
+C_0}{\partial a^{(l)}}}_{\Sigma_{j=1}^{n_{l+1}}w_{jk}^{(l)}\cdot
+\sigma^{&#39;}(z_j^{(l+1)})\cdot \frac{\partial C_0}{\partial
+a_k^{(l+1)}}}, &amp; \text{if l &lt; L}\\
+2\cdot a^{(l-1)} \cdot \sigma^{&#39;}(z^{(l)}) \cdot (a^{(l)}-y), &amp;
+\text{if l = L}
 \end{cases}\]</span></p>
-<p><span class="math display">\[\frac{\partial C_0}{\partial b^{l}} = \sigma^{&#39;}(z^{(l)}) \cdot \frac{\partial C_0}{\partial a^{(l)}}\]</span></p>
-<p><span class="math inline">\(L\)</span> denotes the output layer in the above formula and the cases of <span class="math inline">\(\frac{\partial C_0}{\partial a^{(l)}}\)</span> while calculating the derivative for bias.</p>
-<p>As one can observe that the calculation of back propagation is computationally heavy when we have tons of samples, that is the intuition why people bring up down-sampling strategies like <em>Mini-Batch Gradient Descent</em> and <em>Stochastic Gradient Descent</em>.</p>
-<p>Reference: <a href="https://www.youtube.com/watch?v=tIeHLnjs5U8" target="_blank" rel="noopener">Backpropagation calculus | Deep learning, chapter 4</a></p>
+<p><span class="math display">\[\frac{\partial C_0}{\partial b^{l}} =
+\sigma^{&#39;}(z^{(l)}) \cdot \frac{\partial C_0}{\partial
+a^{(l)}}\]</span></p>
+<p><span class="math inline">\(L\)</span> denotes the output layer in
+the above formula and the cases of <span
+class="math inline">\(\frac{\partial C_0}{\partial a^{(l)}}\)</span>
+while calculating the derivative for bias.</p>
+<p>As one can observe that the calculation of back propagation is
+computationally heavy when we have tons of samples, that is the
+intuition why people bring up down-sampling strategies like
+<em>Mini-Batch Gradient Descent</em> and <em>Stochastic Gradient
+Descent</em>.</p>
+<p>Reference: <a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=tIeHLnjs5U8">Backpropagation
+calculus | Deep learning, chapter 4</a></p>
 </div><script src="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/js/lightgallery.min.js"></script><script>if (typeof lightGallery !== 'undefined') {
         var options = {
             selector: '.gallery-item'
@@ -407,7 +490,7 @@ a^{(l-1)} \cdot \sigma^{&#39;}(z^{(l)})\underbrace{\frac{\partial C_0}{\partial 
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 6.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -22,10 +22,12 @@
     var CONFIG = {"hostname":"zcsheng95.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":320,"display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="article">
+  <meta name="description" content="In survival analysis we would like to model the distribution of survival time \(T\) for a specific outcome in a given population and make inference on the attributes of the population. Survival Basics">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Survival in a Nutshell">
 <meta property="og:url" content="http://zcsheng95.github.io/2021/09/18/survival-in-a-nutshell/index.html">
 <meta property="og:site_name" content="Jeff&#39;s Blog">
+<meta property="og:description" content="In survival analysis we would like to model the distribution of survival time \(T\) for a specific outcome in a given population and make inference on the attributes of the population. Survival Basics">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://zcsheng95.github.io/2021/09/18/survival-in-a-nutshell/gamma_dist.jpg">
 <meta property="article:published_time" content="2021-09-18T16:44:17.000Z">
@@ -209,100 +211,159 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"<p>In survival analysis we would like to model the distribution of survival time <span class="math inline">\(T\)</span> for a specific outcome in a given population and make inference on the attributes of the population.</p>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"><p>In survival analysis we would like to model the distribution of
+survival time <span class="math inline">\(T\)</span> for a specific
+outcome in a given population and make inference on the attributes of
+the population.</p>
 <h3 id="survival-basics">Survival Basics</h3>
-<p>Survival time <span class="math inline">\(T\)</span> is a <strong>Random Variable</strong> with probability density function <span class="math inline">\(f(t)\)</span></p>
+<p>Survival time <span class="math inline">\(T\)</span> is a
+<strong>Random Variable</strong> with probability density function <span
+class="math inline">\(f(t)\)</span></p>
 <ul>
-<li><p>survival function: <span class="math inline">\(S(t) = P(T \ge t) = 1 - F(t)\)</span></p></li>
-<li><p>hazard function: <span class="math inline">\(h(t) = \lim_{dt \to 0}Pr(T \in [t, t+dt] \mid T \ge t)\)</span></p></li>
-<li><p>cumulative hazard function: <span class="math inline">\(H(t) = \int_0^t h(\mu)d\mu\)</span></p></li>
+<li><p>survival function: <span class="math inline">\(S(t) = P(T \ge t)
+= 1 - F(t)\)</span></p></li>
+<li><p>hazard function: <span class="math inline">\(h(t) = \lim_{dt \to
+0}Pr(T \in [t, t+dt] \mid T \ge t)\)</span></p></li>
+<li><p>cumulative hazard function: <span class="math inline">\(H(t) =
+\int_0^t h(\mu)d\mu\)</span></p></li>
 </ul>
 <h4 id="relations">Relations</h4>
 <p>( Easy to derive with calculus...)</p>
 <ul>
-<li><p><span class="math inline">\(h(t) = \frac{f(t)}{S(t)}\)</span></p></li>
+<li><p><span class="math inline">\(h(t) =
+\frac{f(t)}{S(t)}\)</span></p></li>
 <li><p><span class="math inline">\(H(t) = -log(S(t))\)</span></p></li>
 </ul>
 <p><a id="more"></a></p>
-<h4 id="why-study-hazard-function-ht-instead-of-ft">Why study hazard function <span class="math inline">\(h(t)\)</span> instead of <span class="math inline">\(f(t)\)</span></h4>
+<h4 id="why-study-hazard-function-ht-instead-of-ft">Why study hazard
+function <span class="math inline">\(h(t)\)</span> instead of <span
+class="math inline">\(f(t)\)</span></h4>
 <ol type="1">
 <li>Interpretability</li>
 <li>Analytic simplification</li>
 <li>Modeling sensibility</li>
 <li>Straightforward to understand how the hazard changes with time</li>
 </ol>
-<h3 id="distribution-of-t">Distribution of <span class="math inline">\(T\)</span></h3>
-<p>Parametric distribution for characterizing the surviavl time <span class="math inline">\(T\)</span></p>
+<h3 id="distribution-of-t">Distribution of <span
+class="math inline">\(T\)</span></h3>
+<p>Parametric distribution for characterizing the surviavl time <span
+class="math inline">\(T\)</span></p>
 <h4 id="exponential">Exponential</h4>
 <ul>
 <li><span class="math inline">\(T \sim Exp(\lambda)\)</span></li>
-<li><span class="math inline">\(E(T) = \frac{1}{\lambda}\, ,Var(T) = \frac{1}{\lambda^2}\)</span></li>
-<li>memoryless property: <span class="math inline">\(Pr(T \gt t) = Pr(T \gt t+s \mid T \gt s)\)</span></li>
-<li><span class="math inline">\(c \cdot Exp(\lambda) \sim Exp(\frac{\lambda}{c})\)</span> for <span class="math inline">\(c \gt 0\)</span></li>
+<li><span class="math inline">\(E(T) = \frac{1}{\lambda}\, ,Var(T) =
+\frac{1}{\lambda^2}\)</span></li>
+<li>memoryless property: <span class="math inline">\(Pr(T \gt t) = Pr(T
+\gt t+s \mid T \gt s)\)</span></li>
+<li><span class="math inline">\(c \cdot Exp(\lambda) \sim
+Exp(\frac{\lambda}{c})\)</span> for <span class="math inline">\(c \gt
+0\)</span></li>
 </ul>
 <h4 id="gamma">Gamma</h4>
 <ul>
-<li><span class="math inline">\(T \sim Gamma(\alpha, \lambda)\)</span></li>
-<li><span class="math inline">\(f(t) = \frac{\lambda^\alpha{t}^{\alpha-1}\mathrm{e}^{-\lambda{t}}}{\Gamma(\alpha)} \propto t^{\alpha-1}\mathrm{e}^{-\lambda{t}}\)</span>, where <span class="math inline">\({\Gamma(\alpha)} = \int_{0}^\infty {t^{\alpha-1}\mathrm{e}^{-{t}}}\,dt\)</span></li>
-<li>if <span class="math inline">\(\alpha\)</span> is integer then <span class="math inline">\(\Gamma(\alpha) = (\alpha -1)!\)</span></li>
-<li>There is no close form for <span class="math inline">\(S(t)\)</span> or <span class="math inline">\(h(t)\)</span></li>
-<li><span class="math inline">\(E(T) = \frac{\alpha}{\lambda}\, ,Var(T) = \frac{\alpha}{\lambda^2}\)</span></li>
-<li>if <span class="math inline">\(T_i \sim Gamma(\alpha_i, \lambda)\, , i = 1,2,...,k\)</span> and <span class="math inline">\(T_i\)</span> are mutually independent:</li>
+<li><span class="math inline">\(T \sim Gamma(\alpha,
+\lambda)\)</span></li>
+<li><span class="math inline">\(f(t) =
+\frac{\lambda^\alpha{t}^{\alpha-1}\mathrm{e}^{-\lambda{t}}}{\Gamma(\alpha)}
+\propto t^{\alpha-1}\mathrm{e}^{-\lambda{t}}\)</span>, where <span
+class="math inline">\({\Gamma(\alpha)} = \int_{0}^\infty
+{t^{\alpha-1}\mathrm{e}^{-{t}}}\,dt\)</span></li>
+<li>if <span class="math inline">\(\alpha\)</span> is integer then <span
+class="math inline">\(\Gamma(\alpha) = (\alpha -1)!\)</span></li>
+<li>There is no close form for <span class="math inline">\(S(t)\)</span>
+or <span class="math inline">\(h(t)\)</span></li>
+<li><span class="math inline">\(E(T) = \frac{\alpha}{\lambda}\, ,Var(T)
+= \frac{\alpha}{\lambda^2}\)</span></li>
+<li>if <span class="math inline">\(T_i \sim Gamma(\alpha_i, \lambda)\, ,
+i = 1,2,...,k\)</span> and <span class="math inline">\(T_i\)</span> are
+mutually independent:</li>
 </ul>
-<p><span class="math display">\[ \sum_{i=1}^k T_i \sim Gamma(\sum{i=1}^k \alpha_i, \lambda)\]</span></p>
+<p><span class="math display">\[ \sum_{i=1}^k T_i \sim Gamma(\sum{i=1}^k
+\alpha_i, \lambda)\]</span></p>
 <ul>
-<li><span class="math inline">\(Gamma(1, \lambda) \sim Exp(\lambda)\)</span></li>
-<li><span class="math inline">\(2\lambda \cdot \Gamma(k/2, \alpha) \sim \chi_k^2,\)</span> for <span class="math inline">\(k = 1,2,...\)</span></li>
+<li><span class="math inline">\(Gamma(1, \lambda) \sim
+Exp(\lambda)\)</span></li>
+<li><span class="math inline">\(2\lambda \cdot \Gamma(k/2, \alpha) \sim
+\chi_k^2,\)</span> for <span class="math inline">\(k =
+1,2,...\)</span></li>
 </ul>
 <p><a href="gamma_dist.jpg" class="gallery-item"><img src="gamma_dist.jpg" /></a></p>
 <h4 id="weibull">Weibull</h4>
 <ul>
 <li><span class="math inline">\(Weibull(\lambda, \rho)\)</span>
 <ul>
-<li><span class="math inline">\(\lambda \gt 0\)</span>, scale parameter</li>
-<li><span class="math inline">\(\rho \gt 0\)</span>, shape parameter</li>
+<li><span class="math inline">\(\lambda \gt 0\)</span>, scale
+parameter</li>
+<li><span class="math inline">\(\rho \gt 0\)</span>, shape
+parameter</li>
 </ul></li>
-<li><span class="math inline">\(S(t) = \mathrm{e}^{-(\lambda t)^{\rho}}\)</span></li>
-<li><span class="math inline">\(f(t) = \rho\lambda(\lambda t)^{\rho -1} \mathrm{e}^{-(\lambda t)^{\rho}} \propto t^{\rho -1}\mathrm{e}^{-(\lambda t)^{\rho}}\)</span></li>
-<li><span class="math inline">\(h(t) = \rho\lambda(\lambda t)^{\rho -1} \propto t^{\rho -1}\)</span></li>
+<li><span class="math inline">\(S(t) = \mathrm{e}^{-(\lambda
+t)^{\rho}}\)</span></li>
+<li><span class="math inline">\(f(t) = \rho\lambda(\lambda t)^{\rho -1}
+\mathrm{e}^{-(\lambda t)^{\rho}} \propto t^{\rho
+-1}\mathrm{e}^{-(\lambda t)^{\rho}}\)</span></li>
+<li><span class="math inline">\(h(t) = \rho\lambda(\lambda t)^{\rho -1}
+\propto t^{\rho -1}\)</span></li>
 <li><span class="math inline">\(H(t) = (\lambda t)^{\rho}\)</span></li>
-<li><span class="math inline">\(Weibull(\lambda, 1) \sim Exp(\lambda)\)</span></li>
-<li><span class="math inline">\(Weibull(\lambda, \rho) \sim {Exp(\lambda ^ {\rho})}^\frac{1}{\rho}\)</span></li>
+<li><span class="math inline">\(Weibull(\lambda, 1) \sim
+Exp(\lambda)\)</span></li>
+<li><span class="math inline">\(Weibull(\lambda, \rho) \sim {Exp(\lambda
+^ {\rho})}^\frac{1}{\rho}\)</span></li>
 </ul>
 <h4 id="lognormal">Lognormal</h4>
 <ul>
-<li><span class="math inline">\(\mathcal{LN}(\mu, \sigma^2) \sim \mathrm{e}^{\mathcal{N}(\mu,\sigma^2)}\)</span></li>
-<li><span class="math inline">\(E(T) = \mathrm{e} ^{\mu + \frac{\sigma^2}{2}}\)</span></li>
-<li><span class="math inline">\(Var(T) = \mathrm{e} ^ {2\mu + \sigma^2}(\mathrm{e}^{\sigma^2}-1)\)</span></li>
+<li><span class="math inline">\(\mathcal{LN}(\mu, \sigma^2) \sim
+\mathrm{e}^{\mathcal{N}(\mu,\sigma^2)}\)</span></li>
+<li><span class="math inline">\(E(T) = \mathrm{e} ^{\mu +
+\frac{\sigma^2}{2}}\)</span></li>
+<li><span class="math inline">\(Var(T) = \mathrm{e} ^ {2\mu +
+\sigma^2}(\mathrm{e}^{\sigma^2}-1)\)</span></li>
 </ul>
 <h4 id="generalized-gamma">Generalized Gamma</h4>
-<p>Generalization the parameterization of Weibull and Gamma distributions, can used to test adequacy for all its nested models</p>
+<p>Generalization the parameterization of Weibull and Gamma
+distributions, can used to test adequacy for all its nested models</p>
 <ul>
-<li><p><span class="math inline">\(\mathcal{GG}(\alpha, \lambda, \rho)\)</span></p>
+<li><p><span class="math inline">\(\mathcal{GG}(\alpha, \lambda,
+\rho)\)</span></p>
 <ul>
-<li><p><span class="math inline">\(f(t) =\frac{ \rho\lambda(\lambda t)^{\alpha -1}\mathrm{e}^{-{\lambda t}^{\rho}}}{\Gamma(\alpha/\rho)} \propto t^{\alpha -1}\mathrm{e}^{-(\lambda t)^{\rho}}\)</span></p></li>
-<li><p><span class="math inline">\(S(t) = \frac{1 - \gamma(\alpha/\rho, (\lambda t)^\rho)}{\Gamma(\alpha/\rho)}\)</span></p>
+<li><p><span class="math inline">\(f(t) =\frac{ \rho\lambda(\lambda
+t)^{\alpha -1}\mathrm{e}^{-{\lambda t}^{\rho}}}{\Gamma(\alpha/\rho)}
+\propto t^{\alpha -1}\mathrm{e}^{-(\lambda t)^{\rho}}\)</span></p></li>
+<li><p><span class="math inline">\(S(t) = \frac{1 - \gamma(\alpha/\rho,
+(\lambda t)^\rho)}{\Gamma(\alpha/\rho)}\)</span></p>
 <ul>
-<li>where <span class="math inline">\(\gamma(a,x) = \int_0^x t^{a-1}\mathrm{e}^{-t}dt\)</span> is the incomplete Gamma function</li>
+<li>where <span class="math inline">\(\gamma(a,x) = \int_0^x
+t^{a-1}\mathrm{e}^{-t}dt\)</span> is the incomplete Gamma function</li>
 </ul></li>
 </ul></li>
 </ul>
 <h3 id="poisson-process">Poisson process</h3>
 <h4 id="notations">Notations</h4>
 <ul>
-<li>$N(t) = $ # of events occurring in <span class="math inline">\((0, t)\)</span></li>
-<li><span class="math inline">\(T_1\)</span> denotes time to first event</li>
+<li>$N(t) = $ # of events occurring in <span class="math inline">\((0,
+t)\)</span></li>
+<li><span class="math inline">\(T_1\)</span> denotes time to first
+event</li>
 </ul>
 <h4 id="homogeneous-poisson-process">Homogeneous Poisson process</h4>
 <ul>
-<li>if gap times <span class="math inline">\(T_1, T_2, ...\)</span> are <span class="math inline">\(i.i.d. Exp(\lambda)\)</span>, then <span class="math display">\[N(t+dt) - N(t) = Poisson(\lambda dt)\]</span></li>
+<li>if gap times <span class="math inline">\(T_1, T_2, ...\)</span> are
+<span class="math inline">\(i.i.d. Exp(\lambda)\)</span>, then <span
+class="math display">\[N(t+dt) - N(t) = Poisson(\lambda
+dt)\]</span></li>
 </ul>
-<p><span class="math display">\[\lim_{dt \to 0}\frac{Pr{N(t + dt) - N(t) &gt; 0}}{dt} = \lambda\]</span></p>
-<h4 id="non-homougeneous-poisson-process">Non-homougeneous Poisson process</h4>
+<p><span class="math display">\[\lim_{dt \to 0}\frac{Pr{N(t + dt) - N(t)
+&gt; 0}}{dt} = \lambda\]</span></p>
+<h4 id="non-homougeneous-poisson-process">Non-homougeneous Poisson
+process</h4>
 <ul>
-<li><span class="math inline">\(\lambda(s)\)</span> denotes a rate function, where <span class="math inline">\(s&gt;0\)</span></li>
+<li><span class="math inline">\(\lambda(s)\)</span> denotes a rate
+function, where <span class="math inline">\(s&gt;0\)</span></li>
 </ul>
-<p><span class="math display">\[ N(t+dt) - N(t) = Poisson(\int_t^{t+dt}\lambda(s) ds) \]</span> <span class="math display">\[ \lim_{dt \to 0}\frac{Pr{N(t + dt) - N(t) &gt; 0}}{dt} = \lambda(t)\]</span></p>
+<p><span class="math display">\[ N(t+dt) - N(t) =
+Poisson(\int_t^{t+dt}\lambda(s) ds) \]</span> <span
+class="math display">\[ \lim_{dt \to 0}\frac{Pr{N(t + dt) - N(t) &gt;
+0}}{dt} = \lambda(t)\]</span></p>
 </div><script src="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/js/lightgallery.min.js"></script><script>if (typeof lightGallery !== 'undefined') {
         var options = {
             selector: '.gallery-item'
@@ -392,7 +453,9 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#survival-basics"><span class="nav-number">1.</span> <span class="nav-text">Survival Basics</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#relations"><span class="nav-number">1.1.</span> <span class="nav-text">Relations</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#why-study-hazard-function-ht-instead-of-ft"><span class="nav-number">1.2.</span> <span class="nav-text">Why study hazard function \(h(t)\) instead of \(f(t)\)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#distribution-of-t"><span class="nav-number">2.</span> <span class="nav-text">Distribution of \(T\)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#exponential"><span class="nav-number">2.1.</span> <span class="nav-text">Exponential</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#gamma"><span class="nav-number">2.2.</span> <span class="nav-text">Gamma</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#weibull"><span class="nav-number">2.3.</span> <span class="nav-text">Weibull</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lognormal"><span class="nav-number">2.4.</span> <span class="nav-text">Lognormal</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#generalized-gamma"><span class="nav-number">2.5.</span> <span class="nav-text">Generalized Gamma</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#poisson-process"><span class="nav-number">3.</span> <span class="nav-text">Poisson process</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#notations"><span class="nav-number">3.1.</span> <span class="nav-text">Notations</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#homogeneous-poisson-process"><span class="nav-number">3.2.</span> <span class="nav-text">Homogeneous Poisson process</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#non-homougeneous-poisson-process"><span class="nav-number">3.3.</span> <span class="nav-text">Non-homougeneous Poisson process</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#survival-basics"><span class="nav-number">1.</span> <span class="nav-text">Survival Basics</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#relations"><span class="nav-number">1.1.</span> <span class="nav-text">Relations</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#why-study-hazard-function-ht-instead-of-ft"><span class="nav-number">1.2.</span> <span class="nav-text">Why study hazard
+function \(h(t)\) instead of \(f(t)\)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#distribution-of-t"><span class="nav-number">2.</span> <span class="nav-text">Distribution of \(T\)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#exponential"><span class="nav-number">2.1.</span> <span class="nav-text">Exponential</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#gamma"><span class="nav-number">2.2.</span> <span class="nav-text">Gamma</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#weibull"><span class="nav-number">2.3.</span> <span class="nav-text">Weibull</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lognormal"><span class="nav-number">2.4.</span> <span class="nav-text">Lognormal</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#generalized-gamma"><span class="nav-number">2.5.</span> <span class="nav-text">Generalized Gamma</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#poisson-process"><span class="nav-number">3.</span> <span class="nav-text">Poisson process</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#notations"><span class="nav-number">3.1.</span> <span class="nav-text">Notations</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#homogeneous-poisson-process"><span class="nav-number">3.2.</span> <span class="nav-text">Homogeneous Poisson process</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#non-homougeneous-poisson-process"><span class="nav-number">3.3.</span> <span class="nav-text">Non-homougeneous Poisson
+process</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -456,7 +519,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

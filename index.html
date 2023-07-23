@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 6.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -197,7 +197,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-19 20:34:49" itemprop="dateModified" datetime="2022-01-19T20:34:49-06:00">2022-01-19</time>
+                <time title="Modified: 2023-07-22 00:51:31" itemprop="dateModified" datetime="2023-07-22T00:51:31-05:00">2023-07-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -220,7 +220,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"<p>In some of my quantitative courses, I often find it is important to get familiar with basic properties of random variables or estimators, as it is the building blocks that allow us to access and understand the more complex settings easier. In this post I mean to review some of the fundamental theorems in probability theory and applied statistics people used a lot and shed some lights on the proof. In the future, I will continue to add more sections under this post as I encounter more useful theorems along my study.</p>
+          <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"><p>In some of my quantitative courses, I often find it is important to
+get familiar with basic properties of random variables or estimators, as
+it is the building blocks that allow us to access and understand the
+more complex settings easier. In this post I mean to review some of the
+fundamental theorems in probability theory and applied statistics people
+used a lot and shed some lights on the proof. In the future, I will
+continue to add more sections under this post as I encounter more useful
+theorems along my study.</p>
 <ul>
 <li>Law of Total Expectation</li>
 <li>Law of Total Variance</li>
@@ -232,9 +239,20 @@
 <li>Sufficiency</li>
 </ul>
 <h4 id="law-of-total-expectation">Law of Total Expectation</h4>
-<p>There have been many names for this proposition of probability theory, it is known as <strong>the law of total expectation</strong>, <strong>the law of iterated expectation (LIE)</strong>, <strong>The tower rule</strong>, <strong>Adam's law</strong> and <strong>the smoothing theorem</strong>.</p>
-<p><span class="math display">\[E(X) = E\{E(X|Y)\}\]</span></p>
-<p>That is the expected value of the conditional expectation of <span class="math inline">\(X\)</span> given <span class="math inline">\(Y\)</span> is equal to the expected value of <span class="math inline">\(X\)</span>. It is not hard to figure out that <span class="math inline">\(E\{E(X|Y)\} = \int_{y \in Y} E(X|Y)f_Y(y)dy\)</span> given the <em>lazy statistician rule</em>, because <span class="math inline">\(E(X|Y)\)</span> can be written as <span class="math inline">\(g(Y)\)</span>.</p>
+<p>There have been many names for this proposition of probability
+theory, it is known as <strong>the law of total expectation</strong>,
+<strong>the law of iterated expectation (LIE)</strong>, <strong>The
+tower rule</strong>, <strong>Adam's law</strong> and <strong>the
+smoothing theorem</strong>.</p>
+<p><span class="math display">\[E(X) = E[E(X|Y)]\]</span></p>
+<p>That is the expected value of the conditional expectation of <span
+class="math inline">\(X\)</span> given <span
+class="math inline">\(Y\)</span> is equal to the expected value of <span
+class="math inline">\(X\)</span>. It is not hard to figure out that
+<span class="math inline">\(E[E(X|Y)] = \int_{y \in Y}
+E(X|Y)f_Y(y)dy\)</span> given the <em>lazy statistician rule</em>,
+because <span class="math inline">\(E(X|Y)\)</span> can be written as
+<span class="math inline">\(g(Y)\)</span>.</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/09/21/Statistics-Basics/#more" rel="contents">
@@ -309,7 +327,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"<p>Some notes about database design.
+          <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"><p>Some notes about database design.
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/09/19/Roadmap-to-Database/#more" rel="contents">
@@ -375,18 +393,27 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"<p>In survival analysis we would like to model the distribution of survival time <span class="math inline">\(T\)</span> for a specific outcome in a given population and make inference on the attributes of the population.</p>
+          <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"><p>In survival analysis we would like to model the distribution of
+survival time <span class="math inline">\(T\)</span> for a specific
+outcome in a given population and make inference on the attributes of
+the population.</p>
 <h3 id="survival-basics">Survival Basics</h3>
-<p>Survival time <span class="math inline">\(T\)</span> is a <strong>Random Variable</strong> with probability density function <span class="math inline">\(f(t)\)</span></p>
+<p>Survival time <span class="math inline">\(T\)</span> is a
+<strong>Random Variable</strong> with probability density function <span
+class="math inline">\(f(t)\)</span></p>
 <ul>
-<li><p>survival function: <span class="math inline">\(S(t) = P(T \ge t) = 1 - F(t)\)</span></p></li>
-<li><p>hazard function: <span class="math inline">\(h(t) = \lim_{dt \to 0}Pr(T \in [t, t+dt] \mid T \ge t)\)</span></p></li>
-<li><p>cumulative hazard function: <span class="math inline">\(H(t) = \int_0^t h(\mu)d\mu\)</span></p></li>
+<li><p>survival function: <span class="math inline">\(S(t) = P(T \ge t)
+= 1 - F(t)\)</span></p></li>
+<li><p>hazard function: <span class="math inline">\(h(t) = \lim_{dt \to
+0}Pr(T \in [t, t+dt] \mid T \ge t)\)</span></p></li>
+<li><p>cumulative hazard function: <span class="math inline">\(H(t) =
+\int_0^t h(\mu)d\mu\)</span></p></li>
 </ul>
 <h4 id="relations">Relations</h4>
 <p>( Easy to derive with calculus...)</p>
 <ul>
-<li><p><span class="math inline">\(h(t) = \frac{f(t)}{S(t)}\)</span></p></li>
+<li><p><span class="math inline">\(h(t) =
+\frac{f(t)}{S(t)}\)</span></p></li>
 <li><p><span class="math inline">\(H(t) = -log(S(t))\)</span></p></li>
 </ul>
 <p>
@@ -461,9 +488,32 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"<p>For the post let's begin with a business case for motivation. With the financial crisis hitting the United States and Europe in 2008, the International Accounting Standards Board (IASB) decided to revise their accounting standards for financial instruments, e.g. loans or mortgages to address perceived deficiencies which were believed to have contributed to the magnitude of the crisis. The result was the International Financial Reporting Standard 9 that became effective for all financial years beginning on or after 1 January 2018.</p>
-<p>Previously impairment losses on financial assets were only recognized to the extent that there was an objective evidence of impairment, meaning a loss event needed to occur before an impairment loss could be booked+. The new accounting rules for financial instruments require banks to build provisions for expected losses in their loan portfolio. The loss allowance has to be recognized before the actual credit loss is incurred. It is a more forward-looking approach than its predecessor with the aim to result in a more timely recognition of credit losses.</p>
-<p>To implement the new accounting rules banks need to build models that can evaluate a borrower’s risk as accurately as possible. A key credit risk parameter is the probability of default. Classification techniques such as logistic regression and decision trees can be used in order to classify the risky from the non-risky loans. These classification techniques however do not take the timing of default into account. With the use of survival analysis more accurate credit risks calculations are enabled since these analysis refers to a set of statistical techniques that is able to estimate the time it takes for a customer to default.
+          <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"><p>For the post let's begin with a business case for motivation. With
+the financial crisis hitting the United States and Europe in 2008, the
+International Accounting Standards Board (IASB) decided to revise their
+accounting standards for financial instruments, e.g. loans or mortgages
+to address perceived deficiencies which were believed to have
+contributed to the magnitude of the crisis. The result was the
+International Financial Reporting Standard 9 that became effective for
+all financial years beginning on or after 1 January 2018.</p>
+<p>Previously impairment losses on financial assets were only recognized
+to the extent that there was an objective evidence of impairment,
+meaning a loss event needed to occur before an impairment loss could be
+booked+. The new accounting rules for financial instruments require
+banks to build provisions for expected losses in their loan portfolio.
+The loss allowance has to be recognized before the actual credit loss is
+incurred. It is a more forward-looking approach than its predecessor
+with the aim to result in a more timely recognition of credit
+losses.</p>
+<p>To implement the new accounting rules banks need to build models that
+can evaluate a borrower’s risk as accurately as possible. A key credit
+risk parameter is the probability of default. Classification techniques
+such as logistic regression and decision trees can be used in order to
+classify the risky from the non-risky loans. These classification
+techniques however do not take the timing of default into account. With
+the use of survival analysis more accurate credit risks calculations are
+enabled since these analysis refers to a set of statistical techniques
+that is able to estimate the time it takes for a customer to default.
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/12/05/DLforGroupedSurv/#more" rel="contents">
@@ -544,9 +594,24 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"<p>In this post we extend the previous discussion about <em>Latent Semantic Analysis</em> to another popular latent model in NLP, especially for topic modeling, <em>Latent Dirichlet Allocation</em>. LDA is a generative model - that is, it provides a probability distribution from which we can generate documents, each of which is composed of generated words. The generative process is implemented using MCMC machinery. Under this post, I will use the implementation in <em>scikit-learn</em> instead of exploring it from scratch. In the future I will revisit this model after getting more firm understanding of various Natural Language Processing methods (<em>word2vec, non-negative matrix factorization, etc.</em>).</p>
+          <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"><p>In this post we extend the previous discussion about <em>Latent
+Semantic Analysis</em> to another popular latent model in NLP,
+especially for topic modeling, <em>Latent Dirichlet Allocation</em>. LDA
+is a generative model - that is, it provides a probability distribution
+from which we can generate documents, each of which is composed of
+generated words. The generative process is implemented using MCMC
+machinery. Under this post, I will use the implementation in
+<em>scikit-learn</em> instead of exploring it from scratch. In the
+future I will revisit this model after getting more firm understanding
+of various Natural Language Processing methods (<em>word2vec,
+non-negative matrix factorization, etc.</em>).</p>
 <h4 id="the-dirichlet-distribution">The Dirichlet distribution</h4>
-<p>A random sample from a Dirichlet distribution is a multinomial distribution (a multivariate generalization of the beta distribution), of the same length as the Dirichlet concentration parameter <span class="math inline">\(\alpha\)</span>. Below is 5 random samples draw from a Dirichlet distribution with the parameter <span class="math inline">\(\alpha\)</span></p>
+<p>A random sample from a Dirichlet distribution is a multinomial
+distribution (a multivariate generalization of the beta distribution),
+of the same length as the Dirichlet concentration parameter <span
+class="math inline">\(\alpha\)</span>. Below is 5 random samples draw
+from a Dirichlet distribution with the parameter <span
+class="math inline">\(\alpha\)</span></p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/07/26/latent-model2/#more" rel="contents">
@@ -627,12 +692,21 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"<p>Before the state-of-the-art development of word-embedding technique, there are existing approaches such as <em>Latent Semantic Analysis (LSA)</em> and <em>Latent Dirichlet Allocation (LDA)</em> to deal with NLP problems. The input for both models requires a bag of words in matrix format. While <em>Latent Semantic Analysis</em> is capable of doing dimension reduction, <em>Latent Dirichlet Allocation</em> is typically used to handle topic modeling problems.</p>
+          <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"><p>Before the state-of-the-art development of word-embedding technique,
+there are existing approaches such as <em>Latent Semantic Analysis
+(LSA)</em> and <em>Latent Dirichlet Allocation (LDA)</em> to deal with
+NLP problems. The input for both models requires a bag of words in
+matrix format. While <em>Latent Semantic Analysis</em> is capable of
+doing dimension reduction, <em>Latent Dirichlet Allocation</em> is
+typically used to handle topic modeling problems.</p>
 <ul>
 <li><p><strong>Latent Semantic Analysis</strong></p></li>
 <li><p><strong>Latent Dirichlet Analysis</strong></p></li>
 </ul>
-<p>under this topic I would like to go through these two popular models before the flourish of neural networks in dealing NLP related problems and I would try to give a toy coding example with respect to each model to get more familiar with the ideas.</p>
+<p>under this topic I would like to go through these two popular models
+before the flourish of neural networks in dealing NLP related problems
+and I would try to give a toy coding example with respect to each model
+to get more familiar with the ideas.</p>
 <p>
           <!--noindex-->
             <div class="post-button">
@@ -714,15 +788,30 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"<p>This post is about the study note from one section of <em>Udemy Course SQL BootCamp</em>: Creating databases and tables and my previous big data course. Different than the other sections in this course, before that I have not formally learned the principles about tables and databases creation in SQL. This section is a good time for me to catch up those concepts of how one can construct tables and databases and how we practice data integrity.</p>
-<p>I would like to start with some concepts about relational database and database normalization.</p>
+          <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"><p>This post is about the study note from one section of <em>Udemy
+Course SQL BootCamp</em>: Creating databases and tables and my previous
+big data course. Different than the other sections in this course,
+before that I have not formally learned the principles about tables and
+databases creation in SQL. This section is a good time for me to catch
+up those concepts of how one can construct tables and databases and how
+we practice data integrity.</p>
+<p>I would like to start with some concepts about relational database
+and database normalization.</p>
 <h4 id="relational-database">Relational database</h4>
-<p>A database contains tables with rows and columns. Tables belong to schema. Schemas belong to a catalog. In other words, a database contains catalogs that contains schemas that contains tables(or views). Most simple database only consider the schema/table part of the hierarchy.</p>
+<p>A database contains tables with rows and columns. Tables belong to
+schema. Schemas belong to a catalog. In other words, a database contains
+catalogs that contains schemas that contains tables(or views). Most
+simple database only consider the schema/table part of the
+hierarchy.</p>
 <h4 id="basic-terms">Basic terms</h4>
 <ul>
 <li><p>Schema: represents a collection of tables</p></li>
-<li><p>Table(Relation): There are two definitions of <code>relation</code>: In one m relation is a synonym for table. In the other a relation describes how two tables are connected via foreign/primary keys.</p></li>
-<li><p>Column(Attribute): Represents a single variable or feature.</p></li>
+<li><p>Table(Relation): There are two definitions of
+<code>relation</code>: In one m relation is a synonym for table. In the
+other a relation describes how two tables are connected via
+foreign/primary keys.</p></li>
+<li><p>Column(Attribute): Represents a single variable or
+feature.</p></li>
 <li><p>Row(Tuple): Represents an observation</p></li>
 </ul>
           <!--noindex-->
@@ -805,13 +894,30 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"<p>Recall the formal definition of <strong>Bayes' Rule</strong>:</p>
-<p><em>Let</em> <span class="math inline">\(A_1, A_2, ...\)</span> <em>be a partition of the sample space, and let</em> <span class="math inline">\(B\)</span> <em>be any set. Then for each i =1, 2...,</em></p>
-<p><span class="math display">\[P(A_i|B) = \frac{P(B|A_i)P(A_i)}{\Sigma^{\infty}_{j=1}P(B|A_j)P(A_j)}\]</span></p>
-<p>For lots of people, <em>Monty Hall Problem</em> is a classical introduction to the Bayesian world where your common sense in the first place may not be correct in probability because of the presence of prior information. Before we finally dive into the <em>Monty Hall Problem</em>, I would like to start with <em>The Three Prisoners Problem</em>.</p>
+          <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"><p>Recall the formal definition of <strong>Bayes' Rule</strong>:</p>
+<p><em>Let</em> <span class="math inline">\(A_1, A_2, ...\)</span>
+<em>be a partition of the sample space, and let</em> <span
+class="math inline">\(B\)</span> <em>be any set. Then for each i =1,
+2...,</em></p>
+<p><span class="math display">\[P(A_i|B) =
+\frac{P(B|A_i)P(A_i)}{\Sigma^{\infty}_{j=1}P(B|A_j)P(A_j)}\]</span></p>
+<p>For lots of people, <em>Monty Hall Problem</em> is a classical
+introduction to the Bayesian world where your common sense in the first
+place may not be correct in probability because of the presence of prior
+information. Before we finally dive into the <em>Monty Hall
+Problem</em>, I would like to start with <em>The Three Prisoners
+Problem</em>.</p>
 <h4 id="three-prisoners">Three Prisoners</h4>
-<p>Three prisoners, <strong>A</strong>, <strong>B</strong> and <strong>C</strong>, are on death row, the governor decides to pardon one of the three and chooses at random the prisoner to pardon. He informs the warden of his choice but requests that the name be kept secret for a few days.</p>
-<p>The next day, <strong>A</strong> tries to get the warden to tell him who had been pardoned. The warden refuses. <strong>A</strong> then asks which of <strong>B</strong> or <strong>C</strong> will be executed. The warden thinks for a while, then tells <strong>A</strong> that <strong>B</strong> is to be executed.
+<p>Three prisoners, <strong>A</strong>, <strong>B</strong> and
+<strong>C</strong>, are on death row, the governor decides to pardon one
+of the three and chooses at random the prisoner to pardon. He informs
+the warden of his choice but requests that the name be kept secret for a
+few days.</p>
+<p>The next day, <strong>A</strong> tries to get the warden to tell him
+who had been pardoned. The warden refuses. <strong>A</strong> then asks
+which of <strong>B</strong> or <strong>C</strong> will be executed. The
+warden thinks for a while, then tells <strong>A</strong> that
+<strong>B</strong> is to be executed.
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/06/19/MontyHall/#more" rel="contents">
@@ -892,8 +998,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"<p>Clustering is a technique used to group data points with similar features. It is a common approach of unsupervised learning to discover data structure while no label information is known. One can use clustering analysis to draw some straightforward and valuable insights by the visualization of the membership.</p>
-<p>In this post I created a python class containing some most often used clustering algorithms and briefly discussed their pros and cons. I also did some simulation to demonstrate the results of different clustering methods:</p>
+          <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"><p>Clustering is a technique used to group data points with similar
+features. It is a common approach of unsupervised learning to discover
+data structure while no label information is known. One can use
+clustering analysis to draw some straightforward and valuable insights
+by the visualization of the membership.</p>
+<p>In this post I created a python class containing some most often used
+clustering algorithms and briefly discussed their pros and cons. I also
+did some simulation to demonstrate the results of different clustering
+methods:</p>
 <ul>
 <li><strong>K-Means</strong></li>
 <li><strong>K-Means ++</strong></li>
@@ -982,7 +1095,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"<p>Back propagation is an algorithm computing all those complicated gradients in deep neural networks in order to achieve minimum of cost function. Instead of thinking each weights/bias as direction in a high dimensional space, one can see the value as how sensitive the cost function is to each weight and bias. One can not directly change the activation but can only adjust the weight and bias. However, we are aware which direction we want this activation value to go. Back propagation basically improves those neurons which positively activates the correct output unit and undermine the activation for other wrong output units.
+          <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"><p>Back propagation is an algorithm computing all those complicated
+gradients in deep neural networks in order to achieve minimum of cost
+function. Instead of thinking each weights/bias as direction in a high
+dimensional space, one can see the value as how sensitive the cost
+function is to each weight and bias. One can not directly change the
+activation but can only adjust the weight and bias. However, we are
+aware which direction we want this activation value to go. Back
+propagation basically improves those neurons which positively activates
+the correct output unit and undermine the activation for other wrong
+output units.
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/05/19/backpropagation/#more" rel="contents">
@@ -1124,7 +1246,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 6.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -22,10 +22,12 @@
     var CONFIG = {"hostname":"zcsheng95.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":320,"display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="article">
+  <meta name="description" content="This is the study note after finishing Introduction to Machine Learning from Duke University It covers a wide range of topics from:  Logistic Regression&#x2F; Multilayer Perceptron Convolutional Neural Net">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Duke Intro to Machine Learning Notes">
 <meta property="og:url" content="http://zcsheng95.github.io/2020/04/11/Duke-Intro-to-Machine-Learning-Notes/index.html">
 <meta property="og:site_name" content="Jeff&#39;s Blog">
+<meta property="og:description" content="This is the study note after finishing Introduction to Machine Learning from Duke University It covers a wide range of topics from:  Logistic Regression&#x2F; Multilayer Perceptron Convolutional Neural Net">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://zcsheng95.github.io/2020/04/11/Duke-Intro-to-Machine-Learning-Notes/logisticReg.png">
 <meta property="og:image" content="http://zcsheng95.github.io/2020/04/11/Duke-Intro-to-Machine-Learning-Notes/MLP.png">
@@ -240,7 +242,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"<p>This is the study note after finishing <a href="https://www.coursera.org/learn/machine-learning-duke/home/welcome" target="_blank" rel="noopener">Introduction to Machine Learning from Duke University</a></p>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"><p>This is the study note after finishing <a
+target="_blank" rel="noopener" href="https://www.coursera.org/learn/machine-learning-duke/home/welcome">Introduction
+to Machine Learning from Duke University</a></p>
 <p>It covers a wide range of topics from:</p>
 <ul>
 <li>Logistic Regression/ Multilayer Perceptron</li>
@@ -249,118 +253,347 @@
 <li>Reinforcement Learning <a id="more"></a></li>
 </ul>
 <h3 id="logistic-regression">Logistic Regression</h3>
-<p>In machine learning, our goal is to learn a model which is capable of predicting the outcomes from given observations. For simple classification problem, we can start from logistic regression: <span class="math inline">\(logit(Y) = X\beta\)</span>. The model is characterized by its parameter <span class="math inline">\(\beta\)</span>. Recall from Generalized Linear Model, logistic regression is a specialization for <span class="math inline">\(E(Y) = \mu = g^{-1}(X\beta)\)</span> where g is the logistic function: <span class="math inline">\(g(x) = \frac{exp(x)}{1+exp(x)}\)</span>. It is still a linear model based on the liner predictors <span class="math inline">\(X\beta\)</span>. Feed the design matrix <span class="math inline">\(X\)</span> into the logistic regression, we will obtain <span class="math inline">\(P(Y|X)\)</span>, the probability that event <span class="math inline">\(Y\)</span> will occur conditional on input <span class="math inline">\(X\)</span>, which is range from 0 to 1. Each element in <span class="math inline">\(\beta\)</span> represents how important each fearture of a observation is. By estimating/learning the parameters <span class="math inline">\(\beta\)</span>, we mapped our observations <span class="math inline">\(X\)</span> into outcome <span class="math inline">\(Y\)</span>.</p>
-<p>In machine learning settings, the logistic function is named as sigmoid function (for binary classification problem, softmax for multi-class classification problem). This is really the starting point to understand machine learning, given a set of obersrvations <span class="math inline">\(X\)</span> and outcomes <span class="math inline">\(Y\)</span>, we would like to learn the parameters of our model so the predictions are consistent with the training data.</p>
+<p>In machine learning, our goal is to learn a model which is capable of
+predicting the outcomes from given observations. For simple
+classification problem, we can start from logistic regression: <span
+class="math inline">\(logit(Y) = X\beta\)</span>. The model is
+characterized by its parameter <span
+class="math inline">\(\beta\)</span>. Recall from Generalized Linear
+Model, logistic regression is a specialization for <span
+class="math inline">\(E(Y) = \mu = g^{-1}(X\beta)\)</span> where g is
+the logistic function: <span class="math inline">\(g(x) =
+\frac{exp(x)}{1+exp(x)}\)</span>. It is still a linear model based on
+the liner predictors <span class="math inline">\(X\beta\)</span>. Feed
+the design matrix <span class="math inline">\(X\)</span> into the
+logistic regression, we will obtain <span
+class="math inline">\(P(Y|X)\)</span>, the probability that event <span
+class="math inline">\(Y\)</span> will occur conditional on input <span
+class="math inline">\(X\)</span>, which is range from 0 to 1. Each
+element in <span class="math inline">\(\beta\)</span> represents how
+important each fearture of a observation is. By estimating/learning the
+parameters <span class="math inline">\(\beta\)</span>, we mapped our
+observations <span class="math inline">\(X\)</span> into outcome <span
+class="math inline">\(Y\)</span>.</p>
+<p>In machine learning settings, the logistic function is named as
+sigmoid function (for binary classification problem, softmax for
+multi-class classification problem). This is really the starting point
+to understand machine learning, given a set of obersrvations <span
+class="math inline">\(X\)</span> and outcomes <span
+class="math inline">\(Y\)</span>, we would like to learn the parameters
+of our model so the predictions are consistent with the training
+data.</p>
 <p><a href="logisticReg.png" class="gallery-item"><img src="logisticReg.png" /></a></p>
 <h4 id="multilayer-perceptron">Multilayer Perceptron</h4>
-<p>MLP is a natural extension for logistic regression on more complex problem. Instead apply the sigmoid function for only one time for the linear fit, MLP impose the same operation <em>k</em> times. That is, <em>k</em> neurons will be generated and become the input of next layer. Instead of 1 filter vector(<span class="math inline">\(\beta\)</span>), <em>k</em> filter vectors(<span class="math inline">\(\beta_{1}, \beta_{2},...,\beta_{k}\)</span>) are used.</p>
+<p>MLP is a natural extension for logistic regression on more complex
+problem. Instead apply the sigmoid function for only one time for the
+linear fit, MLP impose the same operation <em>k</em> times. That is,
+<em>k</em> neurons will be generated and become the input of next layer.
+Instead of 1 filter vector(<span class="math inline">\(\beta\)</span>),
+<em>k</em> filter vectors(<span class="math inline">\(\beta_{1},
+\beta_{2},...,\beta_{k}\)</span>) are used.</p>
 <p><a href="MLP.png" class="gallery-item"><img src="MLP.png" /></a></p>
 <p>Mathematically, a 3-layer perceptron could be defined as:</p>
 <p>Observations: <span class="math inline">\(X_{1\times p}\)</span></p>
-<p>Layer 1 Filters: <span class="math inline">\(\beta= \{\beta_1, \beta_2,..., \beta_k\}_{p \times k}\)</span></p>
-<p>Layer 2 Filters: <span class="math inline">\(\mathbb{c}_{k\times 1}\)</span></p>
-<p><span class="math display">\[ E(Y) = \mu = g^{-1}(g^{-1}(X\beta)\mathbb{c}) \]</span></p>
+<p>Layer 1 Filters: <span class="math inline">\(\beta= \{\beta_1,
+\beta_2,..., \beta_k\}_{p \times k}\)</span></p>
+<p>Layer 2 Filters: <span class="math inline">\(\mathbb{c}_{k\times
+1}\)</span></p>
+<p><span class="math display">\[ E(Y) = \mu =
+g^{-1}(g^{-1}(X\beta)\mathbb{c}) \]</span></p>
 <p><a href="MLP1.png" class="gallery-item"><img src="MLP1.png" /></a></p>
 <ul>
-<li><a href="https://github.com/zcsheng95/onlineCourse/blob/master/MLP%20assignment.ipynb" target="_blank" rel="noopener">MLP Assignment</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://github.com/zcsheng95/onlineCourse/blob/master/MLP%20assignment.ipynb">MLP
+Assignment</a></li>
 </ul>
 <h3 id="convolutional-neural-network">Convolutional Neural Network</h3>
-<p>Convolutional Neural Network is mostly used in image recognition. It takes in image matrices of the form(<span class="math inline">\(height \times width \times channel\)</span>) and process them into some low-dimensional features through a series of parametric functions(layers). With a deep neural network, it is capable to learn from some fundamental motif structure(similar to how neurons in cortex sense an object) to very complex components in image. Convolutional Neural Network has a general structure showed below.</p>
+<p>Convolutional Neural Network is mostly used in image recognition. It
+takes in image matrices of the form(<span class="math inline">\(height
+\times width \times channel\)</span>) and process them into some
+low-dimensional features through a series of parametric
+functions(layers). With a deep neural network, it is capable to learn
+from some fundamental motif structure(similar to how neurons in cortex
+sense an object) to very complex components in image. Convolutional
+Neural Network has a general structure showed below.</p>
 <p><a href="CNN.png" class="gallery-item"><img src="CNN.png" /></a></p>
 <h4 id="convolutional-layers">Convolutional layers</h4>
-<p>By learning meaningful features of these images, it is equivalent to saying learning parameters in the filters. Filter is used in each convolutional layer to generate feature maps and then those feature maps are stacked and pooled and input to next layer. <strong>Size, Stride and number of filters</strong> are arbitrary. Generally, filter size determines how many information is grabbed in one feature map and number of filters determine how many features is captured. Usually color images would have 3 channels representing RGB. To match the dimension, filers ought to have the same number of channels, for example a <span class="math inline">\(5\times5\times3\)</span> filter. To control the actual size of the feature map, 0 padding is often applied to the input image. Given <span class="math inline">\(k\)</span> filters, <span class="math inline">\(k\)</span> feature maps are generated and stacked up. So the results of a 3D image after convolution is still a 3D array.</p>
+<p>By learning meaningful features of these images, it is equivalent to
+saying learning parameters in the filters. Filter is used in each
+convolutional layer to generate feature maps and then those feature maps
+are stacked and pooled and input to next layer. <strong>Size, Stride and
+number of filters</strong> are arbitrary. Generally, filter size
+determines how many information is grabbed in one feature map and number
+of filters determine how many features is captured. Usually color images
+would have 3 channels representing RGB. To match the dimension, filers
+ought to have the same number of channels, for example a <span
+class="math inline">\(5\times5\times3\)</span> filter. To control the
+actual size of the feature map, 0 padding is often applied to the input
+image. Given <span class="math inline">\(k\)</span> filters, <span
+class="math inline">\(k\)</span> feature maps are generated and stacked
+up. So the results of a 3D image after convolution is still a 3D
+array.</p>
 <p><a href="Convolution.gif" class="gallery-item"><img src="Convolution.gif" /></a></p>
 <h4 id="activation-functions">Activation functions</h4>
-<p>For any deep learning neural network to be powerful, non-linear relationship should be considered, a classic example for this is <strong>XOR(exclusive or)</strong>. This course mainly uses two activation function: RELU and hyperbolic tangent. Relu is extensively used in Convolutional Neuron Network, it is applied to the element-wise outcome from the convolution operation before it going into next layer.</p>
+<p>For any deep learning neural network to be powerful, non-linear
+relationship should be considered, a classic example for this is
+<strong>XOR(exclusive or)</strong>. This course mainly uses two
+activation function: RELU and hyperbolic tangent. Relu is extensively
+used in Convolutional Neuron Network, it is applied to the element-wise
+outcome from the convolution operation before it going into next
+layer.</p>
 <p><a href="Activation.png" class="gallery-item"><img src="Activation.png" /></a></p>
 <h4 id="pooling-layers">Pooling layers</h4>
-<p>After convolution, in order to reduce the dimensionality, a pooling layer comes into place. It enables us to reduce the number of parameters, which shortens the training time as well as combats overfitting. It can be viewed as a downsampling approach that shrink the width and height for each feature map. The most often used pooling function is <em>max pooling</em>, similarly the size of the pooling frame and the stride both need to be defined. Another widely used pooling function is <em>mean pooling</em>. For instance, a <span class="math inline">\(16 \times 16 \times 20\)</span> stacked feature map after pooling with a <span class="math inline">\(2\times2\)</span> window by stride <span class="math inline">\(2\)</span> will have a size of <span class="math inline">\(8\times8\times20\)</span>. Typically in CNN architecture, convolution is done with a <span class="math inline">\(3\times3\)</span> window and stride 1 with padding, while pooling in done with a <span class="math inline">\(2\times2\)</span> window and stride 2 without padding.</p>
+<p>After convolution, in order to reduce the dimensionality, a pooling
+layer comes into place. It enables us to reduce the number of
+parameters, which shortens the training time as well as combats
+overfitting. It can be viewed as a downsampling approach that shrink the
+width and height for each feature map. The most often used pooling
+function is <em>max pooling</em>, similarly the size of the pooling
+frame and the stride both need to be defined. Another widely used
+pooling function is <em>mean pooling</em>. For instance, a <span
+class="math inline">\(16 \times 16 \times 20\)</span> stacked feature
+map after pooling with a <span class="math inline">\(2\times2\)</span>
+window by stride <span class="math inline">\(2\)</span> will have a size
+of <span class="math inline">\(8\times8\times20\)</span>. Typically in
+CNN architecture, convolution is done with a <span
+class="math inline">\(3\times3\)</span> window and stride 1 with
+padding, while pooling in done with a <span
+class="math inline">\(2\times2\)</span> window and stride 2 without
+padding.</p>
 <h4 id="fully-connect-layers">Fully connect layers</h4>
-<p>The final sets of layers is couple of fully-connected layers. They serve to flatten the multi-dimensional output into a vector and match the final number of labels. The fully-connected part goes through its own backpropagation process to estimate weights. Finally it produces a probability vectors(sum up to 1) and choose the label corresponding to the highest unit.</p>
+<p>The final sets of layers is couple of fully-connected layers. They
+serve to flatten the multi-dimensional output into a vector and match
+the final number of labels. The fully-connected part goes through its
+own backpropagation process to estimate weights. Finally it produces a
+probability vectors(sum up to 1) and choose the label corresponding to
+the highest unit.</p>
 <p><a href="fully_connect.png" class="gallery-item"><img src="fully_connect.png" /></a></p>
 <ul>
-<li><a href="https://github.com/zcsheng95/onlineCourse/blob/master/Intro%20to%20ML/CNN%20assignment.ipynb" target="_blank" rel="noopener">CNN Assignment</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://github.com/zcsheng95/onlineCourse/blob/master/Intro%20to%20ML/CNN%20assignment.ipynb">CNN
+Assignment</a></li>
 </ul>
 <h3 id="recurrent-neural-network">Recurrent Neural Network</h3>
-<p>Recurrent Neural Network is a sequential of neural networks specifically useful in text analysis a.k.a Natural Language Processing. In a general neural network setting, each input is independent from others, however many times it may not be true in a real life scenario because data like stock price or text occur in a sequential manner, in other words, they have context. RNN with a characteristic of memory which enables to take previous output as the new input into subsequent tasks.</p>
+<p>Recurrent Neural Network is a sequential of neural networks
+specifically useful in text analysis a.k.a Natural Language Processing.
+In a general neural network setting, each input is independent from
+others, however many times it may not be true in a real life scenario
+because data like stock price or text occur in a sequential manner, in
+other words, they have context. RNN with a characteristic of memory
+which enables to take previous output as the new input into subsequent
+tasks.</p>
 <h4 id="word2vec">Word2Vec</h4>
-<p>Before introducing the architecture of RNN for NLP tasks, word vectors is imperative to mention. In order to analysis text contents using mathematical model, one has to convert words into numbers, typically a N-dimensional vector. Words of this presence become comparable in terms of their geographical location in the multi-dimensional space. Mapping word to vectors is called word embeddings and such methods sometimes are also called <a href="https://arxiv.org/pdf/1411.2738.pdf" target="_blank" rel="noopener">Word2Vec</a>. A codebook is present for one to one mapping between words and numerical vectors.</p>
-<p>In order to learn the word codebook, one could use a corpus collection to train parameters in a feed-forward neural network to get vector representations. In the paper above it describes two models, Continuous Bag of Words and Skip Gram.</p>
-<p><a href="CBOW.png" class="gallery-item"><img src="CBOW.png" /></a> Take a Bigram Continuous Bag of Words as an example (though in practice we are usually given multiple context words):</p>
-<p>The aim is to predict the probability distribution <span class="math inline">\(P(w_{target}|w_{context})\)</span> over <span class="math inline">\(V\)</span> classes as a multi-classification problem. Given the input word is one-hot encoded, the hidden unit is exactly one row of the weight matrix after multiplication. So the weight parameters are being represented as word representation in a neural network architecture. Stochastic Gradient Descent can be used update the parameters. The posterior distribution can be written as <span class="math display">\[ P(w_t|w_c) = \frac{exp(u_c\cdot v_t)}{\sum_{t^{&#39;} \in V}{}exp(u_c\cdot v_{t^{&#39;}})}\]</span> <span class="math inline">\(u_c\)</span> is the corresponding row in input-hidden weight matrix for <span class="math inline">\(w_c\)</span>, <span class="math inline">\(v_t\)</span> is the corresponding row in the hidden-output row weight matrix for <span class="math inline">\(w_t\)</span>. The update rule can be expressed as <span class="math display">\[v_t = v_t - \eta \frac{\mathcal{L}(\theta)}{\Delta v_t} = v_t + \eta (1 - P(w_t|w_c)) \]</span></p>
-<p>given the loss function is <span class="math inline">\(\mathcal{L}(\theta) = -log(P(w_t|w_c))\)</span></p>
-<p>The <a href="https://arxiv.org/pdf/1411.2738.pdf" target="_blank" rel="noopener">Word2Vec paper</a> and <a href="https://towardsdatascience.com/art-of-vector-representation-of-words-5e85c59fee5" target="_blank" rel="noopener">this post</a> explain the mathematical derivation and concepts in more details.</p>
-<p>By training the model with plenty of corpus, a vector representation of vocabulary is built and can be used for more complex semantic tasks.</p>
+<p>Before introducing the architecture of RNN for NLP tasks, word
+vectors is imperative to mention. In order to analysis text contents
+using mathematical model, one has to convert words into numbers,
+typically a N-dimensional vector. Words of this presence become
+comparable in terms of their geographical location in the
+multi-dimensional space. Mapping word to vectors is called word
+embeddings and such methods sometimes are also called <a
+target="_blank" rel="noopener" href="https://arxiv.org/pdf/1411.2738.pdf">Word2Vec</a>. A codebook is
+present for one to one mapping between words and numerical vectors.</p>
+<p>In order to learn the word codebook, one could use a corpus
+collection to train parameters in a feed-forward neural network to get
+vector representations. In the paper above it describes two models,
+Continuous Bag of Words and Skip Gram.</p>
+<p><a href="CBOW.png" class="gallery-item"><img src="CBOW.png" /></a> Take a Bigram Continuous Bag of Words as an
+example (though in practice we are usually given multiple context
+words):</p>
+<p>The aim is to predict the probability distribution <span
+class="math inline">\(P(w_{target}|w_{context})\)</span> over <span
+class="math inline">\(V\)</span> classes as a multi-classification
+problem. Given the input word is one-hot encoded, the hidden unit is
+exactly one row of the weight matrix after multiplication. So the weight
+parameters are being represented as word representation in a neural
+network architecture. Stochastic Gradient Descent can be used update the
+parameters. The posterior distribution can be written as <span
+class="math display">\[ P(w_t|w_c) = \frac{exp(u_c\cdot
+v_t)}{\sum_{t^{&#39;} \in V}{}exp(u_c\cdot v_{t^{&#39;}})}\]</span>
+<span class="math inline">\(u_c\)</span> is the corresponding row in
+input-hidden weight matrix for <span class="math inline">\(w_c\)</span>,
+<span class="math inline">\(v_t\)</span> is the corresponding row in the
+hidden-output row weight matrix for <span
+class="math inline">\(w_t\)</span>. The update rule can be expressed as
+<span class="math display">\[v_t = v_t - \eta
+\frac{\mathcal{L}(\theta)}{\Delta v_t} = v_t + \eta (1 - P(w_t|w_c))
+\]</span></p>
+<p>given the loss function is <span
+class="math inline">\(\mathcal{L}(\theta) =
+-log(P(w_t|w_c))\)</span></p>
+<p>The <a href="https://arxiv.org/pdf/1411.2738.pdf" target="_blank" rel="noopener">Word2Vec paper</a>
+and <a
+target="_blank" rel="noopener" href="https://towardsdatascience.com/art-of-vector-representation-of-words-5e85c59fee5">this
+post</a> explain the mathematical derivation and concepts in more
+details.</p>
+<p>By training the model with plenty of corpus, a vector representation
+of vocabulary is built and can be used for more complex semantic
+tasks.</p>
 <h4 id="architecture">Architecture</h4>
-<p>The Architecture of a Recurrent Neural Network is a series of neural network sequentially set up. That is saying given a single word <span class="math inline">\(n-1\)</span> from a sentence, the model will predict the next word <span class="math inline">\(n\)</span> sequentially. RNNs can be briefly divided into 4 categories: <em>one to one</em>, <em>one to many</em>, <em>many to one</em> and <em>many to many.</em> This is thanks to the feature of RNN which allows results to be output at each stage. RNN also provides additional advantage of sharing features learned across different position of the sequence.</p>
+<p>The Architecture of a Recurrent Neural Network is a series of neural
+network sequentially set up. That is saying given a single word <span
+class="math inline">\(n-1\)</span> from a sentence, the model will
+predict the next word <span class="math inline">\(n\)</span>
+sequentially. RNNs can be briefly divided into 4 categories: <em>one to
+one</em>, <em>one to many</em>, <em>many to one</em> and <em>many to
+many.</em> This is thanks to the feature of RNN which allows results to
+be output at each stage. RNN also provides additional advantage of
+sharing features learned across different position of the sequence.</p>
 <p><a href="RNN.jpeg" class="gallery-item"><img src="RNN.jpeg" /></a> <a href="onemany.jpeg" class="gallery-item"><img src="onemany.jpeg" /></a></p>
-<p>The structural difference for RNN is that it passes out a hidden vector and then concatenate with the output of last processor as the new input to the next processor. Which deliver the context of previous text into the next round of prediction. The graphical representation is always more intuitive when it comes to the concept of deep learning architecture.</p>
+<p>The structural difference for RNN is that it passes out a hidden
+vector and then concatenate with the output of last processor as the new
+input to the next processor. Which deliver the context of previous text
+into the next round of prediction. The graphical representation is
+always more intuitive when it comes to the concept of deep learning
+architecture.</p>
 <p><a href="hidden.png" class="gallery-item"><img src="hidden.png" /></a></p>
-<p>The hidden vector is the product of the first weight matrix and the input. Mathematically it can be written as: $ h_n = f(WX_{n-1} + b)$, the activation function for hidden vector is usually the <strong>hyperbolic tangent</strong>, which leads to an important and widely used variant of RNN, the Long Short Term Memory(LSTM).</p>
+<p>The hidden vector is the product of the first weight matrix and the
+input. Mathematically it can be written as: $ h_n = f(WX_{n-1} + b)$,
+the activation function for hidden vector is usually the
+<strong>hyperbolic tangent</strong>, which leads to an important and
+widely used variant of RNN, the Long Short Term Memory(LSTM).</p>
 <h4 id="long-short-term-memory">Long Short Term Memory</h4>
-<p>It is not always useful to memorize all the past information, it depends largely on the task itself. Sometimes, we only need to look at recent information to perform the present task. For example, consider a language model trying to predict the next word based on the previous ones. If we are trying to predict the last word in “the clouds are in the sky,” we don’t need any further context. But there are also cases where we need more context. Consider trying to predict the last word in the text “I grew up in France… I speak fluent French.” Recent information suggests that the next word is probably the name of a language, but if we want to narrow down which language, we need the context of France, from further back. LSTMs are explicitly designed to handle long term dependency problems.</p>
-<p>Like typical Recurrent Neural Network, LSTMs also have chain like structure, but the repeating module has a different structure. There are four neural network layers interactiong in a very special way:</p>
+<p>It is not always useful to memorize all the past information, it
+depends largely on the task itself. Sometimes, we only need to look at
+recent information to perform the present task. For example, consider a
+language model trying to predict the next word based on the previous
+ones. If we are trying to predict the last word in “the clouds are in
+the sky,” we don’t need any further context. But there are also cases
+where we need more context. Consider trying to predict the last word in
+the text “I grew up in France… I speak fluent French.” Recent
+information suggests that the next word is probably the name of a
+language, but if we want to narrow down which language, we need the
+context of France, from further back. LSTMs are explicitly designed to
+handle long term dependency problems.</p>
+<p>Like typical Recurrent Neural Network, LSTMs also have chain like
+structure, but the repeating module has a different structure. There are
+four neural network layers interactiong in a very special way:</p>
 <ul>
-<li>forgetting gate layer: <span class="math inline">\(f_n = \sigma(W_f \times [h_{n-1}, x_n] + b_f)\)</span></li>
-<li>input gate layer: <span class="math inline">\(i_n = \sigma(W_i \times [h_{n-1}, x_n] + b_i)\)</span></li>
-<li>Memory cells: <span class="math inline">\(\tilde{C_n} = tanh(W_C \times [h_{n-1},x_n] + b_C)\)</span></li>
-<li>Output control: <span class="math inline">\(o_n = \sigma(W_o \times [h_{n-1}, x_n] + b_o)\)</span></li>
+<li>forgetting gate layer: <span class="math inline">\(f_n = \sigma(W_f
+\times [h_{n-1}, x_n] + b_f)\)</span></li>
+<li>input gate layer: <span class="math inline">\(i_n = \sigma(W_i
+\times [h_{n-1}, x_n] + b_i)\)</span></li>
+<li>Memory cells: <span class="math inline">\(\tilde{C_n} = tanh(W_C
+\times [h_{n-1},x_n] + b_C)\)</span></li>
+<li>Output control: <span class="math inline">\(o_n = \sigma(W_o \times
+[h_{n-1}, x_n] + b_o)\)</span></li>
 </ul>
-<p>Conceptually there are two process going on. One is for the hidden vector update and the other is for memory cells update.</p>
+<p>Conceptually there are two process going on. One is for the hidden
+vector update and the other is for memory cells update.</p>
 <ul>
-<li><span class="math inline">\(C_n = f_n \odot C_{n-1} + i_n \odot \tilde{C_n}\)</span></li>
+<li><span class="math inline">\(C_n = f_n \odot C_{n-1} + i_n \odot
+\tilde{C_n}\)</span></li>
 <li><span class="math inline">\(h_n = o_n \odot tanh(C_n)\)</span></li>
 </ul>
 <p><a href="LSTM-Core.png" class="gallery-item"><img src="LSTM-Core.png" /></a></p>
 <p><strong>Reference:</strong></p>
 <ul>
-<li><a href="http://karpathy.github.io/2015/05/21/rnn-effectiveness/" target="_blank" rel="noopener">RNN</a></li>
-<li><a href="https://colah.github.io/posts/2015-08-Understanding-LSTMs/" target="_blank" rel="noopener">LSTM</a></li>
-<li><a href="http://dprogrammer.org/rnn-lstm-gru" target="_blank" rel="noopener">RNN &amp; LSTM</a></li>
+<li><a
+target="_blank" rel="noopener" href="http://karpathy.github.io/2015/05/21/rnn-effectiveness/">RNN</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://colah.github.io/posts/2015-08-Understanding-LSTMs/">LSTM</a></li>
+<li><a href="http://dprogrammer.org/rnn-lstm-gru" target="_blank" rel="noopener">RNN &amp;
+LSTM</a></li>
 </ul>
 <h3 id="reinforcement-learning">4. Reinforcement Learning</h3>
-<p>Reinforcement learning is designed to provide an optimal policy for a task by assigning a score for each status. Mathematically, a RL problem can be seen as a <strong>Markov Decision Process</strong>. This process is memoryless, so everything we care about we know through the current state. The goal of reinforcement learning the optimal policy which requires:</p>
+<p>Reinforcement learning is designed to provide an optimal policy for a
+task by assigning a score for each status. Mathematically, a RL problem
+can be seen as a <strong>Markov Decision Process</strong>. This process
+is memoryless, so everything we care about we know through the current
+state. The goal of reinforcement learning the optimal policy which
+requires:</p>
 <ul>
 <li>Maximize the average rewards over times</li>
 <li>Should account for outcome and the cost</li>
 <li>Should be non-myopic. Think ahead and look at long run.</li>
-<li>Typically weights impacts in the near-term more highly than what happens in the long run</li>
+<li>Typically weights impacts in the near-term more highly than what
+happens in the long run</li>
 </ul>
 <p>The RL setup can be visualized like this:</p>
 <p><a href="RL.png" class="gallery-item"><img src="RL.png" /></a></p>
 <p>A task can be viewed as a composition of these steps:</p>
 <p>$ Action: A = {a_1,a_2, ..., a_n}$</p>
-<p><span class="math inline">\(Status: S = {s_1, s_2, ..., s_n}\)</span></p>
+<p><span class="math inline">\(Status: S = {s_1, s_2, ...,
+s_n}\)</span></p>
 <p><span class="math inline">\(Rewards: r(s,a,s^{&#39;})\)</span></p>
-<p>if <span class="math inline">\(s^{&#39;} &gt; s\)</span>, then <span class="math inline">\(r(s,a,s^{&#39;})\)</span> should be high. To establish a rubric, a matrix for pair of actions and status can be learned empirically and then be updated. This process is named Q-Learning.</p>
-<p>Updating formula: <span class="math display">\[Q^{new}(s,a) = Q^{old}(s,a) + \alpha \cdot \underbrace{[r(s,a,s^{&#39;}) - Q^{old}(s,a)]}_\text{Temporary Difference}\]</span></p>
-<p><span class="math inline">\(\alpha\)</span> is the learning rate which falls between 0 and 1. If rewards for new state <span class="math inline">\(s^{&#39;}\)</span> is larger than <span class="math inline">\(Q_old\)</span>, then increase the value of <span class="math inline">\(Q_new\)</span> and vice versa.</p>
-<p>However this formula only accounts for immediate rewards so likely to be myopic.</p>
+<p>if <span class="math inline">\(s^{&#39;} &gt; s\)</span>, then <span
+class="math inline">\(r(s,a,s^{&#39;})\)</span> should be high. To
+establish a rubric, a matrix for pair of actions and status can be
+learned empirically and then be updated. This process is named
+Q-Learning.</p>
+<p>Updating formula: <span class="math display">\[Q^{new}(s,a) =
+Q^{old}(s,a) + \alpha \cdot \underbrace{[r(s,a,s^{&#39;}) -
+Q^{old}(s,a)]}_\text{Temporary Difference}\]</span></p>
+<p><span class="math inline">\(\alpha\)</span> is the learning rate
+which falls between 0 and 1. If rewards for new state <span
+class="math inline">\(s^{&#39;}\)</span> is larger than <span
+class="math inline">\(Q_old\)</span>, then increase the value of <span
+class="math inline">\(Q_new\)</span> and vice versa.</p>
+<p>However this formula only accounts for immediate rewards so likely to
+be myopic.</p>
 <h4 id="non-myopic-updates">Non-myopic updates</h4>
-<p>An extension of the previous Q-Learning is introduced to consider long-term benefits:</p>
-<p><span class="math display">\[ Q^{new}(s,a) = (1-\alpha)\cdot Q^{old}(s,a) +\alpha \cdot \underbrace{[r(s,a,s^{&#39;}) + \gamma \cdot \max_{\alpha^{&#39;}}Q^{old}(s^{&#39;},a^{&#39;})]}_\text{Non myopic temporary difference}\]</span></p>
-<p>The maximization part of the formula is expected reward (long term effect) and <span class="math inline">\(\gamma\)</span> is called <em>discount factor</em>, valued between 0(immediate) and 1(long run). If the composite reward is larger than <span class="math inline">\(Q^{old}\)</span>, taking action <span class="math inline">\(\alpha\)</span> is more valuable.</p>
-<p>After the Q table is trained, the optimal policy is defined as <span class="math inline">\(\pi(a;s) = \operatorname*{argmax}_{a}Q(s,a)\)</span></p>
+<p>An extension of the previous Q-Learning is introduced to consider
+long-term benefits:</p>
+<p><span class="math display">\[ Q^{new}(s,a) = (1-\alpha)\cdot
+Q^{old}(s,a) +\alpha \cdot \underbrace{[r(s,a,s^{&#39;}) + \gamma \cdot
+\max_{\alpha^{&#39;}}Q^{old}(s^{&#39;},a^{&#39;})]}_\text{Non myopic
+temporary difference}\]</span></p>
+<p>The maximization part of the formula is expected reward (long term
+effect) and <span class="math inline">\(\gamma\)</span> is called
+<em>discount factor</em>, valued between 0(immediate) and 1(long run).
+If the composite reward is larger than <span
+class="math inline">\(Q^{old}\)</span>, taking action <span
+class="math inline">\(\alpha\)</span> is more valuable.</p>
+<p>After the Q table is trained, the optimal policy is defined as <span
+class="math inline">\(\pi(a;s) =
+\operatorname*{argmax}_{a}Q(s,a)\)</span></p>
 <h4 id="exploration-and-exploitation">Exploration and Exploitation</h4>
-<p>The process of Q-Leaning learns state, action. reward sequentially. One way to decide the next action is to explore options other than the current optimal action, that is because the Q function is heavily depend on the past experience and thus could be biased. Another way is to exploit by always choosing the current optimal policy. A approach that combines these two strategies is called <span class="math inline">\(\epsilon-Greedy\)</span>. With a small probability <span class="math inline">\(\epsilon\)</span>, one will take next action at random while to exploit with probability<span class="math inline">\(1-\epsilon\)</span>.</p>
+<p>The process of Q-Leaning learns state, action. reward sequentially.
+One way to decide the next action is to explore options other than the
+current optimal action, that is because the Q function is heavily depend
+on the past experience and thus could be biased. Another way is to
+exploit by always choosing the current optimal policy. A approach that
+combines these two strategies is called <span
+class="math inline">\(\epsilon-Greedy\)</span>. With a small probability
+<span class="math inline">\(\epsilon\)</span>, one will take next action
+at random while to exploit with probability<span
+class="math inline">\(1-\epsilon\)</span>.</p>
 <h4 id="deep-q-learning">Deep Q-Learning</h4>
 <p>There are limitations for tabular Q-learning:</p>
 <ol type="1">
-<li><p>Assumes all of the states and actions are stored in a matrix</p></li>
+<li><p>Assumes all of the states and actions are stored in a
+matrix</p></li>
 <li><p>No capacity to generalize across environment types</p></li>
 </ol>
 <p><a href="DeepQ.png" class="gallery-item"><img src="DeepQ.png" /></a></p>
-<p>In deep Q learning no tabular assumption is made. One wish to learn the parameter through minimizing cost function <span class="math display">\[U(\theta;s^{&#39;},a^{&#39;}) = \frac{1}{2}[Q(s,a;\theta) -[r_t + \gamma \cdot \max_{a}Q(s^{&#39;},a^{&#39;};\theta^{old})]]^2\]</span></p>
+<p>In deep Q learning no tabular assumption is made. One wish to learn
+the parameter through minimizing cost function <span
+class="math display">\[U(\theta;s^{&#39;},a^{&#39;}) =
+\frac{1}{2}[Q(s,a;\theta) -[r_t + \gamma \cdot
+\max_{a}Q(s^{&#39;},a^{&#39;};\theta^{old})]]^2\]</span></p>
 <p><a href="QCost.png" class="gallery-item"><img src="QCost.png" /></a></p>
-<p>Through gradient decent, <span class="math inline">\(\theta\)</span> can be optimized through <span class="math inline">\(\theta^{new} \leftarrow \theta^{old} - \alpha \cdot \Delta_{\theta}U(\theta; s,a)_{|\theta =\theta^{old} }\)</span>. If expand the gradient of U, it is obvious to write that the learning process is very similar to what we have in the tabular Q-Learning:</p>
-<p><span class="math display">\[\theta^{new} \leftarrow \theta^{old} - \alpha \cdot[Q(s,a;\theta^{old}) - r_t - \gamma\cdot \max_{a^{&#39;}}Q(s^{&#39;}_{t+1}, a^{&#39;};\theta^{old})]\Delta_{\theta}Q(s,a;\theta)_{|\theta =\theta^{old}}\]</span></p>
+<p>Through gradient decent, <span class="math inline">\(\theta\)</span>
+can be optimized through <span class="math inline">\(\theta^{new}
+\leftarrow \theta^{old} - \alpha \cdot \Delta_{\theta}U(\theta;
+s,a)_{|\theta =\theta^{old} }\)</span>. If expand the gradient of U, it
+is obvious to write that the learning process is very similar to what we
+have in the tabular Q-Learning:</p>
+<p><span class="math display">\[\theta^{new} \leftarrow \theta^{old} -
+\alpha \cdot[Q(s,a;\theta^{old}) - r_t - \gamma\cdot
+\max_{a^{&#39;}}Q(s^{&#39;}_{t+1},
+a^{&#39;};\theta^{old})]\Delta_{\theta}Q(s,a;\theta)_{|\theta
+=\theta^{old}}\]</span></p>
 <h4 id="link-dqn-with-q-learning">Link DQN with Q learning</h4>
-<p>In the last lecture of the course, it is shown that updating parameters in Deep Q Learning is exactly the same format as updating Q function in Q Learning using Taylor Expansion.</p>
+<p>In the last lecture of the course, it is shown that updating
+parameters in Deep Q Learning is exactly the same format as updating Q
+function in Q Learning using Taylor Expansion.</p>
 <p><a href="Math1.png" class="gallery-item"><img src="Math1.png" /></a> <a href="Math2.png" class="gallery-item"><img src="Math2.png" /></a></p>
 <p align="center">
 <strong>----Words at the end----</strong>
 </p>
-<p>This course covers some very popular but fundamental concepts in deep learning, though it does not give solid explanation for mathematical derivation but it is a good guidance for those who are new to deep learning models.</p>
+<p>This course covers some very popular but fundamental concepts in deep
+learning, though it does not give solid explanation for mathematical
+derivation but it is a good guidance for those who are new to deep
+learning models.</p>
 </div><script src="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/js/lightgallery.min.js"></script><script>if (typeof lightGallery !== 'undefined') {
         var options = {
             selector: '.gallery-item'
@@ -514,7 +747,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
