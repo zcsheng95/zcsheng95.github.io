@@ -173,6 +173,20 @@
 
   
   <url>
+    <loc>http://zcsheng95.github.io/tags/Probability/</loc>
+    <lastmod>2023-07-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://zcsheng95.github.io/tags/Bayesian/</loc>
+    <lastmod>2023-07-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>http://zcsheng95.github.io/tags/Survival-Analysis/</loc>
     <lastmod>2023-07-23</lastmod>
     <changefreq>weekly</changefreq>
@@ -194,27 +208,6 @@
   </url>
   
   <url>
-    <loc>http://zcsheng95.github.io/tags/Data-Science/</loc>
-    <lastmod>2023-07-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://zcsheng95.github.io/tags/Probability/</loc>
-    <lastmod>2023-07-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://zcsheng95.github.io/tags/Bayesian/</loc>
-    <lastmod>2023-07-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>http://zcsheng95.github.io/tags/Database/</loc>
     <lastmod>2023-07-23</lastmod>
     <changefreq>weekly</changefreq>
@@ -222,7 +215,7 @@
   </url>
   
   <url>
-    <loc>http://zcsheng95.github.io/tags/Coding/</loc>
+    <loc>http://zcsheng95.github.io/tags/Data-Science/</loc>
     <lastmod>2023-07-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -230,6 +223,13 @@
   
   <url>
     <loc>http://zcsheng95.github.io/tags/Statistics/</loc>
+    <lastmod>2023-07-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://zcsheng95.github.io/tags/Coding/</loc>
     <lastmod>2023-07-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -280,13 +280,6 @@
 
   
   <url>
-    <loc>http://zcsheng95.github.io/categories/Courses/</loc>
-    <lastmod>2023-07-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>http://zcsheng95.github.io/categories/Random/</loc>
     <lastmod>2023-07-23</lastmod>
     <changefreq>weekly</changefreq>
@@ -294,7 +287,7 @@
   </url>
   
   <url>
-    <loc>http://zcsheng95.github.io/categories/Programming/</loc>
+    <loc>http://zcsheng95.github.io/categories/Courses/</loc>
     <lastmod>2023-07-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -309,6 +302,13 @@
   
   <url>
     <loc>http://zcsheng95.github.io/categories/Algorithm/</loc>
+    <lastmod>2023-07-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://zcsheng95.github.io/categories/Programming/</loc>
     <lastmod>2023-07-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
