@@ -30,7 +30,7 @@
 <meta property="og:description" content="This post is about the study note from one section of Udemy Course SQL BootCamp: Creating databases and tables and my previous big data course. Different than the other sections in this course, before">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-07-17T22:47:13.000Z">
-<meta property="article:modified_time" content="2020-07-19T05:22:43.000Z">
+<meta property="article:modified_time" content="2020-07-17T22:47:13.000Z">
 <meta property="article:author" content="Zhecheng Sheng">
 <meta property="article:tag" content="SQL">
 <meta property="article:tag" content="Relational database">
@@ -196,13 +196,6 @@
 
               <time title="Created: 2020-07-17 17:47:13" itemprop="dateCreated datePublished" datetime="2020-07-17T17:47:13-05:00">2020-07-17</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-19 00:22:43" itemprop="dateModified" datetime="2020-07-19T00:22:43-05:00">2020-07-19</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -250,7 +243,7 @@ foreign/primary keys.</p></li>
 feature.</p></li>
 <li><p>Row(Tuple): Represents an observation</p></li>
 </ul>
-<a id="more"></a>
+<!---more--->
 <h4 id="some-common-data-types-in-sql">Some common data types in
 SQL</h4>
 <ul>
@@ -331,20 +324,20 @@ will return TRUE.</li>
 <h3 id="crud">CRUD</h3>
 <h4 id="create-tables">Create Tables</h4>
 <p>Common simple syntax:</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> table_name(</span><br><span class="line">  column_name <span class="keyword">TYPE</span> column_constraint (<span class="keyword">NOT</span> <span class="literal">NULL</span>) ,</span><br><span class="line">  ...</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> table_name(</span><br><span class="line">  column_name TYPE column_constraint (<span class="keyword">NOT</span> <span class="keyword">NULL</span>) ,</span><br><span class="line">  ...</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
 <h4 id="insert-rows-to-existing-tables">Insert rows to existing
 tables</h4>
 <p>Common simple syntax:</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="keyword">table</span> (column1, column2, ...)</span><br><span class="line"><span class="keyword">VALUES</span></span><br><span class="line">  (value1, value2, ...),</span><br><span class="line">  (value1, value2, ...),...;</span><br></pre></td></tr></table></figure>
 <p>Note that the values can also come from a SQL query.</p>
 <h4 id="update-existing-table">Update existing table</h4>
-<p>Example: <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> <span class="keyword">account</span></span><br><span class="line"><span class="keyword">SET</span> last_login = <span class="keyword">CURRENT_TIMESTAMP</span></span><br><span class="line"><span class="keyword">WHERE</span> last_login <span class="keyword">is</span> <span class="literal">NULL</span>;</span><br></pre></td></tr></table></figure> Set based on another column</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> <span class="keyword">account</span></span><br><span class="line"><span class="keyword">SET</span> last_login = created_on</span><br><span class="line"><span class="keyword">FROM</span> table_b</span><br><span class="line"><span class="keyword">WHERE</span> account.col1 = table_b.col2;</span><br></pre></td></tr></table></figure>
+<p>Example: <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> account</span><br><span class="line"><span class="keyword">SET</span> last_login <span class="operator">=</span> <span class="built_in">CURRENT_TIMESTAMP</span></span><br><span class="line"><span class="keyword">WHERE</span> last_login <span class="keyword">is</span> <span class="keyword">NULL</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure> Set based on another column</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> account</span><br><span class="line"><span class="keyword">SET</span> last_login <span class="operator">=</span> created_on</span><br><span class="line"><span class="keyword">FROM</span> table_b</span><br><span class="line"><span class="keyword">WHERE</span> account.col1 <span class="operator">=</span> table_b.col2;</span><br></pre></td></tr></table></figure>
 <p>To avoid using another select query to check the result, one could
 append a <code>RETURNING</code> clause at the end in
 <em>PostgreSQL</em>.</p>
 <h4 id="delete-rows-from-table">Delete rows from table</h4>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> <span class="keyword">table</span></span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">col</span> = <span class="string">'value'</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> <span class="keyword">table</span></span><br><span class="line"><span class="keyword">WHERE</span> col <span class="operator">=</span> <span class="string">&#x27;value&#x27;</span>;</span><br></pre></td></tr></table></figure>
 <h4 id="alter-an-existing-table">Alter an existing table</h4>
 <p>The <code>ALTER</code> clause allows for changes to an existing table
 structure, such as: - Adding, dropping or renaming columns</p>
@@ -358,7 +351,7 @@ structure, such as: - Adding, dropping or renaming columns</p>
 <strong>DROP</strong> to remove constraint</p>
 <h4 id="drop-column-from-table">Drop column from table</h4>
 <p>Example syntax</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">COLUMN</span> (<span class="keyword">CASCADE</span>) <span class="keyword">IF</span> <span class="keyword">EXISTS</span> col_name;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">COLUMN</span> (CASCADE) IF <span class="keyword">EXISTS</span> col_name;</span><br></pre></td></tr></table></figure>
 <p>Use <strong>CASCADE</strong> keyword to remove all dependencies(e.g.
 in <em>views</em>)</p>
 <h4 id="check-constraints">CHECK Constraints</h4>
@@ -367,7 +360,7 @@ customized constraints that adhere to a certain condition. For example,
 making sure all inserted integer values fall below a certain
 threshold.</p>
 <p>General syntax:</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> example (</span><br><span class="line">  ex_id <span class="built_in">SERIAL</span> PRIMARY <span class="keyword">KEY</span>,</span><br><span class="line">  age <span class="built_in">SMALLINT</span> <span class="keyword">CHECK</span>(age &gt; <span class="number">21</span>),</span><br><span class="line">  parent_age <span class="built_in">SMALLINT</span> <span class="keyword">CHECK</span>(parent_age &gt; age)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> example (</span><br><span class="line">  ex_id SERIAL <span class="keyword">PRIMARY</span> KEY,</span><br><span class="line">  age <span class="type">SMALLINT</span> <span class="keyword">CHECK</span>(age <span class="operator">&gt;</span> <span class="number">21</span>),</span><br><span class="line">  parent_age <span class="type">SMALLINT</span> <span class="keyword">CHECK</span>(parent_age <span class="operator">&gt;</span> age)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
 <p>The <strong>SERIAL</strong> will count those failed
 <strong>INSERT</strong> attempts (not meet <strong>CHECK</strong>
 constraint)</p>
@@ -401,7 +394,7 @@ depend on ALL columns of the composite key.</p>
 <p>In the table below, both major and major_description depend on the
 name (or row number), but major_description only depends on name via the
 major. This is a transitive dependency and violates 3NF.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">names = [<span class="string">'ann'</span>, <span class="string">'bob'</span>, <span class="string">'charles'</span>, <span class="string">'david'</span>]</span><br><span class="line">ages = [<span class="number">21</span>, <span class="number">22</span>, <span class="number">21</span>, <span class="number">23</span>]</span><br><span class="line">majors = [<span class="string">'math'</span>, <span class="string">'stats'</span>, <span class="string">'bio'</span>, <span class="string">'math'</span>]</span><br><span class="line">major_descriptions = [<span class="string">'Mathematics'</span>, <span class="string">'Statisitcs'</span>, <span class="string">'Biohazards in the University'</span>,</span><br><span class="line"> <span class="string">'Mathematics'</span>]</span><br><span class="line">df = pd.DataFrame(dict(name=names, age=ages, major=majors,</span><br><span class="line">major_descriptions=major_descriptions))</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">names = [<span class="string">&#x27;ann&#x27;</span>, <span class="string">&#x27;bob&#x27;</span>, <span class="string">&#x27;charles&#x27;</span>, <span class="string">&#x27;david&#x27;</span>]</span><br><span class="line">ages = [<span class="number">21</span>, <span class="number">22</span>, <span class="number">21</span>, <span class="number">23</span>]</span><br><span class="line">majors = [<span class="string">&#x27;math&#x27;</span>, <span class="string">&#x27;stats&#x27;</span>, <span class="string">&#x27;bio&#x27;</span>, <span class="string">&#x27;math&#x27;</span>]</span><br><span class="line">major_descriptions = [<span class="string">&#x27;Mathematics&#x27;</span>, <span class="string">&#x27;Statisitcs&#x27;</span>, <span class="string">&#x27;Biohazards in the University&#x27;</span>,</span><br><span class="line"> <span class="string">&#x27;Mathematics&#x27;</span>]</span><br><span class="line">df = pd.DataFrame(<span class="built_in">dict</span>(name=names, age=ages, major=majors,</span><br><span class="line">major_descriptions=major_descriptions))</span><br></pre></td></tr></table></figure>
 <table>
 <thead>
 <tr class="header">
@@ -438,7 +431,7 @@ major. This is a transitive dependency and violates 3NF.</p>
 </tr>
 </tbody>
 </table>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">major_ids = [<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>, <span class="number">0</span>]</span><br><span class="line">df1 = pd.DataFrame(dict(name=names, age=ages, major=major_ids))</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">major_ids = [<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>, <span class="number">0</span>]</span><br><span class="line">df1 = pd.DataFrame(<span class="built_in">dict</span>(name=names, age=ages, major=major_ids))</span><br></pre></td></tr></table></figure>
 <table>
 <thead>
 <tr class="header">
@@ -470,7 +463,7 @@ major. This is a transitive dependency and violates 3NF.</p>
 </tr>
 </tbody>
 </table>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">majors = [<span class="string">'math'</span>, <span class="string">'stats'</span>, <span class="string">'bio'</span>]</span><br><span class="line">major_descriptions = [<span class="string">'Mathematics'</span>, <span class="string">'Statisitcs'</span>, <span class="string">'Biohazards in the University'</span>]</span><br><span class="line">df2 = pd.DataFrame(dict(major=majors, description=major_descriptions))</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">majors = [<span class="string">&#x27;math&#x27;</span>, <span class="string">&#x27;stats&#x27;</span>, <span class="string">&#x27;bio&#x27;</span>]</span><br><span class="line">major_descriptions = [<span class="string">&#x27;Mathematics&#x27;</span>, <span class="string">&#x27;Statisitcs&#x27;</span>, <span class="string">&#x27;Biohazards in the University&#x27;</span>]</span><br><span class="line">df2 = pd.DataFrame(<span class="built_in">dict</span>(major=majors, description=major_descriptions))</span><br></pre></td></tr></table></figure>
 <table>
 <thead>
 <tr class="header">

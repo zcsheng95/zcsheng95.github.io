@@ -2,18 +2,9 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://zcsheng95.github.io/2021/09/21/Statistics-Basics/</loc>
+    <loc>http://zcsheng95.github.io/resume/index.html</loc>
     
-    <lastmod>2023-07-22</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://zcsheng95.github.io/2020/07/26/latent-model2/</loc>
-    
-    <lastmod>2022-01-12</lastmod>
+    <lastmod>2023-07-23</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -29,9 +20,9 @@
   </url>
   
   <url>
-    <loc>http://zcsheng95.github.io/resume/index.html</loc>
+    <loc>http://zcsheng95.github.io/2021/09/21/Statistics-Basics/</loc>
     
-    <lastmod>2021-09-21</lastmod>
+    <lastmod>2021-09-22</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -41,15 +32,6 @@
     <loc>http://zcsheng95.github.io/2021/09/19/Roadmap-to-Database/</loc>
     
     <lastmod>2021-09-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://zcsheng95.github.io/2020/06/19/MontyHall/</loc>
-    
-    <lastmod>2021-09-18</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -67,25 +49,16 @@
   <url>
     <loc>http://zcsheng95.github.io/2020/12/05/DLforGroupedSurv/</loc>
     
-    <lastmod>2021-09-18</lastmod>
+    <lastmod>2020-12-05</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://zcsheng95.github.io/photos/index.html</loc>
+    <loc>http://zcsheng95.github.io/2020/07/26/latent-model2/</loc>
     
-    <lastmod>2021-09-18</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://zcsheng95.github.io/2020/07/20/latent-models/</loc>
-    
-    <lastmod>2020-07-22</lastmod>
+    <lastmod>2020-07-27</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -101,16 +74,16 @@
   </url>
   
   <url>
-    <loc>http://zcsheng95.github.io/2020/07/17/sql-part/</loc>
+    <loc>http://zcsheng95.github.io/2020/07/20/latent-models/</loc>
     
-    <lastmod>2020-07-19</lastmod>
+    <lastmod>2020-07-20</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://zcsheng95.github.io/2020/02/21/Python_Basics-1/</loc>
+    <loc>http://zcsheng95.github.io/2020/07/17/sql-part/</loc>
     
     <lastmod>2020-07-17</lastmod>
     
@@ -119,7 +92,7 @@
   </url>
   
   <url>
-    <loc>http://zcsheng95.github.io/2020/02/10/first/</loc>
+    <loc>http://zcsheng95.github.io/2020/06/19/MontyHall/</loc>
     
     <lastmod>2020-06-19</lastmod>
     
@@ -130,7 +103,7 @@
   <url>
     <loc>http://zcsheng95.github.io/2020/06/14/clustering/</loc>
     
-    <lastmod>2020-06-19</lastmod>
+    <lastmod>2020-06-14</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -139,16 +112,7 @@
   <url>
     <loc>http://zcsheng95.github.io/2020/05/19/backpropagation/</loc>
     
-    <lastmod>2020-05-21</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://zcsheng95.github.io/2020/04/11/Duke-Intro-to-Machine-Learning-Notes/</loc>
-    
-    <lastmod>2020-05-20</lastmod>
+    <lastmod>2020-05-19</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -158,6 +122,42 @@
     <loc>http://zcsheng95.github.io/tags/index.html</loc>
     
     <lastmod>2020-04-30</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://zcsheng95.github.io/photos/index.html</loc>
+    
+    <lastmod>2020-04-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://zcsheng95.github.io/2020/04/11/Duke-Intro-to-Machine-Learning-Notes/</loc>
+    
+    <lastmod>2020-04-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://zcsheng95.github.io/2020/02/21/Python_Basics-1/</loc>
+    
+    <lastmod>2020-02-21</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://zcsheng95.github.io/2020/02/10/first/</loc>
+    
+    <lastmod>2020-02-10</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -215,13 +215,6 @@
   </url>
   
   <url>
-    <loc>http://zcsheng95.github.io/tags/Coding/</loc>
-    <lastmod>2023-07-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>http://zcsheng95.github.io/tags/Database/</loc>
     <lastmod>2023-07-23</lastmod>
     <changefreq>weekly</changefreq>
@@ -229,14 +222,14 @@
   </url>
   
   <url>
-    <loc>http://zcsheng95.github.io/tags/Statistics/</loc>
+    <loc>http://zcsheng95.github.io/tags/Coding/</loc>
     <lastmod>2023-07-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://zcsheng95.github.io/tags/NLP/</loc>
+    <loc>http://zcsheng95.github.io/tags/Statistics/</loc>
     <lastmod>2023-07-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -258,6 +251,13 @@
   
   <url>
     <loc>http://zcsheng95.github.io/tags/Algorithm/</loc>
+    <lastmod>2023-07-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://zcsheng95.github.io/tags/NLP/</loc>
     <lastmod>2023-07-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

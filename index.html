@@ -192,13 +192,6 @@
 
               <time title="Created: 2021-09-21 23:39:03" itemprop="dateCreated datePublished" datetime="2021-09-21T23:39:03-05:00">2021-09-21</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-07-22 00:51:31" itemprop="dateModified" datetime="2023-07-22T00:51:31-05:00">2023-07-22</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -253,14 +246,71 @@ class="math inline">\(X\)</span>. It is not hard to figure out that
 E(X|Y)f_Y(y)dy\)</span> given the <em>lazy statistician rule</em>,
 because <span class="math inline">\(E(X|Y)\)</span> can be written as
 <span class="math inline">\(g(Y)\)</span>.</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/09/21/Statistics-Basics/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
+<!---more--->
+<h5 id="proof">Proof</h5>
+<!---Consider the finite case where the $X$ and $Y$ are in the same probability space $\Omega$ with a finite or countably infinite set of finite values.
+
+Assume $E(X)$ is well defined and $\{Y_i\}$ is also defined in probability space $\Omega$, then $E(X) = \sum_iE(X|Y_i)P(Y_i)$.
+
+
+
+
+\begin{eqnarray}
+E\{E(X|Y)\} &=& E(\sum_xP(X=x|Y)\cdot y)  \nonumber \\
+  &=& \sum_y{\sum_x(P(X=x|Y)\cdot y) \cdot P(Y = y)} &=& \sum_y \sum_x P(X=x, Y =y) \cdot x \nonumber \\
+  &=& \sum_x P(X=x) \cdot x = E(X) \nonumber
+\end{eqnarray}
+
+For proof in the general case, it requires knowledge from measure theory, for which I will skip for now.--->
+<p>Assume <span class="math inline">\(X\)</span> and <span
+class="math inline">\(Y\)</span> are two random variables and their
+probability density functions are well-defined, one can write down the
+derivation</p>
+<p><span class="math display">\[\begin{eqnarray}
+E(X) &amp;=&amp; \int_x f_X(x)dx \nonumber \\
+&amp;=&amp; \int_x x\int_yf_{X,Y}(x,y)dxdy \nonumber \\
+&amp;=&amp;  \int_x x \int_y f_{X|Y}(x)dx f_Y(y)dy \nonumber \\
+&amp;=&amp; \int_y [\int_x xf_{X|Y}(x|y)dx] f_Y(y)dy \nonumber \\
+&amp;=&amp; \int_yE[X|Y] f_Y(y)dy \nonumber\\
+&amp;=&amp; E[E[X|Y]] \nonumber
+\end{eqnarray}\]</span></p>
+<p>In general, the order of integrations is not exchangable, with the
+exception the integration of <span
+class="math inline">\(|f(x,y)|\)</span> converges. (<a
+target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Fubini%27s_theorem">Fubini's
+theorem</a>) Note there are other ways to prove under weaker
+assumptions.</p>
+<h4 id="law-of-total-variance">Law of Total Variance</h4>
+<p>Upon the proof of the law of total (double) expectation, we can
+further derive the <strong>law of total variance</strong>.</p>
+<p>The law of total variance states:</p>
+<p><span class="math display">\[ Var(Y) = Var(E(Y|X)) +
+E(Var(Y|X))  \]</span></p>
+<p>Given we have proved double expectation theorem, we can use the
+conclusion to prove law of total variance.</p>
+<h5 id="proof-1">Proof</h5>
+<p><span class="math display">\[\begin{eqnarray}
+Var(Y) &amp;=&amp; E[(Y-E(Y))^2] \nonumber \\
+&amp;=&amp; E(Y^2 - 2 \cdot Y \cdot E(Y) + E(Y)^2)  \nonumber \\
+&amp;=&amp; E(Y^2) - E(Y)^2  \nonumber \\
+&amp;=&amp; E[(E(Y^2 | X))] - E(Y)^2  \nonumber \\
+&amp;=&amp; E[Var(Y|X) + E(Y|X)^2] - E(Y)^2 \nonumber \\
+&amp;=&amp; E(Var(Y|X)) + E(E(Y|X)^2) - E(E(Y|X))^2  \nonumber \\
+&amp;=&amp; E(Var(Y|X)) + Var(E(Y|X)) \nonumber
+
+\end{eqnarray}\]</span></p>
+<h4 id="law-of-large-numbers">Law of Large Numbers</h4>
+<p>In probability theory, the law of large number(LLN) describes when
+performing experiments a large number of times, the average of the
+results will converge to the expected value as the number of trials
+increase. To note that law of large number only applies to the sample
+mean.</p>
+</div><script src="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/js/lightgallery.min.js"></script><script>if (typeof lightGallery !== 'undefined') {
+        var options = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options);
+        }</script>
       
     </div>
 
@@ -302,9 +352,8 @@ because <span class="math inline">\(E(X|Y)\)</span> can be written as
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2021-09-19 23:46:25 / Modified: 23:57:31" itemprop="dateCreated datePublished" datetime="2021-09-19T23:46:25-05:00">2021-09-19</time>
+              <time title="Created: 2021-09-19 23:46:25" itemprop="dateCreated datePublished" datetime="2021-09-19T23:46:25-05:00">2021-09-19</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -327,15 +376,14 @@ because <span class="math inline">\(E(X|Y)\)</span> can be written as
     <div class="post-body" itemprop="articleBody">
 
       
-          <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"><p>Some notes about database design.
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/09/19/Roadmap-to-Database/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
+          <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"><p>Some notes about database design. <!---more---> <img
+src="Roadmap.jpg" /></p>
+</div><script src="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/js/lightgallery.min.js"></script><script>if (typeof lightGallery !== 'undefined') {
+        var options = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options);
+        }</script>
       
     </div>
 
@@ -377,9 +425,8 @@ because <span class="math inline">\(E(X|Y)\)</span> can be written as
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2021-09-18 11:44:17 / Modified: 17:10:34" itemprop="dateCreated datePublished" datetime="2021-09-18T11:44:17-05:00">2021-09-18</time>
+              <time title="Created: 2021-09-18 11:44:17" itemprop="dateCreated datePublished" datetime="2021-09-18T11:44:17-05:00">2021-09-18</time>
             </span>
 
           
@@ -469,13 +516,6 @@ class="math inline">\(f(t)\)</span></p>
 
               <time title="Created: 2020-12-05 13:20:57" itemprop="dateCreated datePublished" datetime="2020-12-05T13:20:57-06:00">2020-12-05</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-09-18 16:08:21" itemprop="dateModified" datetime="2021-09-18T16:08:21-05:00">2021-09-18</time>
-              </span>
 
           
 
@@ -514,14 +554,299 @@ techniques however do not take the timing of default into account. With
 the use of survival analysis more accurate credit risks calculations are
 enabled since these analysis refers to a set of statistical techniques
 that is able to estimate the time it takes for a customer to default.
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/12/05/DLforGroupedSurv/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
+<!---more---></p>
+<h2 id="review-of-survival-analysis">Review of Survival Analysis</h2>
+<p>Survival analysis is a collection of data analysis methods with the
+outcome variable of interest time to event. In general event describes
+the event of interest, also called <strong>death event</strong>, time
+refers to the point of time of first observation, also called
+<strong>birth event</strong>, and time to event is the
+<strong>duration</strong> between the first observation and the time the
+event occurs. The subjects whose data were collected for survival
+analysis usually do not have the same time of first observation. A
+subject can enter the study at any time. Using durations ensure a
+necessary relativeness. Referring to the business case the birth event
+is the initial recognition of a loan, the death event, consequently the
+event of interest, describes the time a customer defaulted and the
+duration is the time between the initial recognition and the event of
+default.</p>
+<p>Apparently not every observation will experience an endpoint. This
+type of data missing can be emerged due to two reasons:</p>
+<ul>
+<li><p>The subject is still part of the study but has not experienced
+the event of interest yet.</p></li>
+<li><p>The subject experienced a different event and led to the end of
+the study.</p></li>
+</ul>
+<h3 id="survival-function">Survival Function</h3>
+<p>The survival function $ S(t) = Pr(T&gt;t)$ describes the probability
+that a subject of interest will survive beyond time <span
+class="math inline">\(t\)</span>, it is a non-increasing function of
+<span class="math inline">\(t\)</span>. Theoretically, survival function
+is smooth but in practice data is usually observed across a fine
+grid.(e.g. Kaplan-Meier Curves)</p>
+<h3 id="hazard-function">Hazard Function</h3>
+<p>Derived from the survival function the hazard function <span
+class="math inline">\(h(t)\)</span> gives the probability of the death
+event occurring at time <span class="math inline">\(t\)</span>.</p>
+<p><span class="math display">\[h(t) = \displaystyle{\lim_{\delta t \to
+0} \frac{Pr(t \leq T \leq t+ \delta t | T \gt t)}{\delta
+t}}\]</span></p>
+<p>Its relationship with Survival function is <span
+class="math inline">\(h(t) = \frac{f_{T}(t)}{S(t)}\)</span></p>
+<h3 id="standard-methods-in-survival-analysis">Standard methods in
+Survival Analysis</h3>
+<ul>
+<li><p><strong>Parametric</strong> methods rely on the assumptions that
+the distribution of the survival times corresponds to specific
+probability distributions. This group consists of methods such as
+exponential, Weibull and lognormal distributions. Parameters inside
+these models are usually estimated using certain maximum likelihood
+estimations.</p></li>
+<li><p>In the <strong>non-parametric</strong> methods there are no
+dependencies on the form of parameters in underlying distributions.
+Mostly, the non-parametric approach is used to describe survival
+probabilities as function of time and to give an average view of
+individual’s population. The most popular univariate method is the
+Kaplan-Meier estimator and used as first step in survival descriptive
+analysis</p></li>
+<li><p>To the <strong>semi-parametric</strong> methods corresponds the
+Cox regression model which is based both on parametric and
+non-parametric components</p></li>
+</ul>
+<p><a href="overall1.jpg" class="gallery-item"><img src="overall1.jpg" /></a></p>
+<h4 id="kaplan-meier-estimator">Kaplan-Meier estimator</h4>
+<p><span class="math display">\[ \hat{S(t)} =
+\displaystyle{\prod_{i:t_{i}\leq t}}\frac{n_i - d_i}{n_i}\]</span></p>
+<p>Where <span class="math inline">\(n_i\)</span> is the number of
+subjects at risk(remaining) at <span class="math inline">\(t_i\)</span>
+and <span class="math inline">\(d_i\)</span> is the number of subjects
+that experienced the event at time <span
+class="math inline">\(t_i\)</span></p>
+<p><strong>Attributes:</strong></p>
+<ol type="1">
+<li>All obeservations are used for estimation</li>
+<li>Survival probability is equal to all subjects</li>
+<li>Can not consider covariates effect in the dataset</li>
+</ol>
+<h4 id="cox-proportional-hazard-models">Cox Proportional Hazard
+Models</h4>
+<p><span class="math display">\[\lambda(t|X) =
+\lambda_{0}(t)exp(\beta_1x_1 + ... + \beta_nx_n)\]</span></p>
+<p>Where <span class="math inline">\(\lambda_{0}(t)\)</span> is the
+baseline hazard function when all the other covariates are zeros.</p>
+<p><strong>Attributes:</strong></p>
+<ol type="1">
+<li>This method is considered as semi-parametric: The set of parametric
+covariates and a non-parametric component <span
+class="math inline">\(\lambda_0(t)\)</span>, which is the baseline
+hazard.</li>
+<li>The second component are partial hazards or hazard ratio and they
+define the hazard effect of observed covariates on the baseline hazard
+ratio.</li>
+<li>These components are estimated by partial likelihood and are
+time-invariant</li>
+</ol>
+<h4 id="time-varing-covariates">Time Varing Covariates</h4>
+<ul>
+<li><p>Avoid the proportional hazard assumption.</p></li>
+<li><p>Its effect does not depend on time. Time-variant features should
+be used when it is hypothesized that the predicted hazard depends
+significantly on later values of the covariate than the value of the
+covariate at the baseline.</p></li>
+<li><p>Challenges with time-varying covariates are missing data in the
+covariate at different timestamps.</p></li>
+</ul>
+<h4 id="random-survival-forest">Random Survival Forest</h4>
+<ul>
+<li><p>Basically, RSF computes a random forest using the log-rank test
+as the splitting criterion. It calculates the cumulative hazards of the
+leaf nodes in each tree and averages them in following
+ensemble.</p></li>
+<li><p>The tree is grown to full size under the condition that each
+terminal node have no less than a pre-specified number of
+deaths</p></li>
+<li><p>The out-of-bag samples are then used to compute the prediction
+error of the ensemble cumulative hazard function.</p></li>
+</ul>
+<h3 id="deep-learning-for-survival-analysis">Deep Learning For Survival
+Analysis</h3>
+<p>Provide more individual learning inside and flexible model
+architectures.</p>
+<p>Some categories:</p>
+<ul>
+<li>Further developmenmt of Cox proportional hazards model: <a
+target="_blank" rel="noopener" href="https://arxiv.org/abs/1606.00931">DeepSurv</a>, <a
+target="_blank" rel="noopener" href="https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1006076">Cox-nnet</a></li>
+<li>Fully parametric, use RNN to predict the time of the next event: <a
+target="_blank" rel="noopener" href="http://medianetlab.ee.ucla.edu/papers/RNN_SURV.pdf">RNN-SURV</a>,
+<a target="_blank" rel="noopener" href="https://github.com/ragulpr/wtte-rnn">Weilbull Time-To-event
+RNN</a></li>
+<li>Allow competing risks: <a
+target="_blank" rel="noopener" href="http://medianetlab.ee.ucla.edu/papers/AAAI_2018_DeepHit.pdf">DeepHit</a></li>
+<li>Some additional literatures to read
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.arxiv-vanity.com/papers/1805.00917/"
+class="uri">https://www.arxiv-vanity.com/papers/1805.00917/</a></li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1908.02337.pdf"
+class="uri">https://arxiv.org/pdf/1908.02337.pdf</a></li>
+<li><a target="_blank" rel="noopener" href="https://jmlr.org/papers/volume20/18-424/18-424.pdf"
+class="uri">https://jmlr.org/papers/volume20/18-424/18-424.pdf</a></li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1908.02337"
+class="uri">https://arxiv.org/abs/1908.02337</a></li>
+</ul></li>
+</ul>
+<h4 id="deepsurv">DeepSurv</h4>
+<p><em>DeepSurv</em> has an advantage over traditional Cox regression
+because it does not require an a priori selection of covariates, but
+learns them adaptively.</p>
+<figure>
+<a href="deep_surv_arch.jpg" title="Architecture" class="gallery-item"><img src="deep_surv_arch.jpg" alt="Architecture" /></a>
+<figcaption aria-hidden="true">Architecture</figcaption>
+</figure>
+<p>In Cox regression model, we optimize through partial likelihood
+function with censored data:</p>
+<p><span class="math display">\[ L(\beta) =
+\displaystyle{\prod_{j=1}^{n}}[\frac{exp(\beta{X_i})}{\sum_{j\in
+R(X_i)}exp(\beta{X_l})}]^{\delta_i}\]</span></p>
+<p>In DeepSurv the loss function is the negative log partial likelihood
+with an additional regularization.</p>
+<p>The output of the network is a single node, which estimates the risk
+function <span class="math inline">\(\hat{h_\theta(x)}\)</span>
+parameterized by the weights of the network θ</p>
+<p><span class="math display">\[ l(\theta) = - \frac{1}{n}
+\sum_{j=1}^{n} \delta_i(\theta{X_i} - log\sum_{j\in
+R(X_i)}exp(\theta{X_l})) + \lambda||\theta||_2^2 \]</span></p>
+<p>Implementation:</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/jaredleekatzman/DeepSurv">Original
+paper</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/havakv/pycox">Based on
+PyTorch</a></p></li>
+</ul>
+<h4 id="deephit">DeepHit</h4>
+<p><em>DeepHit</em> is a deep neural network that learns the
+distribution of survival times directly. This means that this model does
+not do any assumptions about an underlying stochastic process, so both
+the parameters of the model as well as the form of the stochastic
+process depends on the covariates of the specific dataset used for
+survival analysis.</p>
+<ul>
+<li><p>This architecture contains two sub-networks: A shared sub-network
+and a cause-specific sub-network, which allow us to implement competing
+risks easily.</p></li>
+<li><p>Also this architecture provides multi-tasking, which applies the
+knowledge learned from previous tasks to help learn a new task.
+Different from transfer learning, the goal is to improve all the tasks
+equally.</p></li>
+</ul>
+<p><a href="multitask1.png" title="Multitask" class="gallery-item"><img src="multitask1.png" alt="Multitask" /></a> DeepHit provides an
+architecture of hard parameter sharing. <a href="multitask2.png" title="Multitask2" class="gallery-item"><img src="multitask2.png"
+alt="Multitask2" /></a></p>
+<p>By multi-task learning, it advances the performances due to several
+reasons:</p>
+<ul>
+<li><p>Increase sample size, like data augmentation.</p></li>
+<li><p>The network sees more labels, not for the same tasks but highly
+related.</p></li>
+<li><p>The model learns more general representations as in the transfer
+learning.</p></li>
+<li><p>Focus on important information rather than task-specific
+noise</p></li>
+<li><p>Combined easy and hard tasks</p></li>
+<li><p>Treat each other as a form of regularization to prevent
+overfitting</p></li>
+</ul>
+<figure>
+<a href="deephit.png" title="deephit" class="gallery-item"><img src="deephit.png" alt="deephit" /></a>
+<figcaption aria-hidden="true">deephit</figcaption>
+</figure>
+<p>Major difference with typical multi-task learning architecture:</p>
+<ul>
+<li><p>Original covariates has a residual connection with the input of
+the cause-specific network</p></li>
+<li><p>A single output layer to learn the joint distribution of the
+competing events.</p></li>
+</ul>
+<p>i.e. <span class="math inline">\(y = [y_{1,1},...,y_{1,Tmax},...,
+y_{k,1},...,y_{k,Tmax}]\)</span></p>
+<p>Hyperparamters of DeepHit:</p>
+<ul>
+<li><p>batch size</p></li>
+<li><p>number of layers in the shared sub-network</p></li>
+<li><p>number of nodes in the shared sub-network</p></li>
+<li><p>number of layers in the cause-specific sub-network</p></li>
+<li><p>number of nodes in the cause-specific sub-network</p></li>
+<li><p>learning rate</p></li>
+<li><p>dropout</p></li>
+<li><p>activation functions</p></li>
+</ul>
+<p><a
+target="_blank" rel="noopener" href="https://nbviewer.jupyter.org/github/havakv/pycox/blob/master/examples/deephit_competing_risks.ipynb">DeepHit
+Notebook Example</a></p>
+<p>The loss function of the DeepHit model is the sum of two terms. <span
+class="math display">\[L = L_1 + L_2\]</span></p>
+<p><span class="math inline">\(L1\)</span> is the log-likelihood of the
+joint distribution of the first hitting time and event.</p>
+<p>The log-likelihood function also consists out of two terms. The first
+term captures the event and the time, the event occurred, for the
+uncensored customers. The second term captures the time of censoring for
+the censored customers giving the information that the customer did not
+default up to that time.</p>
+<figure>
+<a href="l1.png" title="l1" class="gallery-item"><img src="l1.png" alt="l1" /></a>
+<figcaption aria-hidden="true">l1</figcaption>
+</figure>
+<p><span class="math inline">\(L2\)</span> is a combination of
+cause-specific ranking loss functions since DeepHit is a multi-task
+learning model and therefore needs cause-specific loss functions for
+training. The ranking loss function incorporates the <strong>estimated
+cumulative incidence function</strong> calculated at the time the
+specific event occurred.</p>
+<p><a href="a.png" class="gallery-item"><img src="a.png" /></a></p>
+<figure>
+<a href="l2.png" title="l2" class="gallery-item"><img src="l2.png" alt="l2" /></a>
+<figcaption aria-hidden="true">l2</figcaption>
+</figure>
+<figure>
+<a href="deephitloss.png" title="deephitloss" class="gallery-item"><img src="deephitloss.png" alt="deephitloss" /></a>
+<figcaption aria-hidden="true">deephitloss</figcaption>
+</figure>
+<p>The cause-specific ranking loss function adapts the idea of
+concordance. A customer that experienced the event k on a specific time
+t should have a higher probability than a customer that will experience
+the event sometime after this specific time t. The ranking loss function
+therefore compares pairs of customers that experienced the same event of
+interest and penalizes an incorrect ordering of pairs.</p>
+<h3 id="evaluation">Evaluation</h3>
+<ul>
+<li>concordance-index (c-index)</li>
+</ul>
+<p>The idea behind concordance is that a subject that dies at time t
+should have a higher risk at time t than a subject who survives beyond
+time t. The same ordering as the observed data will give a c-index of 1.
+Only order but not the actual time is accounted for.</p>
+<p><strong>In the case of right-censoring, only compare informed
+pairs</strong></p>
+<figure>
+<a href="table2.png" title="censored" class="gallery-item"><img src="table2.png" alt="censored" /></a>
+<figcaption aria-hidden="true">censored</figcaption>
+</figure>
+<p>For example in this case , we will only calculate (A,B), (A,C),
+(A,D), (C,D), because no information of B is given it is censored.</p>
+<h4 id="possible-extend">Possible Extend</h4>
+<ul>
+<li><p>Built a survival prediction model that can predict survival
+probability on the continumm of time.</p></li>
+<li><p>Predict a patient's risk of developing toxicity for drug
+usage.</p></li>
+</ul>
+</div><script src="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/js/lightgallery.min.js"></script><script>if (typeof lightGallery !== 'undefined') {
+        var options = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options);
+        }</script>
       
     </div>
 
@@ -566,13 +891,6 @@ that is able to estimate the time it takes for a customer to default.
 
               <time title="Created: 2020-07-26 23:26:58" itemprop="dateCreated datePublished" datetime="2020-07-26T23:26:58-05:00">2020-07-26</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-12 13:36:03" itemprop="dateModified" datetime="2022-01-12T13:36:03-06:00">2022-01-12</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -612,14 +930,441 @@ of the same length as the Dirichlet concentration parameter <span
 class="math inline">\(\alpha\)</span>. Below is 5 random samples draw
 from a Dirichlet distribution with the parameter <span
 class="math inline">\(\alpha\)</span></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/07/26/latent-model2/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
+<!---more--->
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">alpha = np.array([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>])</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>):</span><br><span class="line">  <span class="built_in">print</span>(np.random.dirichlet(alpha))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[0.13192107 0.19200145 0.67607748]</span><br><span class="line">[0.21182332 0.32329972 0.46487696]</span><br><span class="line">[0.00747152 0.39191045 0.60061803]</span><br><span class="line">[0.3626958  0.39636298 0.24094121]</span><br><span class="line">[0.14504415 0.38721339 0.46774246]</span><br></pre></td></tr></table></figure>
+<h5 id="relationship-between-alpha-and-samples">Relationship between
+<span class="math inline">\(\alpha\)</span> and samples</h5>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alpha/alpha.<span class="built_in">sum</span>()</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array([0.16666667, 0.33333333, 0.5       ])</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">n = <span class="number">1e6</span></span><br><span class="line">np.random.dirichlet(alpha, n).mean(axis = <span class="number">0</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array([0.16679836, 0.33292385, 0.50027778])</span><br></pre></td></tr></table></figure>
+<p><a href="topic-model.jpg" class="gallery-item"><img src="topic-model.jpg" /></a></p>
+<h4 id="concept-of-latent-dirichlet-allocation">Concept of Latent
+Dirichlet Allocation</h4>
+<p>LDA assumes documents are produced from a mixture of topics. Those
+topics then generate words based on their probability distribution.
+Given a dataset of documents, LDA backtracks and tries to figure out
+what topics would create those documents in the first place.</p>
+<p>LDA is a matrix factorization technique. In vector space, any corpus
+(collection of documents) can be represented as a document-term matrix.
+The following matrix shows a corpus of <span
+class="math inline">\(N\)</span> documents <span
+class="math inline">\(D_1, D_2, D_3 … D_n\)</span> and vocabulary size
+of <span class="math inline">\(M\)</span> words <span
+class="math inline">\(W_1,W_2 .. W_m\)</span>. The value of <span
+class="math inline">\(i,j\)</span> cell gives the frequency count of
+word <span class="math inline">\(W_j\)</span> in document <span
+class="math inline">\(D_i\)</span>.</p>
+<ul>
+<li>There are <span class="math inline">\(M\)</span> documents
+<ul>
+<li>A document consists of the words <span
+class="math inline">\(w_{1:N}\)</span></li>
+</ul></li>
+<li>There are <span class="math inline">\(K\)</span> topics <span
+class="math inline">\(\varphi_{1:K}\)</span> from which we can choose
+words from a vocabulary of length <span class="math inline">\(V\)</span>
+<ul>
+<li>For each topic
+<ul>
+<li>Sample a topic <span class="math inline">\(\varphi\)</span> from a
+Dirichlet distribution with parameter <span
+class="math inline">\(\beta\)</span></li>
+<li>Each topic <span class="math inline">\(\varphi\)</span> is a
+multinomial distribution of size <span
+class="math inline">\(V\)</span></li>
+</ul></li>
+</ul></li>
+<li>There are <span class="math inline">\(N\)</span> words in a document
+<ul>
+<li>For each document
+<ul>
+<li>Sample a topic multinomial <span
+class="math inline">\(\theta\)</span> of size <span
+class="math inline">\(K\)</span> from a different Dirichlet distribution
+with parameter <span class="math inline">\(\alpha\)</span></li>
+<li>Repeat for each word position in the document
+<ul>
+<li>Sample the integer index <span class="math inline">\(z\)</span> from
+<span class="math inline">\(\theta\)</span></li>
+<li>Sample a word <span class="math inline">\(w\)</span> from the topic
+<span class="math inline">\(\varphi_z\)</span></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<p><img
+src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Smoothed_LDA.png" /></p>
+<h4 id="lda-examples-using-previous-pubmed-text">LDA examples using
+previous <em>PubMed</em> text</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">%matplotlib inline</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line">sns.set_context(<span class="string">&#x27;notebook&#x27;</span>, font_scale=<span class="number">1.5</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pprint <span class="keyword">import</span> pprint</span><br><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> gensim</span><br><span class="line"><span class="keyword">from</span> gensim.parsing.preprocessing <span class="keyword">import</span> STOPWORDS</span><br><span class="line"><span class="keyword">from</span> gensim.models.ldamodel <span class="keyword">import</span> LdaModel</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">df = pd.DataFrame.from_dict(docs,orient=<span class="string">&#x27;index&#x27;</span>,columns=[<span class="string">&#x27;content&#x27;</span>])</span><br><span class="line">df = df.reset_index()</span><br><span class="line">df.content[<span class="number">0</span>][:<span class="number">500</span>]</span><br></pre></td></tr></table></figure>
+<pre><code>&#39;Phenotypic profiling of CD8 + T cells during Plasmodium vivax blood-stage infection.
+BackgroundFor a long time, the role of CD8+ T cells in blood-stage malaria was not considered important because erythrocytes do not express major histocompatibility complex (MHC) class I proteins. While recent evidences suggest that CD8+ T cells may play an important role during the erythrocytic phase of infection by eliminating parasites, CD8+ T cells might also contribute to modulate the host response through &#39;</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">corpus = [gensim.utils.simple_preprocess(s)</span><br><span class="line">        <span class="keyword">for</span> s <span class="keyword">in</span> df.content]</span><br><span class="line">corpus = [[s <span class="keyword">for</span> s <span class="keyword">in</span> doc <span class="keyword">if</span> <span class="keyword">not</span> s <span class="keyword">in</span> STOPWORDS] <span class="keyword">for</span> doc <span class="keyword">in</span> corpus]</span><br><span class="line">dictionary = gensim.corpora.Dictionary(corpus)</span><br><span class="line">corpus = [dictionary.doc2bow(doc) <span class="keyword">for</span> doc <span class="keyword">in</span> corpus]</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;Number of unique tokens: %d&#x27;</span> % <span class="built_in">len</span>(dictionary))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;Number of documents: %d&#x27;</span> % <span class="built_in">len</span>(corpus))</span><br></pre></td></tr></table></figure>
+<pre><code>Number of unique tokens: 5388
+Number of documents: 178</code></pre>
+<ul>
+<li>Arbitrarily choose 5 topics for classification.</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">%%time</span><br><span class="line">lda = LdaModel(corpus,</span><br><span class="line">                     num_topics=<span class="number">5</span>,</span><br><span class="line">                     id2word = dictionary,</span><br><span class="line">                     random_state=<span class="number">2020</span>,</span><br><span class="line">                     chunksize=<span class="number">1000</span>,</span><br><span class="line">                     passes=<span class="number">5</span>,</span><br><span class="line">                     alpha=<span class="string">&#x27;auto&#x27;</span>,</span><br><span class="line">                     per_word_topics=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>CPU times: user 1.26 s, sys: 5.33 ms, total: 1.26 s
+Wall time: 1.26 s</code></pre>
+<ul>
+<li>Print out top 10 words in each topic with its weight</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pprint(lda.print_topics())</span><br></pre></td></tr></table></figure>
+<pre><code>[(0,
+  &#39;0.012*&quot;cells&quot; + 0.007*&quot;infection&quot; + 0.006*&quot;study&quot; + 0.006*&quot;apoptosis&quot; + &#39;
+  &#39;0.006*&quot;cell&quot; + 0.006*&quot;inverted&quot; + 0.006*&quot;question&quot; + 0.005*&quot;mark&quot; + &#39;
+  &#39;0.004*&quot;asthma&quot; + 0.004*&quot;induced&quot;&#39;),
+ (1,
+  &#39;0.012*&quot;cd&quot; + 0.011*&quot;malaria&quot; + 0.010*&quot;cells&quot; + 0.007*&quot;blood&quot; + &#39;
+  &#39;0.007*&quot;plasmodium&quot; + 0.005*&quot;study&quot; + 0.005*&quot;infection&quot; + 0.005*&quot;parasite&quot; + &#39;
+  &#39;0.004*&quot;il&quot; + 0.004*&quot;cell&quot;&#39;),
+ (2,
+  &#39;0.017*&quot;cd&quot; + 0.010*&quot;cells&quot; + 0.010*&quot;patients&quot; + 0.009*&quot;cell&quot; + &#39;
+  &#39;0.005*&quot;asthma&quot; + 0.005*&quot;treatment&quot; + 0.004*&quot;study&quot; + 0.004*&quot;anti&quot; + &#39;
+  &#39;0.004*&quot;increased&quot; + 0.004*&quot;analysis&quot;&#39;),
+ (3,
+  &#39;0.010*&quot;cells&quot; + 0.008*&quot;patients&quot; + 0.008*&quot;malaria&quot; + 0.006*&quot;plasmodium&quot; + &#39;
+  &#39;0.005*&quot;cell&quot; + 0.005*&quot;cd&quot; + 0.005*&quot;anti&quot; + 0.004*&quot;pcr&quot; + 0.004*&quot;flt&quot; + &#39;
+  &#39;0.004*&quot;clinical&quot;&#39;),
+ (4,
+  &#39;0.010*&quot;asthma&quot; + 0.010*&quot;diabetes&quot; + 0.008*&quot;patients&quot; + 0.006*&quot;children&quot; + &#39;
+  &#39;0.004*&quot;cells&quot; + 0.004*&quot;study&quot; + 0.004*&quot;risk&quot; + 0.004*&quot;results&quot; + &#39;
+  &#39;0.003*&quot;omalizumab&quot; + 0.003*&quot;gad&quot;&#39;)]</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">lda_df = lda.get_document_topics(corpus,minimum_probability=<span class="number">0</span>)</span><br><span class="line">lda_df = pd.DataFrame(<span class="built_in">list</span>(lda_df))</span><br><span class="line">num_topics = lda.num_topics</span><br><span class="line">lda_df.columns = [<span class="string">&#x27;Topic &#x27;</span> + <span class="built_in">str</span>(i+<span class="number">1</span>) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(num_topics)]</span><br><span class="line">lda_df = lda_df.applymap(func = <span class="keyword">lambda</span> x:x[<span class="number">1</span>])</span><br><span class="line">lda_df[<span class="string">&#x27;topic&#x27;</span>] = lda_df.apply(axis = <span class="number">1</span>, func = <span class="keyword">lambda</span> x: np.argmax(x)+<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lda_df</span><br></pre></td></tr></table></figure>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+Topic 1
+</th>
+<th>
+Topic 2
+</th>
+<th>
+Topic 3
+</th>
+<th>
+Topic 4
+</th>
+<th>
+Topic 5
+</th>
+<th>
+topic
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+0.920999
+</td>
+<td>
+0.078505
+</td>
+<td>
+0.000162
+</td>
+<td>
+0.000154
+</td>
+<td>
+0.000181
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+0.000335
+</td>
+<td>
+0.998742
+</td>
+<td>
+0.000301
+</td>
+<td>
+0.000285
+</td>
+<td>
+0.000335
+</td>
+<td>
+2
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+0.000369
+</td>
+<td>
+0.000402
+</td>
+<td>
+0.000332
+</td>
+<td>
+0.998527
+</td>
+<td>
+0.000369
+</td>
+<td>
+4
+</td>
+</tr>
+<tr>
+<th>
+3
+</th>
+<td>
+0.872048
+</td>
+<td>
+0.126844
+</td>
+<td>
+0.000362
+</td>
+<td>
+0.000343
+</td>
+<td>
+0.000403
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<th>
+4
+</th>
+<td>
+0.000998
+</td>
+<td>
+0.001087
+</td>
+<td>
+0.000896
+</td>
+<td>
+0.000849
+</td>
+<td>
+0.996170
+</td>
+<td>
+5
+</td>
+</tr>
+<tr>
+<th>
+...
+</th>
+<td>
+...
+</td>
+<td>
+...
+</td>
+<td>
+...
+</td>
+<td>
+...
+</td>
+<td>
+...
+</td>
+<td>
+...
+</td>
+</tr>
+<tr>
+<th>
+173
+</th>
+<td>
+0.994360
+</td>
+<td>
+0.001601
+</td>
+<td>
+0.001320
+</td>
+<td>
+0.001250
+</td>
+<td>
+0.001470
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<th>
+174
+</th>
+<td>
+0.998049
+</td>
+<td>
+0.000554
+</td>
+<td>
+0.000456
+</td>
+<td>
+0.000433
+</td>
+<td>
+0.000508
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<th>
+175
+</th>
+<td>
+0.000347
+</td>
+<td>
+0.000378
+</td>
+<td>
+0.998634
+</td>
+<td>
+0.000295
+</td>
+<td>
+0.000347
+</td>
+<td>
+3
+</td>
+</tr>
+<tr>
+<th>
+176
+</th>
+<td>
+0.000729
+</td>
+<td>
+0.000794
+</td>
+<td>
+0.000654
+</td>
+<td>
+0.997094
+</td>
+<td>
+0.000729
+</td>
+<td>
+4
+</td>
+</tr>
+<tr>
+<th>
+177
+</th>
+<td>
+0.000738
+</td>
+<td>
+0.000803
+</td>
+<td>
+0.000662
+</td>
+<td>
+0.997059
+</td>
+<td>
+0.000738
+</td>
+<td>
+4
+</td>
+</tr>
+</tbody>
+</table>
+<p>
+178 rows × 6 columns
+</p>
+</div>
+<h4 id="visualization">Visualization</h4>
+<ul>
+<li>A common way to visualize topic modeling results is via dimension
+reduction techniques. Below is two example of such representation. The
+first one generated by <em>pyLDAvis</em> using multi-dimension scaling
+to produce the first two principle components. The second example use
+the word embeddings from LDA model output, which is a probability
+distribution assigned for each document, to generate a TSNE plot with
+the classification topic as the label for each document.</li>
+</ul>
+<h5 id="code-example">Code example</h5>
+<ul>
+<li><em>pyLDAvis</em> provide a interactive API for visualizing trained
+LDA model from <em>gensim</em>, below is a screenshot of that app.</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pyLDAvis.gensim</span><br><span class="line">vis = pyLDAvis.gensim.prepare(lda, corpus, dictionary)</span><br><span class="line">pyLDAvis.display(vis)</span><br></pre></td></tr></table></figure>
+<p><a href="interact.png" class="gallery-item"><img src="interact.png" /></a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.manifold <span class="keyword">import</span> TSNE</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tsne = TSNE(random_state=<span class="number">2020</span>, perplexity=<span class="number">30</span>, early_exaggeration=<span class="number">120</span>)</span><br><span class="line">embedding = tsne.fit_transform(lda_df.iloc[:,:<span class="number">5</span>].values)</span><br><span class="line">embedding = pd.DataFrame(embedding, columns=[<span class="string">&#x27;x&#x27;</span>,<span class="string">&#x27;y&#x27;</span>])</span><br><span class="line">embedding[<span class="string">&#x27;hue&#x27;</span>] = hm.argmax(axis=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cmap = plt.cm.Spectral</span><br><span class="line">plt.scatter(x = embedding.x, y = embedding.y, c = embedding.hue,cmap = cmap, s = <span class="number">40</span>)</span><br><span class="line">plt.xlabel(<span class="string">&quot;PC1&quot;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&quot;PC2&quot;</span>)</span><br><span class="line"><span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+<p><a href="lda_example_files/lda_example_15_0.png" class="gallery-item"><img src="lda_example_files/lda_example_15_0.png" /></a></p>
+</div><script src="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/js/lightgallery.min.js"></script><script>if (typeof lightGallery !== 'undefined') {
+        var options = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options);
+        }</script>
       
     </div>
 
@@ -664,13 +1409,6 @@ class="math inline">\(\alpha\)</span></p>
 
               <time title="Created: 2020-07-20 14:14:17" itemprop="dateCreated datePublished" datetime="2020-07-20T14:14:17-05:00">2020-07-20</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-21 23:58:45" itemprop="dateModified" datetime="2020-07-21T23:58:45-05:00">2020-07-21</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -707,15 +1445,632 @@ typically used to handle topic modeling problems.</p>
 before the flourish of neural networks in dealing NLP related problems
 and I would try to give a toy coding example with respect to each model
 to get more familiar with the ideas.</p>
-<p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/07/20/latent-models/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
+<p><!---more---></p>
+<h3 id="latent-semantic-analysis-lsa">Latent Semantic Analysis
+(LSA)</h3>
+<p>Latent Semantic Analysis (LSA) is a method for finding latent
+similarities between documents treated as a bag of words by using a low
+rank approximation. It is used for document classification, clustering
+and retrieval. For example, LSA can be used to search for prior art
+given a new patent application.</p>
+<p>In simple word, the objective of <em>LSA</em> is to reducing
+dimension for classification because originally there will be tons of
+redundant words in the text. <em>Latent Semantic Analysis</em> is also
+known as <em>Latent Semantic Indexing</em> in NLP field.</p>
+<p>First of all, we have <em>m</em> documents and <em>n</em> words as
+input. We can transfer the input matrix using a <strong>TF-IDF</strong>
+score. The idea of <strong>TF-IDF</strong> is that high frequency may
+not be able to provide much information gain. In other words, rare words
+contribute more weights to the model. The challenge is that the matrix
+is very sparse and noisy due to lots of low occurence words. We would
+need to apply <strong>SVD</strong> on the matrix to achieve a lower rank
+approximation.</p>
+<p><a href="tf-idf.png" class="gallery-item"><img src="tf-idf.png" /></a></p>
+<h4 id="toy-code-examples">Toy code examples</h4>
+<p>This toy example is adapted from one of my homework.</p>
+<ul>
+<li>tf = the number of occurrences of term <span
+class="math inline">\(i\)</span> in document <span
+class="math inline">\(j\)</span></li>
+<li>idf = <span class="math inline">\(\log \frac{n}{1 +
+\text{df}_i}\)</span> where <span class="math inline">\(n\)</span> is
+the total number of documents and <span
+class="math inline">\(\text{df}_i\)</span> is the number of documents in
+which term <span class="math inline">\(i\)</span> occurs.</li>
+</ul>
+<p>Print the table of tf-idf values for the following document
+collection</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">s1 = <span class="string">&quot;The quick brown fox&quot;</span></span><br><span class="line">s2 = <span class="string">&quot;Brown fox jumps over the jumps jumps jumps&quot;</span></span><br><span class="line">s3 = <span class="string">&quot;The the the lazy dog elephant.&quot;</span></span><br><span class="line">s4 = <span class="string">&quot;The the the the the dog peacock lion tiger elephant&quot;</span></span><br><span class="line"></span><br><span class="line">docs = &#123;<span class="string">&#x27;s1&#x27;</span>: s1, <span class="string">&#x27;s2&#x27;</span>: s2, <span class="string">&#x27;s3&#x27;</span>: s3, <span class="string">&#x27;s4&#x27;</span>: s4&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">### Load library</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#### function to remove punctuation, space and covert to lower case</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">pre</span>(<span class="params">doc</span>):</span><br><span class="line">  <span class="string">&quot;&quot;&quot;preprocessing strings&quot;&quot;&quot;</span></span><br><span class="line">  table = <span class="built_in">str</span>.maketrans(<span class="string">&quot;&quot;</span>,<span class="string">&quot;&quot;</span>, string.punctuation)</span><br><span class="line">  <span class="keyword">return</span> doc.lower().replace(<span class="string">&quot;-&quot;</span>, <span class="string">&quot; &quot;</span>).translate(table).split()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">tf</span>(<span class="params">docs</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;Get frequency term&quot;&quot;&quot;</span></span><br><span class="line">    col_names =  <span class="built_in">sorted</span>(<span class="built_in">list</span>(docs.keys()))</span><br><span class="line">    df = pd.DataFrame()</span><br><span class="line">    <span class="keyword">for</span> key, value <span class="keyword">in</span> <span class="built_in">sorted</span>(docs.items()):</span><br><span class="line">        count = collections.Counter(pre(value))</span><br><span class="line">        freq = pd.DataFrame.from_dict(count, orient = <span class="string">&quot;index&quot;</span>)</span><br><span class="line">        df = df.merge(freq, how=<span class="string">&#x27;outer&#x27;</span>, left_index=<span class="literal">True</span>, right_index=<span class="literal">True</span>)</span><br><span class="line">    df.columns = col_names</span><br><span class="line">    df = df.fillna(<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">return</span> df</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df = tf(docs)</span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+s1
+</th>
+<th>
+s2
+</th>
+<th>
+s3
+</th>
+<th>
+s4
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+brown
+</th>
+<td>
+1.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+</tr>
+<tr>
+<th>
+dog
+</th>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+1.0
+</td>
+</tr>
+<tr>
+<th>
+elephant
+</th>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+1.0
+</td>
+</tr>
+<tr>
+<th>
+fox
+</th>
+<td>
+1.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+</tr>
+<tr>
+<th>
+jumps
+</th>
+<td>
+0.0
+</td>
+<td>
+4.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+</tr>
+<tr>
+<th>
+lazy
+</th>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+</tr>
+<tr>
+<th>
+lion
+</th>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+</tr>
+<tr>
+<th>
+over
+</th>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+</tr>
+<tr>
+<th>
+peacock
+</th>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+</tr>
+<tr>
+<th>
+quick
+</th>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+</tr>
+<tr>
+<th>
+the
+</th>
+<td>
+1.0
+</td>
+<td>
+1.0
+</td>
+<td>
+3.0
+</td>
+<td>
+5.0
+</td>
+</tr>
+<tr>
+<th>
+tiger
+</th>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">idf</span>(<span class="params">docs</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot; inverse document frequency&quot;&quot;&quot;</span></span><br><span class="line">    df = tf(docs)</span><br><span class="line">    dfi = (df&gt;<span class="number">0</span>).<span class="built_in">sum</span>(axis = <span class="number">1</span>)</span><br><span class="line">    dfi = np.log(<span class="built_in">len</span>(docs)/(<span class="number">1</span>+dfi))</span><br><span class="line">    <span class="keyword">return</span> dfi</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">tf_idf</span>(<span class="params">docs</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;product of frequecy term and inverse document frequecy&quot;&quot;&quot;</span></span><br><span class="line">    dfi = idf(docs)</span><br><span class="line">    df = tf(docs)</span><br><span class="line">    row_name = df.index</span><br><span class="line">    col_name = df.columns</span><br><span class="line">    tfidf = pd.DataFrame(df.values * dfi.values[:,<span class="literal">None</span>])</span><br><span class="line">    tfidf.index = row_name</span><br><span class="line">    tfidf.columns = col_name</span><br><span class="line">    <span class="keyword">return</span> tfidf   </span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tf_idf(docs)</span><br></pre></td></tr></table></figure>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+s1
+</th>
+<th>
+s2
+</th>
+<th>
+s3
+</th>
+<th>
+s4
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+brown
+</th>
+<td>
+0.287682
+</td>
+<td>
+0.287682
+</td>
+<td>
+0.000000
+</td>
+<td>
+0.000000
+</td>
+</tr>
+<tr>
+<th>
+dog
+</th>
+<td>
+0.000000
+</td>
+<td>
+0.000000
+</td>
+<td>
+0.287682
+</td>
+<td>
+0.287682
+</td>
+</tr>
+<tr>
+<th>
+elephant
+</th>
+<td>
+0.000000
+</td>
+<td>
+0.000000
+</td>
+<td>
+0.287682
+</td>
+<td>
+0.287682
+</td>
+</tr>
+<tr>
+<th>
+fox
+</th>
+<td>
+0.287682
+</td>
+<td>
+0.287682
+</td>
+<td>
+0.000000
+</td>
+<td>
+0.000000
+</td>
+</tr>
+<tr>
+<th>
+jumps
+</th>
+<td>
+0.000000
+</td>
+<td>
+2.772589
+</td>
+<td>
+0.000000
+</td>
+<td>
+0.000000
+</td>
+</tr>
+<tr>
+<th>
+lazy
+</th>
+<td>
+0.000000
+</td>
+<td>
+0.000000
+</td>
+<td>
+0.693147
+</td>
+<td>
+0.000000
+</td>
+</tr>
+<tr>
+<th>
+lion
+</th>
+<td>
+0.000000
+</td>
+<td>
+0.000000
+</td>
+<td>
+0.000000
+</td>
+<td>
+0.693147
+</td>
+</tr>
+<tr>
+<th>
+over
+</th>
+<td>
+0.000000
+</td>
+<td>
+0.693147
+</td>
+<td>
+0.000000
+</td>
+<td>
+0.000000
+</td>
+</tr>
+<tr>
+<th>
+peacock
+</th>
+<td>
+0.000000
+</td>
+<td>
+0.000000
+</td>
+<td>
+0.000000
+</td>
+<td>
+0.693147
+</td>
+</tr>
+<tr>
+<th>
+quick
+</th>
+<td>
+0.693147
+</td>
+<td>
+0.000000
+</td>
+<td>
+0.000000
+</td>
+<td>
+0.000000
+</td>
+</tr>
+<tr>
+<th>
+the
+</th>
+<td>
+-0.223144
+</td>
+<td>
+-0.223144
+</td>
+<td>
+-0.669431
+</td>
+<td>
+-1.115718
+</td>
+</tr>
+<tr>
+<th>
+tiger
+</th>
+<td>
+0.000000
+</td>
+<td>
+0.000000
+</td>
+<td>
+0.000000
+</td>
+<td>
+0.693147
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="clustering-with-lsa">Clustering with LSA</h5>
+<ol type="1">
+<li><p>Begin by loading a PubMed database of selected article titles
+using 'pickle'. With the following: <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line">docs = pickle.load(<span class="built_in">open</span>(<span class="string">&#x27;data/pubmed.pic&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>))</span><br></pre></td></tr></table></figure> Create a tf-idf matrix
+for every term that appears at least once in any of the
+documents.</p></li>
+<li><p>Perform SVD on the tf-idf matrix to obtain <span
+class="math inline">\(U \Sigma V^T\)</span> (often written as <span
+class="math inline">\(T \Sigma D^T\)</span> in this context with <span
+class="math inline">\(T\)</span> representing the terms and <span
+class="math inline">\(D\)</span> representing the documents). If we set
+all but the top <span class="math inline">\(k\)</span> singular values
+to 0, the reconstructed matrix is essentially <span
+class="math inline">\(U_k \Sigma_k V_k^T\)</span>, where <span
+class="math inline">\(U_k\)</span> is <span class="math inline">\(m
+\times k\)</span>, <span class="math inline">\(\Sigma_k\)</span> is
+<span class="math inline">\(k \times k\)</span> and <span
+class="math inline">\(V_k^T\)</span> is <span class="math inline">\(k
+\times n\)</span>. Terms in this reduced space are represented by <span
+class="math inline">\(U_k \Sigma_k\)</span> and documents by <span
+class="math inline">\(\Sigma_k V^T_k\)</span>. Reconstruct the matrix
+using the first <span class="math inline">\(k=100\)</span> singular
+values.</p></li>
+<li><p>Determine how similar each of the original documents is to the
+new document <code>data/mystery.txt</code>. Since <span
+class="math inline">\(A = U \Sigma V^T\)</span>, we also have <span
+class="math inline">\(V = A^T U S^{-1}\)</span> using orthogonality and
+the rule for transposing matrix products. This suggests that in order to
+map the new document to the same concept space, first find the tf-idf
+vector <span class="math inline">\(v\)</span> for the new document -
+this must contain all (and only) the terms present in the existing
+tf-idx matrix. Then the query vector <span
+class="math inline">\(q\)</span> is given by <span
+class="math inline">\(v^T U_k \Sigma_k^{-1}\)</span>. Find the 10
+documents most similar to the new document and the 10 most
+dissimilar.</p></li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sparsesvd <span class="keyword">import</span> sparsesvd</span><br><span class="line"><span class="keyword">from</span> scipy.sparse <span class="keyword">import</span> csc_matrix</span><br><span class="line"><span class="keyword">from</span> scipy.spatial.distance <span class="keyword">import</span> pdist</span><br><span class="line"><span class="keyword">from</span> scipy.cluster.hierarchy <span class="keyword">import</span> dendrogram, linkage</span><br><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">%matplotlib inline</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line">docs = pickle.load(<span class="built_in">open</span>(<span class="string">&#x27;data/pubmed.pic&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>))</span><br><span class="line"></span><br><span class="line">pubmed = tf_idf(docs)</span><br><span class="line">pubmed.shape</span><br></pre></td></tr></table></figure>
+<pre><code>(6488, 178)</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">smat = csc_matrix(pubmed)</span><br><span class="line"></span><br><span class="line">t, s, d  = sparsesvd(smat,<span class="number">100</span>)</span><br><span class="line"></span><br><span class="line">redoc = t.T @ np.diag(s) @ d</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;data/mystery.txt&#x27;</span>, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">                    mystery=f.read()</span><br><span class="line">new = &#123;<span class="string">&#x27;mystery&#x27;</span>: mystery&#125;</span><br><span class="line"></span><br><span class="line">newtf = tf_idf(new)</span><br><span class="line"></span><br><span class="line">newpub = pubmed.join(newtf,how = <span class="string">&#x27;left&#x27;</span>).fillna(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">query = newpub.values[:,-<span class="number">1</span>].T @ t.T @ np.diag(<span class="number">1</span>/s)</span><br><span class="line">lowdoc = np.diag(s) @ d</span><br><span class="line"></span><br><span class="line">ranked_doc = pubmed.columns[np.argsort(cosine(query,lowdoc.T))][::-<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;10 most similar docs:&quot;</span>,<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">    <span class="built_in">print</span>(i+<span class="number">1</span>,<span class="string">&#x27;.&#x27;</span>, ranked_doc[i],<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;*&quot;</span>*<span class="number">100</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;10 most dissimilar docs:&quot;</span>,<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">    <span class="built_in">print</span>(i+<span class="number">1</span>,<span class="string">&#x27;.&#x27;</span>, ranked_doc[-(i+<span class="number">1</span>)],<span class="string">&#x27;\n&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>10 most similar docs:
+
+1 . Diabetes Numeracy and Blood Glucose Control: Association With Type of Diabetes and Source of Care.
+
+2 . Feasibility of the SMART Project: A Text Message Program for Adolescents With Type 1 Diabetes.
+
+3 . Health Care Utilization Among U.S. Adults With Diagnosed Diabetes, 2013.
+
+4 . Demographic Disparities Among Medicare Beneficiaries with Type 2 Diabetes Mellitus in 2011: Diabetes Prevalence, Comorbidities, and Hypoglycemia Events.
+
+5 . Disparities in Postpartum Follow-Up in Women With Gestational Diabetes Mellitus.
+
+6 . Prevalence and Determinants of Anemia in Older People With Diabetes Attending an Outpatient Clinic: A Cross-Sectional Audit.
+
+7 . Outcomes of a Diabetes Education Program for Registered Nurses Caring for Individuals With Diabetes.
+
+8 . Gestational Diabetes Mellitus Screening Using the One-Step Versus Two-Step Method in a High-Risk Practice.
+
+9 . Evaluating the toxic and beneficial effects of lichen extracts in normal and diabetic rats.
+
+10 . Efficacy and Safety of Saxagliptin as Add-On Therapy in Type 2 Diabetes.
+
+****************************************************************************************************
+10 most dissimilar docs:
+
+1 . IRGM3 contributes to immunopathology and is required for differentiation of antigen-specific effector CD8+ T cells in experimental cerebral malaria.
+
+2 . CD40 Is Required for Protective Immunity against Liver Stage Plasmodium Infection.
+
+3 . CD4 T-cell subsets in malaria: TH1/TH2 revisited.
+
+4 . Antibodies to the Plasmodium falciparum proteins MSPDBL1 and MSPDBL2 opsonise merozoites, inhibit parasite growth and predict protection from clinical malaria.
+
+5 . Crystal Structures of the Carboxyl cGMP Binding Domain of the Plasmodium falciparum cGMP-dependent Protein Kinase Reveal a Novel Capping Triad Crucial for Merozoite Egress.
+
+6 . Dopamine Increases CD14+CD16+ Monocyte Migration and Adhesion in the Context of Substance Abuse and HIV Neuropathogenesis.
+
+7 . Nerve Growth Factor Potentiates Nicotinic Synaptic Transmission in Mouse Airway Parasympathetic Neurons.
+
+8 . Avian haemosporidians from Neotropical highlands: Evidence from morphological and molecular data.
+
+9 . ERK1/2 promoted proliferation and inhibited apoptosis of human cervical cancer cells and regulated the expression of c-Fos and c-Jun proteins.
+
+10 . Phenotypic profiling of CD8 + T cells during Plasmodium vivax blood-stage infection.</code></pre>
+<p><strong>Notes on the Pubmed articles</strong></p>
+<p>These were downloaded with the following script.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Bio <span class="keyword">import</span> Entrez, Medline</span><br><span class="line">Entrez.email = <span class="string">&quot;YOUR EMAIL HERE&quot;</span></span><br><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    docs = pickle.load(<span class="built_in">open</span>(<span class="string">&#x27;data/pubmed.pic&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>))</span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">    <span class="built_in">print</span>(e)</span><br><span class="line"></span><br><span class="line">    docs = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> term <span class="keyword">in</span> [<span class="string">&#x27;plasmodium&#x27;</span>, <span class="string">&#x27;diabetes&#x27;</span>, <span class="string">&#x27;asthma&#x27;</span>, <span class="string">&#x27;cytometry&#x27;</span>]:</span><br><span class="line">        handle = Entrez.esearch(db=<span class="string">&quot;pubmed&quot;</span>, term=term, retmax=<span class="number">50</span>)</span><br><span class="line">        result = Entrez.read(handle)</span><br><span class="line">        handle.close()</span><br><span class="line">        idlist = result[<span class="string">&quot;IdList&quot;</span>]</span><br><span class="line">        handle2 = Entrez.efetch(db=<span class="string">&quot;pubmed&quot;</span>, <span class="built_in">id</span>=idlist, rettype=<span class="string">&quot;medline&quot;</span>, retmode=<span class="string">&quot;text&quot;</span>)</span><br><span class="line">        result2 = Medline.parse(handle2)</span><br><span class="line">        <span class="keyword">for</span> record <span class="keyword">in</span> result2:</span><br><span class="line">            title = record.get(<span class="string">&quot;TI&quot;</span>, <span class="literal">None</span>)</span><br><span class="line">            abstract = record.get(<span class="string">&quot;AB&quot;</span>, <span class="literal">None</span>)</span><br><span class="line">            <span class="keyword">if</span> title <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">or</span> abstract <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            docs[title] = <span class="string">&#x27;\n&#x27;</span>.join([title, abstract])</span><br><span class="line">            <span class="built_in">print</span> title</span><br><span class="line">        handle2.close()</span><br><span class="line">    pickle.dump(docs, <span class="built_in">open</span>(<span class="string">&#x27;data/pubmed.pic&#x27;</span>, <span class="string">&#x27;wb&#x27;</span>))</span><br><span class="line">docs.values()</span><br></pre></td></tr></table></figure>
+<h4 id="to-be-continued...">To be continued...</h4>
+<p>In this post we went through couple of basic concepts of bag of words
+representation in <em>LSA</em> and implement the <em>LSA</em> model for
+lower rank approximation and showed how one can use this approximation
+matrix to classify a new input document. In the next post I will try to
+create a similar toy example with <em>LDA</em> model.</p>
+<hr />
+<p><a
+target="_blank" rel="noopener" href="https://towardsdatascience.com/2-latent-methods-for-dimension-reduction-and-topic-modeling-20ff6d7d547">Reference</a></p>
+</div><script src="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/js/lightgallery.min.js"></script><script>if (typeof lightGallery !== 'undefined') {
+        var options = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options);
+        }</script>
       
     </div>
 
@@ -760,13 +2115,6 @@ to get more familiar with the ideas.</p>
 
               <time title="Created: 2020-07-17 17:47:13" itemprop="dateCreated datePublished" datetime="2020-07-17T17:47:13-05:00">2020-07-17</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-19 00:22:43" itemprop="dateModified" datetime="2020-07-19T00:22:43-05:00">2020-07-19</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -814,14 +2162,255 @@ foreign/primary keys.</p></li>
 feature.</p></li>
 <li><p>Row(Tuple): Represents an observation</p></li>
 </ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/07/17/sql-part/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
+<!---more--->
+<h4 id="some-common-data-types-in-sql">Some common data types in
+SQL</h4>
+<ul>
+<li><p>Boolean</p>
+<ul>
+<li>True or false</li>
+</ul></li>
+<li><p>Character</p>
+<ul>
+<li>char, varchar , and texts</li>
+</ul></li>
+<li><p>Numeric</p>
+<ul>
+<li>integer and floating-point number</li>
+</ul></li>
+<li><p>Temporal</p>
+<ul>
+<li>data, time, timestamp and interval</li>
+</ul></li>
+<li><p>UUID</p>
+<ul>
+<li>Universally Unique Identifiers</li>
+</ul></li>
+<li><p>Array</p>
+<ul>
+<li>Stores an array or strings, numbers, etc.</li>
+</ul></li>
+<li><p>JSON</p></li>
+<li><p>HStore key-value pair</p></li>
+<li><p>Special types such as network address and geometric data</p></li>
+</ul>
+<h4 id="referential-integrity">Referential integrity</h4>
+<ul>
+<li>Primary key represents a unique identifiers of a row. It may be
+simple or composite.
+<ul>
+<li>unique</li>
+<li>not-null</li>
+<li>never optional</li>
+</ul></li>
+<li>Foreign key is a column containing the primary key of a different
+tables (single row). It enforces <em>referential integrity</em></li>
+</ul>
+<h4 id="constraints">Constraints</h4>
+<p>Constraints prevent invalid data from being entered into the
+databases. This ensures the accuracy and reliability of the data in the
+databases.</p>
+<ul>
+<li>Column constraint
+<ul>
+<li><strong>NOT NULL</strong></li>
+<li><strong>UNIQUE</strong></li>
+<li><strong>PRIMARY KEY</strong></li>
+<li><strong>FOREIGN KEY</strong></li>
+<li><strong>CHECK</strong>
+<ul>
+<li>Ensures that all values in the column satisfy certain
+conditions</li>
+</ul></li>
+<li><strong>EXCLUSION</strong>
+<ul>
+<li>Ensures that if any two rows are compared on the specified column or
+expression using the specified operator, not all of these comparisons
+will return TRUE.</li>
+</ul></li>
+</ul></li>
+<li>Table constraint
+<ul>
+<li><strong>CHECK</strong></li>
+<li><strong>REFERENCE</strong></li>
+<li><strong>UNIQUE</strong></li>
+<li><strong>PRIMARY KEY</strong>
+<ul>
+<li>Defines primary keys composite of multiple columns</li>
+</ul></li>
+</ul></li>
+</ul>
+<h3 id="crud">CRUD</h3>
+<h4 id="create-tables">Create Tables</h4>
+<p>Common simple syntax:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> table_name(</span><br><span class="line">  column_name TYPE column_constraint (<span class="keyword">NOT</span> <span class="keyword">NULL</span>) ,</span><br><span class="line">  ...</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h4 id="insert-rows-to-existing-tables">Insert rows to existing
+tables</h4>
+<p>Common simple syntax:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="keyword">table</span> (column1, column2, ...)</span><br><span class="line"><span class="keyword">VALUES</span></span><br><span class="line">  (value1, value2, ...),</span><br><span class="line">  (value1, value2, ...),...;</span><br></pre></td></tr></table></figure>
+<p>Note that the values can also come from a SQL query.</p>
+<h4 id="update-existing-table">Update existing table</h4>
+<p>Example: <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> account</span><br><span class="line"><span class="keyword">SET</span> last_login <span class="operator">=</span> <span class="built_in">CURRENT_TIMESTAMP</span></span><br><span class="line"><span class="keyword">WHERE</span> last_login <span class="keyword">is</span> <span class="keyword">NULL</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure> Set based on another column</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> account</span><br><span class="line"><span class="keyword">SET</span> last_login <span class="operator">=</span> created_on</span><br><span class="line"><span class="keyword">FROM</span> table_b</span><br><span class="line"><span class="keyword">WHERE</span> account.col1 <span class="operator">=</span> table_b.col2;</span><br></pre></td></tr></table></figure>
+<p>To avoid using another select query to check the result, one could
+append a <code>RETURNING</code> clause at the end in
+<em>PostgreSQL</em>.</p>
+<h4 id="delete-rows-from-table">Delete rows from table</h4>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> <span class="keyword">table</span></span><br><span class="line"><span class="keyword">WHERE</span> col <span class="operator">=</span> <span class="string">&#x27;value&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="alter-an-existing-table">Alter an existing table</h4>
+<p>The <code>ALTER</code> clause allows for changes to an existing table
+structure, such as: - Adding, dropping or renaming columns</p>
+<ul>
+<li><p>Changing a column's data type</p></li>
+<li><p>Set <strong>DEFAULT</strong> values for a column</p></li>
+<li><p>Add <strong>CHECK</strong> constraint</p></li>
+<li><p>Rename table</p></li>
+</ul>
+<p>Note using <strong>SET</strong> to define constraint and
+<strong>DROP</strong> to remove constraint</p>
+<h4 id="drop-column-from-table">Drop column from table</h4>
+<p>Example syntax</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">COLUMN</span> (CASCADE) IF <span class="keyword">EXISTS</span> col_name;</span><br></pre></td></tr></table></figure>
+<p>Use <strong>CASCADE</strong> keyword to remove all dependencies(e.g.
+in <em>views</em>)</p>
+<h4 id="check-constraints">CHECK Constraints</h4>
+<p>The <strong>CHECK</strong> constraint allows us to create more
+customized constraints that adhere to a certain condition. For example,
+making sure all inserted integer values fall below a certain
+threshold.</p>
+<p>General syntax:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> example (</span><br><span class="line">  ex_id SERIAL <span class="keyword">PRIMARY</span> KEY,</span><br><span class="line">  age <span class="type">SMALLINT</span> <span class="keyword">CHECK</span>(age <span class="operator">&gt;</span> <span class="number">21</span>),</span><br><span class="line">  parent_age <span class="type">SMALLINT</span> <span class="keyword">CHECK</span>(parent_age <span class="operator">&gt;</span> age)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>The <strong>SERIAL</strong> will count those failed
+<strong>INSERT</strong> attempts (not meet <strong>CHECK</strong>
+constraint)</p>
+<h3 id="normalization-of-database">Normalization of database</h3>
+<p>Database normalization is performed for two main reasons - reduce
+redundancy and prevent inconsistencies on insert/update/delete.</p>
+<p>Note: A fully normalized database is in domain-key normal form
+(DK/NF) if every constraint is a logical consequence of the definition
+of the candidate key and domains. However, most practical normalization
+procedures go through a series of steps known as first, second and third
+normal forms, and ignore potential modification anomalies that may
+remain.</p>
+<h5 id="first-normal-form-1nf">First Normal Form (1NF)</h5>
+<ol type="1">
+<li>Table has a primary key (unique, non-null column that identifies
+each row)</li>
+<li>No repeating groups of columns</li>
+<li>Each cell contains a single value</li>
+</ol>
+<h5 id="second-normal-form-2nf">Second Normal Form (2NF)</h5>
+<ol type="1">
+<li>All columns in each row depend fully on candidate keys</li>
+</ol>
+<p>This can be quite tricky to understand. Look for candidate composite
+keys that can uniquely identify a row. Then see if the other columns
+depend on ALL columns of the composite key.</p>
+<h5 id="third-normal-form3nf">Third Normal Form(3NF)</h5>
+<ol type="1">
+<li>No transitive dependencies between non-candidate columns</li>
+</ol>
+<p>In the table below, both major and major_description depend on the
+name (or row number), but major_description only depends on name via the
+major. This is a transitive dependency and violates 3NF.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">names = [<span class="string">&#x27;ann&#x27;</span>, <span class="string">&#x27;bob&#x27;</span>, <span class="string">&#x27;charles&#x27;</span>, <span class="string">&#x27;david&#x27;</span>]</span><br><span class="line">ages = [<span class="number">21</span>, <span class="number">22</span>, <span class="number">21</span>, <span class="number">23</span>]</span><br><span class="line">majors = [<span class="string">&#x27;math&#x27;</span>, <span class="string">&#x27;stats&#x27;</span>, <span class="string">&#x27;bio&#x27;</span>, <span class="string">&#x27;math&#x27;</span>]</span><br><span class="line">major_descriptions = [<span class="string">&#x27;Mathematics&#x27;</span>, <span class="string">&#x27;Statisitcs&#x27;</span>, <span class="string">&#x27;Biohazards in the University&#x27;</span>,</span><br><span class="line"> <span class="string">&#x27;Mathematics&#x27;</span>]</span><br><span class="line">df = pd.DataFrame(<span class="built_in">dict</span>(name=names, age=ages, major=majors,</span><br><span class="line">major_descriptions=major_descriptions))</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">name</th>
+<th style="text-align: left;">age</th>
+<th style="text-align: left;">major</th>
+<th style="text-align: left;">major_descriptions</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">ann</td>
+<td style="text-align: left;">21</td>
+<td style="text-align: left;">math</td>
+<td style="text-align: left;">Mathematics</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">bob</td>
+<td style="text-align: left;">22</td>
+<td style="text-align: left;">stats</td>
+<td style="text-align: left;">Statistics</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">charles</td>
+<td style="text-align: left;">21</td>
+<td style="text-align: left;">bio</td>
+<td style="text-align: left;">Biohazards in the University</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">david</td>
+<td style="text-align: left;">23</td>
+<td style="text-align: left;">math</td>
+<td style="text-align: left;">Mathematics</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">major_ids = [<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>, <span class="number">0</span>]</span><br><span class="line">df1 = pd.DataFrame(<span class="built_in">dict</span>(name=names, age=ages, major=major_ids))</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">name</th>
+<th style="text-align: left;">age</th>
+<th style="text-align: left;">major_ids</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">ann</td>
+<td style="text-align: left;">21</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">bob</td>
+<td style="text-align: left;">22</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">charles</td>
+<td style="text-align: left;">21</td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">david</td>
+<td style="text-align: left;">23</td>
+<td style="text-align: left;">0</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">majors = [<span class="string">&#x27;math&#x27;</span>, <span class="string">&#x27;stats&#x27;</span>, <span class="string">&#x27;bio&#x27;</span>]</span><br><span class="line">major_descriptions = [<span class="string">&#x27;Mathematics&#x27;</span>, <span class="string">&#x27;Statisitcs&#x27;</span>, <span class="string">&#x27;Biohazards in the University&#x27;</span>]</span><br><span class="line">df2 = pd.DataFrame(<span class="built_in">dict</span>(major=majors, description=major_descriptions))</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">majors</th>
+<th style="text-align: left;">major_descriptions</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">math</td>
+<td style="text-align: left;">Mathematics</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">stats</td>
+<td style="text-align: left;">Statistics</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">bio</td>
+<td style="text-align: left;">Biohazards in the University</td>
+</tr>
+</tbody>
+</table>
+</div><script src="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/js/lightgallery.min.js"></script><script>if (typeof lightGallery !== 'undefined') {
+        var options = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options);
+        }</script>
       
     </div>
 
@@ -866,13 +2455,6 @@ feature.</p></li>
 
               <time title="Created: 2020-06-19 17:51:00" itemprop="dateCreated datePublished" datetime="2020-06-19T17:51:00-05:00">2020-06-19</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-09-18 17:19:06" itemprop="dateModified" datetime="2021-09-18T17:19:06-05:00">2021-09-18</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -917,15 +2499,126 @@ few days.</p>
 who had been pardoned. The warden refuses. <strong>A</strong> then asks
 which of <strong>B</strong> or <strong>C</strong> will be executed. The
 warden thinks for a while, then tells <strong>A</strong> that
-<strong>B</strong> is to be executed.
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/06/19/MontyHall/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
+<strong>B</strong> is to be executed. <!---more---></p>
+<p>Then what is the actual probability that <strong>A</strong> is
+pardoned given <strong>B</strong> is executed?</p>
+<p>Let <span class="math inline">\(A\)</span>, <span
+class="math inline">\(B\)</span>, <span class="math inline">\(C\)</span>
+denote the events <strong>A</strong>, <strong>B</strong> or
+<strong>C</strong> is pardoned, respectively. We know that <span
+class="math inline">\(P(A) = P(B) = P(C) = \frac{1}{3}\)</span>. Let
+<span class="math inline">\(W\)</span> denote the event that the warden
+says <strong>B</strong> will be executed.</p>
+<p><span class="math display">\[P(A|W) = \frac{P(A\cap
+W)}{P(W)}\]</span></p>
+<p>We can enumerate all possible conditions in the following table:</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Prisoner pardoned</th>
+<th style="text-align: center;">Warden tells A</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">A</td>
+<td style="text-align: center;">B dies</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">A</td>
+<td style="text-align: center;">C dies</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">B</td>
+<td style="text-align: center;">C dies</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">C</td>
+<td style="text-align: center;">B dies</td>
+</tr>
+</tbody>
+</table>
+<p>We can conclude that <span class="math inline">\(P(A\cap W) =
+\frac{1}{3} \times \frac{1}{2} = \frac{1}{6}\)</span>,</p>
+<p>then <span class="math inline">\(P(W) = P(A\cap W) + P(B\cap W) +
+P(C\cap W) = \frac{1}{6} + 0 + \frac{1}{3} = \frac{1}{2}\)</span>,</p>
+<p>we have <span class="math inline">\(P(A|W) =
+\frac{\frac{1}{6}}{\frac{1}{2}} = \frac{1}{3}\)</span>.</p>
+<p>It is worth to note that one common mistake is that people may think
+<span class="math inline">\(W\)</span> is equal to <span
+class="math inline">\(B^c\)</span>.</p>
+<h4 id="monte-hall">Monte Hall</h4>
+<p><code>Suppose you're on a game show, and you're given the choice of three doors. Behind one door is a car, behind the others, goats. You pick a door, say #1, and the host, who knows what's behind the doors, opens another door, say #3, which has a goat. He says to you, ``Do you want to pick door #2?'' Is it to your advantage to switch your choice of doors?</code></p>
+<p>The above quote states a problem that has become known as the Monte
+Hall problem. One's intuition may strongly suggest that there is no
+benefit in switching (i.e. the probability of winning the car is 1/2
+either way), but in this case this intuition is misleading. This problem
+provides a classic case where Bayesian reasoning provides the correct
+answer. The problem involves updating a prior probability distribution
+(a priori, one assumes the probability of winning to be 1/3 for each
+door) using observed data (the host's choice of goat-hiding door) to
+yield a posterior probability distribution, which makes it clear that it
+is to your benefit to switch.</p>
+<p>In this problem, we have a prior of <span
+class="math inline">\(\frac{1}{3}\)</span>, and the observed data is
+door #3 has a goat</p>
+<p><span class="math display">\[P({door}_1| !{door}_3) =
+\frac{P({door}_1 \cap !{door}_3)}{P(!{door}_3)}\]</span></p>
+<p>similar to <em>The Three Prisoners Problems</em>, when choose door 1
+we can enumerate the following table:</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Prize behind</th>
+<th style="text-align: center;">Host tells</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">door 1</td>
+<td style="text-align: center;">door 3 has a goat</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">door 1</td>
+<td style="text-align: center;">door 2 has a goat</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">door 2</td>
+<td style="text-align: center;">door 3 has a goat</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">door 3</td>
+<td style="text-align: center;">door 2 has a goat</td>
+</tr>
+</tbody>
+</table>
+<p>The situation is exactly the same as the three prisoners, while you
+chance of winning a car from door 1 is still <span
+class="math inline">\(\frac{1}{3}\)</span>.</p>
+<p>However, if we switch the choice to unopened door 2, then we would
+have <span class="math inline">\(1 - \frac{1}{3} = \frac{2}{3}\)</span>
+chance of winning the car.</p>
+<p>This can also be examined by: <span class="math display">\[
+P({door}_2|!{door}_3) = \frac{P({door}_2\cap !{door}_3)}{P(!{door}_3)} =
+\frac{\frac{1}{3}}{\frac{1}{2}} = \frac{2}{3}\]</span></p>
+<p>We have a bigger chance of winning the price now!</p>
+<p>In fact, we can generalize the conclusion not limited to 3 doors but
+<em>N</em> doors:</p>
+<p>If we switch to door m from door 1 while door k is revealed.</p>
+<p><span class="math inline">\(P(!{door}_k) = \frac{1}{N} \times
+\frac{1}{N-1} + \frac{1}{N} \times \frac{1}{N-2} +
+\underbrace{...}_\text{N-2} + \frac{1}{N} \times \frac{1}{N-2} + 0 =
+\frac{1}{N} \times (\frac{1}{N-1} + 1) = \frac{1}{N-1}\)</span></p>
+<p><span class="math inline">\(P({door}_m \cap !{door}_k) = \frac{1}{N}
+\times \frac{1}{N-2}\)</span></p>
+<p>The final probability of switch to door m would be <span
+class="math inline">\(\frac{N-1}{(N-2)N}\)</span></p>
+</div><script src="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/js/lightgallery.min.js"></script><script>if (typeof lightGallery !== 'undefined') {
+        var options = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options);
+        }</script>
       
     </div>
 
@@ -970,13 +2663,6 @@ warden thinks for a while, then tells <strong>A</strong> that
 
               <time title="Created: 2020-06-14 11:46:33" itemprop="dateCreated datePublished" datetime="2020-06-14T11:46:33-05:00">2020-06-14</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-19 17:03:48" itemprop="dateModified" datetime="2020-06-19T17:03:48-05:00">2020-06-19</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -1067,13 +2753,6 @@ methods:</p>
 
               <time title="Created: 2020-05-19 00:13:38" itemprop="dateCreated datePublished" datetime="2020-05-19T00:13:38-05:00">2020-05-19</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-05-20 21:33:18" itemprop="dateModified" datetime="2020-05-20T21:33:18-05:00">2020-05-20</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
