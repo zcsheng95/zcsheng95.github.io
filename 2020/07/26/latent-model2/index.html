@@ -240,7 +240,7 @@ of the same length as the Dirichlet concentration parameter <span
 class="math inline">\(\alpha\)</span>. Below is 5 random samples draw
 from a Dirichlet distribution with the parameter <span
 class="math inline">\(\alpha\)</span></p>
-<!---more--->
+<span id="more"></span>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">alpha = np.array([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>])</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>):</span><br><span class="line">  <span class="built_in">print</span>(np.random.dirichlet(alpha))</span><br></pre></td></tr></table></figure>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[0.13192107 0.19200145 0.67607748]</span><br><span class="line">[0.21182332 0.32329972 0.46487696]</span><br><span class="line">[0.00747152 0.39191045 0.60061803]</span><br><span class="line">[0.3626958  0.39636298 0.24094121]</span><br><span class="line">[0.14504415 0.38721339 0.46774246]</span><br></pre></td></tr></table></figure>
 <h5 id="relationship-between-alpha-and-samples">Relationship between
